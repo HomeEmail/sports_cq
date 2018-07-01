@@ -1,0 +1,93 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no"/>
+<title>首页</title>
+<!-- <link rel="shortcut icon" href="./images/xm.ico" type="image/x-icon" /> -->
+<style>
+*{ font-family: "Microsoft YaHei"; }
+.smooth { -webkit-transition-duration:300ms,300ms,300ms,300ms;-webkit-transition-property: width,height,top,left; }
+</style>
+</head>
+
+<body onUnload="release()" style="width:1280px; height:720px; overflow:hidden;margin:0;background-color:transparent">
+	<div style="position:absolute; top:0px; left:0px; width:1280px; height:720px; background:url(./images/index/bg_sp.png) no-repeat;"></div>
+
+	<div id="loadingDiv" class="smooth" style="position:absolute; top:320px; left:600px; width:70px; height:70px; z-index:10; visibility:hidden;">
+		<img src="./images/loading.gif" style="position:absolute; top:0px; left:0px;background: transparent;" />
+	</div>
+
+	<div id="heads" style="position: absolute; left: 0px; top: 0px; width: 1280px; height: 120px;">
+		<img src="./images/index/logo.png" style="position:absolute; left:66px; top:46px;">
+		<!-- <img src="./images/index/top_dg.png" id="heads_dg" style="position: absolute; left: 178px; top: 57px; width: 40px; height: 40px; visibility: visible;"> -->
+		<img id="orderBt" src="./images/index/index_top_0.png" style="position: absolute; left: 798px; top: 60px;">
+		<img src="./images/index/index_top_1.png" style="position: absolute; left: 904px; top: 60px;">
+		<img src="./images/index/index_top_2.png" style="position: absolute; left: 1010px; top: 60px;">
+		<img src="./images/index/index_top_3.png" style="position: absolute; left: 1116px; top: 60px;">
+		<img id="heads_focus" src="./images/index/index_top_f0.png" style="position:absolute; left:773px; top:35px; visibility:hidden;">
+	</div>
+
+	<div id="mains" style="position: absolute; left:0px; top:160px; width:1280px; height:360px;">
+
+		<img id="mains_img_0" src="" style="position: absolute; left: 58px; top: 0px;" alt="">
+		<!-- <img id="mains_img_1" src="./images/index/index_menu_0.png" style="position: absolute; left: 294px; top: 0px;" alt=""> -->
+		<img id="mains_img_2" src="" style="position: absolute; left: 766px; top: 0px;" alt="">
+		<img id="mains_img_3" src="" style="position: absolute; left: 1002px; top: 0px;" alt="">
+		<img id="mains_img_4" src="" style="position: absolute; left: 58px; top: 78px;" alt="">
+		<img id="mains_img_5" src="" style="position: absolute; left: 58px; top: 156px;" alt="">
+		<img id="mains_img_6" src="" style="position: absolute; left: 1002px; top: 156px;" alt="">
+
+		<img id="mains_f_0" src="images/index/index_menu_f3.png" style="position: absolute; left: 30px; top: -28px; visibility: hidden;">
+		<img id="mains_f_1" src="images/index/index_menu_f0.png" style="position: absolute; left: 268px; top: -28px; visibility: hidden;">
+		<img id="mains_f_2" src="images/index/index_menu_f1.png" style="position: absolute; left: 738px; top: -28px; visibility: hidden;">
+		<img id="mains_f_3" src="images/index/index_menu_f2.png" style="position: absolute; left: 974px; top: -28px; visibility: hidden;">
+		<img id="mains_f_4" src="images/index/index_menu_f3.png" style="position: absolute; left: 30px; top: 50px; visibility: hidden;">
+		<img id="mains_f_5" src="images/index/index_menu_f2.png" style="position: absolute; left: 30px; top: 128px; visibility: hidden;">
+		<img id="mains_f_6" src="images/index/index_menu_f2.png" style="position: absolute; left: 974px; top: 128px; visibility: hidden;">
+
+	</div>
+
+	<div id="foots" style="position: absolute; left:0px; top:500px; width:1280px; height:200px;">
+		<img id="foots_f_0" src="./images/index/index_foot_f0.png" style="position: absolute; left: 102px; top: 0px; visibility: hidden;">
+		<img id="foots_f_1" src="./images/index/index_foot_f0.png" style="position: absolute; left: 327px; top: 0px; visibility: hidden;">
+		<img id="foots_f_2" src="./images/index/index_foot_f0.png" style="position: absolute; left: 544px; top: 0px; visibility: hidden;">
+		<img id="foots_f_3" src="./images/index/index_foot_f0.png" style="position: absolute; left: 770px; top: 0px; visibility: hidden;">
+		<img id="foots_f_4" src="./images/index/index_foot_f0.png" style="position: absolute; left: 986px; top: 0px; visibility: hidden;">
+		<!-- <img id="foots_f_5" src="./images/index/index_foot_f0.png" style="position: absolute; left: 986px; top: 482px; visibility: hidden;"> -->
+
+		<img id="foots_img_0" src="" style="position: absolute; left: 110px; top: -4px;">
+		<img id="foots_img_1" src="" style="position: absolute; left: 334px; top: -4px;">
+		<img id="foots_img_2" src="" style="position: absolute; left: 558px; top: -4px;">
+		<img id="foots_img_3" src="" style="position: absolute; left: 782px; top: -4px;">
+		<img id="foots_img_4" src="" style="position: absolute; left: 1006px; top: -4px;">
+		<!-- <img id="foots_img_5" src="./images/index/index_foot_4.png" style="position: absolute; left: 1006px; top: 478px;"> -->
+	</div>
+
+	<div id="indexOut1" style="position:absolute; top:0px; left:0px; width:1280px; height:720px; display:none;">
+		<img id="indexO1_bg" src="./images/activity/step_0_bg.png" style="position:absolute; top:0px; left:0px;">
+		<img id="indexO1_fucus" src="./images/activity/step_0_pos_0.png" style="position:absolute; top:0px; left:0px;">
+	</div>
+	<!-- <div id="indexOut2" class="smooth" style="position:absolute; top:0px; left:0px; width:1280px; height:720px; visibility:hidden; z-index:5;">
+		<div id="indexO2_bg" style="position:absolute; top:0px; left:0px; width:1280px; height:720px; background:url(./images/activity/step_0_bg.png);"></div>
+		<div id="indexO2_fucus" style="position:absolute; top:0px; left:0px; width:1280px; height:720px; background:url(./images/activity/step_0_pos_0.png);"></div>
+		<div id="indexOut2_telBox" style="position:absolute; top:365px; left:460px; height:66px; width:390px; visibility:hidden;">
+			<span id="indexOut2_telNum" style="line-height:66px; font-size:36px; padding-left:20px;"></span>
+			<div id="indexOut2_tips" style="position:absolute; top:0px; left:235px; width:150px; height:66px; font-size:26px; line-height:66px; text-align:right;"></div>
+		</div>
+	</div> -->
+
+	<div id="tips" style="position:absolute;left:426px;top:274px;width:428px;height:172px;background:url(images/index/tip_bg.png);display:none;"></div>
+
+</body>
+<script type="text/javascript" src="js/keyEvent.js"></script>
+<script type="text/javascript" src="js/lib.js"></script>
+<script type="text/javascript" src="js/config.js"></script>
+<script type="text/javascript" src="js/showList.js"></script>
+<script type="text/javascript" src="js/ajax.js"></script>
+<script type="text/javascript" src="js/common.js"></script>
+<script type="text/javascript" src="js/player.js"></script>
+<script type="text/javascript" src="js/showTips.js"></script>
+<script type="text/javascript" src="js/order.js"></script>
+<script type="text/javascript" src="js/index.js"></script>
+</html>

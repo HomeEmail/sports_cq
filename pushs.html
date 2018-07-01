@@ -1,0 +1,76 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no"/>
+<meta name="page-view-size" content="1280*720" />
+<title>推送记录</title>
+<style>
+body,html{
+	padding: 0;
+	margin: 0;
+}
+*{font-family: microsoft yahei;}
+.smooth { /*-webkit-transition-duration:300ms,300ms,300ms,300ms;-webkit-transition-property: width,height,top,left;*/ }
+</style>
+</head>
+
+<body onunload="pageOnunload();" onload="pageOnload();" style="background:url(images/index/playlist_bg.jpg) no-repeat; width:1280px; height:720px; overflow:hidden;">
+<div id="loadingDiv" class="smooth" style="position:absolute; top:320px; left:600px; width:70px; height:70px; z-index:10; visibility:hidden;">
+	<img src="./images/loading.gif" style="position:absolute; top:0px; left:0px;background: transparent;" />
+</div>
+
+<!-- <img src="./images/index/logo1.png" style="position:absolute; top:32px; left:80px; width:200px; height:40px;"> -->
+
+<div style="position:absolute; top:43px; left:656px; width:400px; height:30px;">
+	<div id="deviceId" style="padding-left:8px; float:right; height:30px;line-height:30px;font-size:25px;font-weight:bold;color:#eeeeee;">BA00000</div>
+	<img src="images/index/push_bind_lg.png" style="float:right;">
+</div>
+<div id="contentDelbg" style="position:absolute; top:10px; left:1050px; width:179px; height:98px; background:url(images/index/push_bind_0.png) no-repeat;">
+	<img id="contentDel" style="position:absolute; top:0px; left:0px; display:none;" src="images/index/push_bind_f.png" alt="">
+</div>
+
+<!-- 右边内容 begin -->
+<div id="contentTitleWrapper" style="position:absolute;top:76px;left:596px;font-size: 32px;color: #ffffff;line-height: 46px;">推送记录</div>
+
+<div id="contentWrapper" style="position:absolute;top: 120px;left:454px;width:814px;height:548px;background:url(./images/index/playlist_listbg.png);">
+	<div style="position:absolute;top:0px;left:0px;width:180px;height:250px;display:none;">
+		<div style="width:180px;height:250px;overflow:hidden;"><img src="./images/list-item2.png" width="180" /></div>
+		<div id="listItemTextMask0" style="width:180px;height:56px;line-height:70px;font-size:22px;position:absolute;left:0px;top:194px;background:url(./images/list-item-text-mask.png);color:#ffffff;overflow:hidden;">
+			<!-- <marquee scrollamount="2" behavior="alternate" width="180" style="width: 180px;">冰河世纪4</marquee> -->
+			<span style="padding-left:10px;padding-right:10px;">冰河世纪4</span>
+		</div>
+		<img id="listItemFocus0" style="position:absolute;left:-54px;top:-54px;" src="./images/movie_focus.png" />
+	</div>
+</div>
+
+<div id="pageNumNavText" style="position:absolute;left: 830px;top: 650px;color: #eeeeee;font-size:22px;text-align: center;width: 100px;">0/0</div>
+<img style="position:absolute;left:870px;top:126px;" src="./images/arrow-up.png" />
+<img style="position:absolute;left:870px;top:126px;" src="./images/arrow-up-on.png" id="contentArrowUp" />
+<img style="position:absolute;left:870px;top:625px;" src="./images/arrow-down.png" />
+<img style="position:absolute;left:870px;top:625px;" src="./images/arrow-down-on.png" id="contentArrowDown" />
+<!-- 右边内容 end -->
+
+<!-- 公仔选择弹层 begin -->
+<div id="tips_gz" style="position:absolute; top:0px; left:0px; width:1280px; height:720px; visibility:hidden; background:url(./images/index/tip_gz_bg.jpg) no-repeat; z-index:2;">
+	<div style="position:absolute; top:50px; left:0px; width:1280px; height:50px; font-size:30px; line-height:50px; text-align:center; font-weight:bold; color:#ffffff;">选择要绑定的智能公仔</div>
+	<img id="tips_gz_0" src="./images/index/tip_gz_0.png" style="position:absolute; top:116px; left:172px;">
+	<img id="tips_gz_1" src="./images/index/tip_gz_1.png" style="position:absolute; top:116px; left:486px;">
+	<img id="tips_gz_2" src="./images/index/tip_gz_2.png" style="position:absolute; top:116px; left:804px;">
+	<img id="tips_gz_f" src="./images/index/tip_gz_f.png" style="position:absolute; top:116px; left:172px;">
+</div>
+<!-- 公仔选择弹层 end -->
+
+<div id="tips" style="position:absolute;left:426px;top:274px;width:428px;height:172px;background:url(images/index/tip_bg.png);display:none;"></div>
+
+</body>
+<script type="text/javascript" src="js/lib.js"></script>
+<script type="text/javascript" src="js/ajax.js"></script>
+<script type="text/javascript" src="js/keyEvent.js"></script>
+<script type="text/javascript" src="js/showList.js"></script>
+<script type="text/javascript" src="js/common.js"></script>
+<script type="text/javascript" src="js/config.js"></script>
+<script type="text/javascript" src="js/superMouse.js"></script>
+<script type="text/javascript" src="js/showTips.js"></script>
+<script type="text/javascript" src="js/pushs.js"></script>
+</html>

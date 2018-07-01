@@ -1,0 +1,122 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<style type="text/css">
+	body,html{
+		margin: 0px;
+		padding: 0px;
+
+	}
+</style>
+
+<title>无法读取卡号 - 懒人听书</title>
+<style>
+	
+</style>
+</head>
+<body onload="pageOnload();">
+
+<div id="body" style="width:1280px;height:720px;position:relative;background:url(./images/bg.jpg) no-repeat;">
+
+
+</div>
+
+
+<script type="text/javascript" src="js/lib.js"></script>
+<script type="text/javascript" src="js/ajax.js"></script>
+<script type="text/javascript" src="js/keyEvent.js"></script>
+<script type="text/javascript" src="js/config.js"></script>
+<script type="text/javascript" src="js/common.js"></script>
+<script type="text/javascript" src="js/order.js"></script>
+
+
+<script language="javascript" type="text/javascript">
+	
+
+	function grabevent(_event){
+		if (_event.type=='keydown') {
+			document.onkeypress=null;
+		};
+		var code = Event(_event);
+		switch(code){
+			case "KEY_EXIT":
+				location.href=portalUrl;
+				return false;
+				break;
+			case "KEY_BACK": //
+				location.href=portalUrl||'./index.html';
+				return false;
+				break;
+			case "KEY_UP": //
+				ctl.up&&ctl.up();
+				return 0;
+				break;
+			case "KEY_DOWN": //
+				ctl.down&&ctl.down();
+				return 0;
+				break;
+			case "KEY_LEFT": //
+				ctl.left&&ctl.left();
+				return 0;
+				break;
+			case "KEY_RIGHT": //
+				ctl.right&&ctl.right();
+				return 0;
+				break;
+			case "KEY_SELECT": //	
+				ctl.enter&&ctl.enter();
+				return 0;
+				break;
+			default:
+				break;
+		}
+	}
+
+	if(document.onkeypress!==null){
+		document.onkeypress = grabevent;
+	}
+	document.onkeydown = grabevent; 
+
+
+
+	var loadingObj=new Loading({
+		zIndex:10
+	});
+	function pageOnload(){
+		
+		msgTips({msg:'读取卡号失败，请插卡重试！系统正在等待您确认插卡...',timeout:-1});
+		
+
+		var timerid=setInterval(function(){
+			if(typeof (Utility) != 'undefined' && Utility.getSystemInfo){
+				keyNo=Utility.getSystemInfo('SID');//天津广电卡号
+				if(!!!keyNo||keyNo==''||keyNo=='null'||keyNo==undefined||keyNo==null){
+					//读取卡号失败，请插卡重试！
+				}else{
+					clearInterval(timerid);
+					timerid=null;
+					location.href=backUrl;
+				}
+			}
+		},5000);
+		
+
+	}
+
+	var ctl={
+		left:function(){},
+		right:function(){},
+		up:function(){},
+		down:function(){},
+		enter:function(){
+			location.href=portalUrl;
+		}
+	};
+
+
+
+
+</script>
+</body>
+</html>

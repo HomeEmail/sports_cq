@@ -1,0 +1,129 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no"/>
+<meta name="page-view-size" content="1280*720" />
+<title>音频</title>
+<style>
+body,html{
+	padding: 0;
+	margin: 0;
+}
+*{font-family: microsoft yahei;}
+.smooth { /*-webkit-transition-duration:300ms,300ms,300ms,300ms;-webkit-transition-property: width,height,top,left;*/ }
+</style>
+</head>
+
+<body onunload="pageOnunload();" onload="pageOnload();" style="background:url(images/bg.jpg) no-repeat; width:1280px; height:720px; overflow:hidden;">
+
+<div id="loadingDiv" class="smooth" style="position:absolute; top:320px; left:600px; width:70px; height:70px; z-index:10; visibility:hidden;">
+	<img src="./images/loading.gif" style="position:absolute; top:0px; left:0px;background: transparent;" />
+</div>
+
+<!-- 左边菜单 begin -->
+<div id="menuWrapper" style="position:absolute; top:0px; left:0px; width:300px; height:720px;">
+	<div style="position:absolute;top:60px;left:60px;width:328px;height:354px;background:url(images/chapterList/l_bg_u.png) no-repeat;">
+		<img id="menu_4" style="position:absolute;top:12px;left:42px;width:234px;height:312px;" src="images/chapterList/aaa.jpg" alt="">
+		<img src="images/chapterList/l_bg_pb.png" style="position:absolute; top:12px; left:42px;" alt="">
+		<div id="menu_0" style="position:absolute; top:356px; left:222px; text-align:center; width:89px; height:89px;background:url(images/chapterList/l_1_0.png) no-repeat;">
+			<img id="menu_focus0" style="position:absolute;top:0px;left:0px;display:none;" src="images/chapterList/l_1_f.png" alt="">
+		</div>
+	</div>
+	<div style="position:absolute; top:410px; left:90px; width:260px; height:60px; color:#ffffff; font-size:20px; line-height:60px;">
+		<span style="color:#8897bd;"></span>
+		<div id="menu_3" style="position:absolute;top:0px;left:0px;width:190px;height:30px;"></div>
+	</div>
+	<div id="menu_1" style="position:absolute; top:515px; left:102px; width:240px; height:60px;">
+		<img id="menu_focus1" src="images/chapterList/l_f.png" alt="" style="position:absolute; top:-25px; left:-17px;display:none;">
+		<img id="menu_5" style="position:absolute; top:-17px; left:-17px;" src="images/chapterList/l_2_0.png" alt="">
+	</div>
+	<div id="menu_2" style="position:absolute; top:595px; left:102px; width:240px; height:60px;">
+		<img id="menu_focus2" src="images/chapterList/l_f.png" alt="" style="position:absolute; top:-25px; left:-17px;display:none;">
+		<img style="position:absolute; top:-17px; left:-17px;" src="images/chapterList/l_3.png" alt="">
+	</div>
+</div>
+<!-- 左边菜单 end -->
+
+<!-- 右边内容 begin -->
+<div id="contentTitleWrapper" style="position:absolute;top:60px;left:430px;color:#ffffff;">
+	<span id="contentTW_span1" style="position:absolute;top:0px;left:0px;width:500px;font-size:30px;"></span>
+	<span style="position:absolute;top:56px;left:0px;width:60px;color:#a6bdf7;font-size:20px;">集数：</span>
+	<span id="contentTW_span2" style="position:absolute;top:56px;left:60px;width:80px;font-size:20px;overflow:hidden;"></span>
+	<span style="position:absolute;top:56px;left:155px;width:60px;color:#a6bdf7;font-size:20px;">作者：</span>
+	<span id="contentTW_span3" style="position:absolute;top:56px;left:215px;width:160px;font-size:20px;overflow:hidden;"></span>
+	<span style="position:absolute;top:56px;left:390px;width:60px;color:#a6bdf7;font-size:20px;">主播：</span>
+	<span id="contentTW_span4" style="position:absolute;top:56px;left:450px;width:330px;font-size:20px;overflow:hidden;"></span>
+	<img src="images/chapterList/r_d_bg.png" alt="" style="position:absolute;top:580px;left:4px;">
+</div>
+
+<div style="position:absolute;top:160px;left:420px;width:801px;height:500px;">
+	<div id="contentWrapper" style="position:absolute;top:10px;left:0px;width:800px;height:460px;">
+		<div style="position:absolute;top:0px;left:0px;width:180px;height:250px;display:none;">
+			<div style="width:180px;height:250px;overflow:hidden;"><img src="./images/list-item2.png" width="180" /></div>
+			<div id="listItemTextMask0" style="width:180px;height:56px;line-height:70px;font-size:22px;position:absolute;left:0px;top:194px;background:url(./images/list-item-text-mask.png);color:#ffffff;overflow:hidden;">
+				<!-- <marquee scrollamount="2" behavior="alternate" width="180" style="width: 180px;">冰河世纪4</marquee> -->
+				<span style="padding-left:10px;padding-right:10px;">冰河世纪4</span>
+			</div>
+			<img id="listItemFocus0" style="position:absolute;left:-54px;top:-54px;" src="./images/movie_focus.png" />
+		</div>
+	</div>
+</div>
+
+<div id="pageNumNavText" style="position:absolute;left:1116px;top:643px;color:#eeeeee;font-size:20px;text-align:right;width:100px;">999/999</div>
+<img style="position:absolute;left:1085px;top:653px;" src="./images/arrow-up.png" />
+<img style="position:absolute;left:1085px;top:653px;" src="./images/arrow-up-on.png" id="contentArrowUp" />
+<img style="position:absolute;left:1108px;top:653px;" src="./images/arrow-down.png" />
+<img style="position:absolute;left:1108px;top:653px;" src="./images/arrow-down-on.png" id="contentArrowDown" />
+<!-- 右边内容 end -->
+
+<!-- 内容简介 begin -->
+<div id="contentAbstract" style="position:absolute;top:0px;left:0px;width:1280px;height:720px;color:#eeeeee;background:url(images/chapterList/tip_bg.png);display:none;z-index:3;">
+	<div id="contentA_A" style="position:absolute;top:147px;left:300px;width:675px;height:80px;font-size:30px;text-align:center;line-height:80px;"></div>
+	<div style="position:absolute;top:238px;left:306px;width:675px;height:225px;overflow:hidden;">
+		<div id="contentA_B" style="position:absolute;top:0px;left:0px;width:675px;height:900px;font-size:20px;line-height:28px;"></div>
+	</div>
+</div>
+<!-- 内容简介 end -->
+
+<!-- 播放器 start -->
+<div id="play_layer" style="position:absolute; top:404px; left:80px; width:290px; height:110px; display:block;">
+	<div style="position:absolute; top:56px; left:10px; width:188px; height:3px; background:url(images/chapterList/play_progress.png);">
+		<span id="p_index" style="position:absolute; top:0px; left:0px; width:0px; height:3px; background:url(images/chapterList/progress_index.png) repeat-x;"></span>
+		<span id="p_currIndex" style="position:absolute; top:-3px; left:-3px; width:10px; height:10px; background:url(images/chapterList/progress_flag.png);"></span>
+	</div>
+	<div id="currTime" style="position:absolute; top:62px; left:0px; width:80px; height:30px; color:#eeeeee; font-size:22px; text-align:right;">00:00</div>
+	<div style="position:absolute; top:62px; left:72px; width:30px; height:30px; color:#eeeeee; font-size:22px; text-align:center;">/</div>
+	<div id="totalTime" style="position:absolute; top:62px; left:94px; width:80px; height:30px; color:#eeeeee; font-size:22px; text-align:left;">00:00</div>
+</div>
+<!-- 播放器 end -->
+
+<!-- 音量控制 start -->
+<div id="mute" style="position:absolute; top:100px; left:1150px; width:62px; height:380px; visibility:hidden;z-index:7;">
+	<div id="volumeValue" style="position:absolute; top:15px; left:0px; width:62px; height:30px; color:#fff; text-align:center; font-size:24px;"></div>
+	<div style="position:absolute; top:45px; left:0px; width:62px; height:325px; background:#000;">
+		<div style="position:absolute; top:10px; left:0px; width:62px; height:275px; background:url(images/sound-bg_l.png);">
+			<div id="volume_active" style="position:absolute; top:250px; left:0px; width:62px; height:25px; background:url(images/sound-bg-active_l.png); overflow:hidden;"></div>
+		</div>
+	<div id="sound_icon" style="position:absolute; top:285px; left:0px; width:62px; height:35px; background:url(images/sound_l.png);"></div>
+	</div>
+</div>
+<!-- 音量控制 end -->
+
+<div id="tips" style="position:absolute;left:426px;top:274px;width:428px;height:172px;background:url(images/index/tip_bg.png);display:none;"></div>
+
+<!-- <div id="tipsss" style="position:absolute;left:20px;top:20px;width:428px;background-color:#eeeeee;line-height:26px;padding:20px;"></div> -->
+
+</body>
+<script type="text/javascript" src="js/lib.js"></script>
+<script type="text/javascript" src="js/ajax.js"></script>
+<script type="text/javascript" src="js/keyEvent.js"></script>
+<script type="text/javascript" src="js/showList.js"></script>
+<script type="text/javascript" src="js/common.js"></script>
+<script type="text/javascript" src="js/config.js"></script>
+<script type="text/javascript" src="js/superMouse.js"></script>
+<script type="text/javascript" src="js/showTips.js"></script>
+<script type="text/javascript" src="js/order.js"></script>
+<script type="text/javascript" src="js/play.js"></script>
+<script type="text/javascript" src="js/play_audio.js"></script>
+</html>

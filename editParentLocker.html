@@ -1,0 +1,462 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<style type="text/css">
+	body,html{
+		margin: 0px;
+		padding: 0px;
+
+	}
+</style>
+
+<title>编辑家长锁 - 懒人听书</title>
+<style>
+	
+</style>
+</head>
+<body onload="pageOnload();">
+
+<div id="body" style="width:1280px;height:720px;position:relative;background:url(./images/bg.jpg) no-repeat;">
+
+
+<div id="setPassword" style="width:1280px;height:720px;position:absolute;left: 0;top: 0; background:url(./images/order/editParentLockerBg.jpg) no-repeat;display: none;z-index: 1;">
+
+	<div id="oldPassword_inputBox_0" style="position: absolute; left: 514px; top: 131px; text-align: center; font-size: 36px; color: #ffffff; width: 82px; height: 82px; line-height: 82px; "></div>
+	<div id="oldPassword_inputBox_1" style="position: absolute; left: 630px; top: 131px; text-align: center; font-size: 36px; color: #ffffff; width: 82px; height: 82px; line-height: 82px; "></div>
+	<div id="oldPassword_inputBox_2" style="position: absolute; left: 757px; top: 131px; text-align: center; font-size: 36px; color: #ffffff; width: 82px; height: 82px; line-height: 82px; "></div>
+	<div id="oldPassword_inputBox_3" style="position: absolute; left: 863px; top: 131px; text-align: center; font-size: 36px; color: #ffffff; width: 82px; height: 82px; line-height: 82px; "></div>
+	<img id="oldPassword_focus" style="position: absolute;left: 488px;top: 110px;display: none;" src="./images/order/inputFocus.png" />
+
+	<div id="setPassword_inputBox_0" style="position: absolute; left: 514px; top: 240px; text-align: center; font-size: 36px; color: #ffffff; width: 82px; height: 82px; line-height: 82px; "></div>
+	<div id="setPassword_inputBox_1" style="position: absolute; left: 630px; top: 240px; text-align: center; font-size: 36px; color: #ffffff; width: 82px; height: 82px; line-height: 82px; "></div>
+	<div id="setPassword_inputBox_2" style="position: absolute; left: 757px; top: 240px; text-align: center; font-size: 36px; color: #ffffff; width: 82px; height: 82px; line-height: 82px; "></div>
+	<div id="setPassword_inputBox_3" style="position: absolute; left: 863px; top: 240px; text-align: center; font-size: 36px; color: #ffffff; width: 82px; height: 82px; line-height: 82px; "></div>
+	<img id="setPassword_focus" style="position: absolute;left: 488px;top: 218px;display: none;" src="./images/order/inputFocus.png" />
+
+	<div id="repeatPassword_inputBox_0" style="position: absolute; left: 514px; top: 347px; text-align: center; font-size: 36px; color: #ffffff; width: 82px; height: 82px; line-height: 82px; "></div>
+	<div id="repeatPassword_inputBox_1" style="position: absolute; left: 630px; top: 347px; text-align: center; font-size: 36px; color: #ffffff; width: 82px; height: 82px; line-height: 82px; "></div>
+	<div id="repeatPassword_inputBox_2" style="position: absolute; left: 757px; top: 347px; text-align: center; font-size: 36px; color: #ffffff; width: 82px; height: 82px; line-height: 82px; "></div>
+	<div id="repeatPassword_inputBox_3" style="position: absolute; left: 863px; top: 347px; text-align: center; font-size: 36px; color: #ffffff; width: 82px; height: 82px; line-height: 82px; "></div>
+	<img id="repeatPassword_focus" style="position: absolute;left: 488px;top: 326px;display: none;" src="./images/order/inputFocus.png" />
+
+	<div id="setPasswordTips" style="font-size:20px;color: red;line-height: 30px;position: absolute;width: 700px;left: 333px;top: 555px;text-align: center;">
+	</div>
+	<div style="position: absolute; left: 325px; top: 622px; color: #dddddd; width: 680px; text-align: center; font-size: 20px; ">您当前已开启家长锁。不输入密码和重复密码即可关闭家长锁。<br/>提示: 按【0-9】键输入密码,【确认】键清空输入</div>
+
+	<img id="setPasswordBt" style="position:absolute;left: 0;top: 0; " src="./images/order/parentLocker_bt_blur.png" />
+
+</div>
+
+<div id="successTips" style="position: absolute;z-index:12;left: 0px;top: 0px;width: 1280px;height: 720px;display: none;">
+	<img src="./images/order/tips_bg.png" />
+	<div id="successText" style="position: absolute;left: 362px;top: 217px;font-size: 28px;color: #ffffff;text-align: center;width: 634px;line-height: 50px;"><!-- 家长锁设置成功 --></div>
+	<div style="position: absolute;left: 362px;top: 320px;font-size: 22px;color: #cccccc;width: 634px;text-align: center;">按【返回】键快去体验吧！</div>
+</div>
+
+</div>
+
+
+<script type="text/javascript" src="js/lib.js"></script>
+<script type="text/javascript" src="js/ajax.js"></script>
+<script type="text/javascript" src="js/keyEvent.js"></script>
+<script type="text/javascript" src="js/config.js"></script>
+<script type="text/javascript" src="js/common.js"></script>
+<script type="text/javascript" src="js/order.js"></script>
+
+
+<script language="javascript" type="text/javascript">
+	
+
+	function grabevent(_event){
+		if (_event.type=='keydown') {
+			document.onkeypress=null;
+		};
+		var code = Event(_event);
+		var keyCode = _event.which;
+		switch(code){
+			case "KEY_EXIT":
+				location.href=portalUrl;
+				return false;
+				break;
+			case "KEY_BACK": //
+				if(!!ctl.back){
+					ctl.back();
+					return 0;
+				}
+				goBack();
+				return false;
+				break;
+			case "KEY_UP": //
+				ctl.up&&ctl.up();
+				return 0;
+				break;
+			case "KEY_DOWN": //
+				ctl.down&&ctl.down();
+				return 0;
+				break;
+			case "KEY_LEFT": //
+				ctl.left&&ctl.left();
+				return 0;
+				break;
+			case "KEY_RIGHT": //
+				ctl.right&&ctl.right();
+				return 0;
+				break;
+			case "KEY_SELECT": //	
+				ctl.enter&&ctl.enter();
+				return 0;
+				break;
+			case "KEY_NUMBER1":
+			case "KEY_NUMBER2":
+			case "KEY_NUMBER3":
+			case "KEY_NUMBER4":
+			case "KEY_NUMBER5":
+			case "KEY_NUMBER6":
+			case "KEY_NUMBER7":
+			case "KEY_NUMBER8":
+			case "KEY_NUMBER9":
+			case "KEY_NUMBER0":
+				ctl.inputNum&&ctl.inputNum(keyCode-48);
+				return 0;
+				break;
+			default:
+				break;
+		}
+	}
+
+	if(document.onkeypress!==null){
+		document.onkeypress = grabevent;
+	}
+	document.onkeydown = grabevent; 
+
+
+
+	var parentLockerPassword='';//空表示没有家长锁
+
+	var loadingObj=new Loading({
+		zIndex:10
+	});
+	function pageOnload(){
+		oldPassword.init();
+		ctl=oldPassword;//绑定按键操控事件
+
+
+		//msgTips({msg:'网络异常，请稍候重试！',timeout:-1});
+	
+	}
+	function goBack(){
+		location.href=backUrl||'./index.html';
+	}
+
+	var ctl={
+		left:function(){},
+		right:function(){},
+		up:function(){},
+		down:function(){},
+		enter:function(){}
+	};
+
+	var successCtl={
+		show:function(){
+			$('successTips').style.display='block';
+		}
+	};
+
+	var oldPassword={
+		pos : 0,
+		inputPsw:'',
+		//bt_all_blur_img:'./images/order/outOrder_bt_1.png',
+		init:function(){
+			this.show();
+			this.focus();
+		},
+		show:function(){
+			$('setPassword').style.display='block';
+		},
+		hide:function(){
+			$('setPassword').style.display='none';
+		},
+		showPswInput:function(){
+			var ary=this.inputPsw.split('');
+			for(var i=0;i<4;i++){
+				if(!!ary[i]){
+					$('oldPassword_inputBox_'+i).innerHTML='*';
+				}else{
+					$('oldPassword_inputBox_'+i).innerHTML='';
+				}
+			}
+			$('setPasswordTips').innerHTML='';
+		},
+		focus : function(){
+			$("oldPassword_focus").style.display = 'block';
+		},
+		blur : function(){
+			$("oldPassword_focus").style.display='none';
+		},
+		left:function(){
+			
+		},
+		right:function(){
+			
+		},
+		up:function(){
+		},
+		down:function(){
+			this.blur();
+			setPassword.focus();
+			ctl=setPassword;
+		},
+		inputNum:function(num){
+
+			if(this.inputPsw.length>=4){
+				return 0;
+			}
+			this.inputPsw+=''+num;
+			this.showPswInput();
+		},
+		enter:function(){
+			this.inputPsw='';
+			this.showPswInput();
+		},
+		back:function(){
+			if(this.inputPsw==''){
+				goBack();
+			}else{
+				this.inputPsw='';
+				this.showPswInput();
+			}
+		}
+	};
+	
+	var setPassword={
+		pos : 0,
+		inputPsw:'',
+		//bt_all_blur_img:'./images/order/outOrder_bt_1.png',
+		init:function(){
+			this.show();
+			this.focus();
+		},
+		show:function(){
+			$('setPassword').style.display='block';
+		},
+		hide:function(){
+			$('setPassword').style.display='none';
+		},
+		showPswInput:function(){
+			var ary=this.inputPsw.split('');
+			for(var i=0;i<4;i++){
+				if(!!ary[i]){
+					$('setPassword_inputBox_'+i).innerHTML='*';
+				}else{
+					$('setPassword_inputBox_'+i).innerHTML='';
+				}
+			}
+			$('setPasswordTips').innerHTML='';
+		},
+		focus : function(){
+			$("setPassword_focus").style.display = 'block';
+		},
+		blur : function(){
+			$("setPassword_focus").style.display='none';
+		},
+		left:function(){
+			
+		},
+		right:function(){
+			
+		},
+		up:function(){
+			this.blur();
+			oldPassword.focus();
+			ctl=oldPassword;
+		},
+		down:function(){
+			this.blur();
+			repeatPassword.focus();
+			ctl=repeatPassword;
+		},
+		inputNum:function(num){
+
+			if(this.inputPsw.length>=4){
+				return 0;
+			}
+			this.inputPsw+=''+num;
+			this.showPswInput();
+		},
+		enter:function(){
+			this.inputPsw='';
+			this.showPswInput();
+		},
+		back:function(){
+			if(this.inputPsw==''){
+				goBack();
+			}else{
+				this.inputPsw='';
+				this.showPswInput();
+			}
+		}
+	};
+
+	var repeatPassword={
+		pos : 0,
+		inputPsw:'',
+		//bt_all_blur_img:'./images/order/outOrder_bt_1.png',
+		init:function(){
+			this.show();
+			this.focus();
+		},
+		show:function(){
+			//$('setPassword').style.display='block';
+		},
+		hide:function(){
+			//$('setPassword').style.display='none';
+		},
+		showPswInput:function(){
+			var ary=this.inputPsw.split('');
+			for(var i=0;i<4;i++){
+				if(!!ary[i]){
+					$('repeatPassword_inputBox_'+i).innerHTML='*';
+				}else{
+					$('repeatPassword_inputBox_'+i).innerHTML='';
+				}
+			}
+			$('setPasswordTips').innerHTML='';
+		},
+		focus : function(){
+			$("repeatPassword_focus").style.display = 'block';
+		},
+		blur : function(){
+			$("repeatPassword_focus").style.display='none';
+		},
+		left:function(){
+			
+		},
+		right:function(){
+			
+		},
+		up:function(){
+			this.blur();
+			setPassword.focus();
+			ctl=setPassword;
+		},
+		down:function(){
+			this.blur();
+			setPasswordBt.init();
+			ctl=setPasswordBt;
+		},
+		inputNum:function(num){
+
+			if(this.inputPsw.length>=4){
+				return 0;
+			}
+			this.inputPsw+=''+num;
+			this.showPswInput();
+		},
+		enter:function(){
+			this.inputPsw='';
+			this.showPswInput();
+		},
+		back:function(){
+			if(this.inputPsw==''){
+				goBack();
+			}else{
+				this.inputPsw='';
+				this.showPswInput();
+			}
+		}
+	};
+
+	var setPasswordBt={
+		pos : 0,
+		btData:[
+			{id:'order_bt',name:'确定',img:'./images/order/parentLocker_bt_0.png'},
+			{id:'cancel_bt',name:'返回',img:'./images/order/parentLocker_bt_1.png'}
+		],
+		bt_all_blur_img:'./images/order/parentLocker_bt_blur.png',
+		init:function(){
+			this.focus();
+		},
+		changeFocus : function(_num){  //焦点发生变化，主菜单图标及文字
+			this.pos += _num;
+			if(this.pos < 0){
+				this.pos = 0;
+			}else if(this.pos > this.btData.length-1){
+				this.pos = this.btData.length-1;
+			}
+
+			$("setPasswordBt").src = this.btData[this.pos].img;
+		},
+		focus : function(){
+			$("setPasswordBt").src = this.btData[this.pos].img;
+		},
+		blur : function(){
+			$("setPasswordBt").src = this.bt_all_blur_img;
+		},
+		left:function(){
+			this.changeFocus(-1);
+		},
+		right:function(){
+			this.changeFocus(1);
+		},
+		up:function(){
+			this.blur();
+			repeatPassword.focus();
+			ctl=repeatPassword;
+		},
+		enter:function(){
+			if(this.pos==0){
+				if(loadingObj.isLoading){return 0;}
+
+				if(oldPassword.inputPsw==''){
+					$('setPasswordTips').innerHTML='旧密码不能为空，请输入。如忘记密码请致电客服热线：400-830-8304 ';
+					return 0;
+				}
+				if((setPassword.inputPsw==''||repeatPassword.inputPsw=='')){//取消家长锁
+					loadingObj.show();
+					orderAPIControl.deleteParentLocker(oldPassword.inputPsw,function(){
+						//success
+						$('successText').innerHTML='关闭家长锁成功';
+						successCtl.show();
+						ctl=successCtl;
+					},function(msg){
+						//error
+						msgTips({msg:msg+'-如忘记密码请致电客服热线：400-830-8304 咨询。',timeout:9000});
+					},function(){
+						//final
+						loadingObj.hide();
+					});
+					return 0;
+				}
+				if(repeatPassword.inputPsw!=setPassword.inputPsw){
+					$('setPasswordTips').innerHTML='两次输入的新家长锁密码不一样,请重新输入！';
+					return 0;
+				}
+				//修改家长锁
+				//if(loadingObj.isLoading){return 0;}
+				loadingObj.show();
+				orderAPIControl.editParentLocker(oldPassword.inputPsw,setPassword.inputPsw,function(){
+					//success
+					$('successText').innerHTML='修改家长锁成功';
+					successCtl.show();
+					ctl=successCtl;
+				},function(msg){
+					//error
+					msgTips({msg:msg+'-如忘记密码请致电客服热线：400-830-8304 咨询。',timeout:9000});
+				},function(){
+					//final
+					loadingObj.hide();
+				});
+			}
+			if(this.pos==1){
+				goBack();
+			}
+
+		}
+	};
+
+
+
+</script>
+</body>
+</html>

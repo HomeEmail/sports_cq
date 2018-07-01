@@ -1,0 +1,82 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no"/>
+<meta name="page-view-size" content="1280*720" />
+<title>视频列表</title>
+<style>
+body,html{
+	padding: 0;
+	margin: 0;
+}
+/* .smooth { -webkit-transition-duration:300ms,300ms,300ms,300ms;-webkit-transition-property: width,height,top,left; } */
+</style>
+</head>
+
+<body onunload="pageOnunload();" onload="pageOnload();" style="background:url(images/bg.jpg) no-repeat; width:1280px; height:720px; overflow:hidden;">
+<div id="loadingDiv" style="position:absolute; top:320px; left:600px; width:70px; height:70px; z-index:10; visibility:hidden;">
+	<img src="./images/loading.gif" style="position:absolute; top:0px; left:0px;background: transparent;" />
+</div>
+
+<img src="./images/index/logo3.png" style="position:absolute; top:32px; left:660px; width:160px; height:40px;">
+
+<!-- 左边菜单 begin -->
+<div style="position:absolute; top:0px; left:0px; width:260px; height:720px; background:url(images/list_left_bg.png) no-repeat;">
+<div id="menuWrapper" style="position:absolute; top:136px; left:47px; width:170px; height:600px;">
+	<div id="menu_focus" style="position:absolute; top:4px; left:13px; width:170px; height:60px; background:url(images/left_nav_focus.png) no-repeat; opacity:1;">
+	</div>
+	<div id="menu_0" class="menu" style="position:absolute; top:0px; left:0px; text-align:center; width:170px; height:60px;color:#ffffff;font-size:24px;line-height:60px;"></div>
+	<div id="menu_1" class="menu" style="position:absolute; top:60px; left:0px; text-align:center; width:170px; height:60px;color:#ffffff;font-size:24px;line-height:60px;"></div>
+	<div id="menu_2" class="menu" style="position:absolute; top:120px; left:0px; text-align:center; width:170px; height:60px;color:#ffffff;font-size:24px;line-height:60px;"></div>
+	<div id="menu_3" class="menu" style="position:absolute; top:180px; left:0px; text-align:center; width:170px; height:60px;color:#ffffff;font-size:24px;line-height:60px;"></div>
+	<div id="menu_4" class="menu" style="position:absolute; top:240px; left:0px; text-align:center; width:170px; height:60px;color:#ffffff;font-size:24px;line-height:60px;"></div>
+	<div id="menu_5" class="menu" style="position:absolute; top:300px; left:0px; text-align:center; width:170px; height:60px;color:#ffffff;font-size:24px;line-height:60px;"></div>
+	<div id="menu_6" class="menu" style="position:absolute; top:360px; left:0px; text-align:center; width:170px; height:60px;color:#ffffff;font-size:24px;line-height:60px;"></div>
+	<div id="menu_7" class="menu" style="position:absolute; top:420px; left:0px; text-align:center; width:170px; height:60px;color:#ffffff;font-size:24px;line-height:60px;"></div>
+	<div id="menu_8" class="menu" style="position:absolute; top:480px; left:0px; text-align:center; width:170px; height:60px;color:#ffffff;font-size:24px;line-height:60px;"></div>
+	<div id="menu_9" class="menu" style="position:absolute; top:540px; left:0px; text-align:center; width:170px; height:60px;color:#ffffff;font-size:24px;line-height:60px;"></div>
+
+</div>
+<img style="position:absolute;left:122px;top:128px;" src="./images/arrow-up.png" />
+<img style="position:absolute;left:122px;top:128px;" src="./images/arrow-up-on.png" id="menuArrowUp" />
+<img style="position:absolute;left:122px;top:616px;" src="./images/arrow-down.png" />
+<img style="position:absolute;left:122px;top:616px;" src="./images/arrow-down-on.png" id="menuArrowDown" />
+<!-- 左边菜单 end -->
+
+<!-- 右边内容 begin -->
+<div id="contentTitleWrapper" style="position:absolute;top:58px;left:250px;font-size: 32px;color: #ffffff;line-height: 46px;width:300px;"><!--<img id="contentTW_img" height="46" src="./images/channel_title1.png" />--><span id="contentTW_span" style="padding-left:10px;"></span></div>
+
+<div id="contentWrapper" style="position:absolute;top: 120px;left:250px;width:1000px;height: 560px;">
+	<div style="position:absolute;top:0px;left:0px;width:180px;height:250px;display:none;">
+		<div style="width:180px;height:250px;overflow:hidden;"><img src="./images/list-item2.png" width="180" /></div>
+		<div id="listItemTextMask0" style="width:180px;height:56px;line-height:70px;font-size:22px;position:absolute;left:0px;top:194px;background:url(./images/list-item-text-mask.png);color:#ffffff;overflow:hidden;">
+			<!-- <marquee scrollamount="2" behavior="alternate" width="180" style="width: 180px;">冰河世纪4</marquee> -->
+			<span style="padding-left:10px;padding-right:10px;">冰河世纪4</span>
+		</div>
+		<img id="listItemFocus0" style="position:absolute;left:-54px;top:-54px;" src="./images/movie_focus.png" />
+	</div>
+</div>
+
+<div id="pageNumNavText" style="position:absolute;left: 1126px;top: 650px;color: #eeeeee;font-size:22px;text-align: right;width: 100px;">0/0</div>
+<img style="position:absolute;left:727px;top:90px;" src="./images/arrow-up.png" />
+<img style="position:absolute;left:727px;top:90px;" src="./images/arrow-up-on.png" id="contentArrowUp" />
+<img style="position:absolute;left:727px;top:660px;" src="./images/arrow-down.png" />
+<img style="position:absolute;left:727px;top:660px;" src="./images/arrow-down-on.png" id="contentArrowDown" />
+
+<!-- 右边内容 end -->
+
+<div id="tips" style="position:absolute;left:426px;top:274px;width:428px;height:172px;background:url(images/index/tip_bg.png);display:none;"></div>
+
+</body>
+<script type="text/javascript" src="js/lib.js"></script>
+<script type="text/javascript" src="js/ajax.js"></script>
+<script type="text/javascript" src="js/keyEvent.js"></script>
+<script type="text/javascript" src="js/showList.js"></script>
+<script type="text/javascript" src="js/common.js"></script>
+<script type="text/javascript" src="js/config.js"></script>
+<script type="text/javascript" src="js/superMouse.js"></script>
+<script type="text/javascript" src="js/showTips.js"></script>
+<script type="text/javascript" src="js/order.js"></script>
+<script type="text/javascript" src="js/list.js"></script>
+</html>

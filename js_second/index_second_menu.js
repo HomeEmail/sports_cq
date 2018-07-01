@@ -1,0 +1,27 @@
+var index_second_menu_data=[
+	{
+		name:'首页',
+		id:0,
+		link:'index_second.html'
+	},
+	{
+		name:'赛程安排',
+		id:1,
+		link:'schedule_second.html'
+	},
+	{
+		name:'回看',
+		id:1,
+		link:'lookBack_second.html'
+	},
+	{
+		name:'赛事集锦',
+		id:1,
+		link:'matchCollection_second.html'
+	},
+	{
+		name:'榜单',
+		id:1,
+		link:'topList_second.html'
+	}
+];

@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no"/>
+<meta name="page-view-size" content="1280*720" />
+<title>扫码</title>
+<style>
+body,html{
+	padding: 0;
+	margin: 0;
+}
+.smooth { /*-webkit-transition-duration:300ms,300ms,300ms,300ms;-webkit-transition-property: width,height,top,left;*/ }
+</style>
+</head>
+
+<body onunload="pageOnunload();" onload="pageOnload();" style="background:url(images/bg.jpg) no-repeat; width:1280px; height:720px; overflow:hidden;">
+<div id="loadingDiv" class="smooth" style="position:absolute; top:320px; left:600px; width:70px; height:70px; z-index:10; visibility:hidden;">
+	<img src="./images/loading.gif" style="position:absolute; top:0px; left:0px;background: transparent;" />
+</div>
+
+<!-- 右边内容 begin -->
+
+<div style="position:absolute;left:0px;top:0px;width:1280px;height:360px;background:url(./images/index/sm_bg_1.jpg);"></div>
+<div style="position:absolute;left:0px;top:360px;width:1280px;height:360px;background:url(./images/index/sm_bg_2.jpg);"></div>
+
+<div id="contentWrapper" style="position:absolute;top:0px;left:0px;width:1280px;height:720px;">
+	<img id="newSession_img" src="" alt="" style="position:absolute;top:210px;left:250px;">
+	<img id="newSession_f_0" src="./images/index/sm_focus.png" alt="" style="position:absolute;top:162px;left:636px;display:none;">
+	<img id="newSession_f_1" src="./images/index/sm_focus.png" alt="" style="position:absolute;top:241px;left:636px;display:none;">
+</div>
+
+<!-- 右边内容 end -->
+
+<div id="tips" style="position:absolute;left:426px;top:274px;width:428px;height:172px;background:url(images/index/tip_bg.png);display:none;"></div>
+
+</body>
+<script type="text/javascript" src="js/lib.js"></script>
+<script type="text/javascript" src="js/ajax.js"></script>
+<script type="text/javascript" src="js/keyEvent.js"></script>
+<script type="text/javascript" src="js/common.js"></script>
+<script type="text/javascript" src="js/config.js"></script>
+<script type="text/javascript" src="js/superMouse.js"></script>
+<script type="text/javascript" src="js/showTips.js"></script>
+<script type="text/javascript" src="js/login_al.js"></script>
+</html>

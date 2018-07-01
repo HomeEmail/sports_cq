@@ -100,6 +100,8 @@ var contentLayoutModeData=[ //内容布局依据模版和静态数据
 
 var menuPos = 0;//当前选择的菜单位置
 menuPos=Q.getInt("menuPos",0);
+var leagueId =0;
+leagueId = Q.getInt('leagueId',0);
 
 function eventInit(_event){
 	if (_event.type=='keydown') {
@@ -336,6 +338,9 @@ var menuObj={
 	},
 	enter:function(){
 		alert(mainMenu[menuBox.position].link);
+		return 0;
+		var url=mainMenu[menuBox.position].link+'?leagueId='+leagueId+'&backUrl='+Q.encode(backUrl);
+		location.replace(url);
 	}
 
 };

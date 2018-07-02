@@ -18,84 +18,53 @@ var mainMenu = [ //菜单
 	}
 ];
 
-var subMenu = [ ////最终内容渲染数据的静态模版参考
+var subMenu = [ ////存储最终内容渲染数据 包含动态数据和布局模版数据
 	
 ];
 
-var contentLayoutModeData=[ //内容布局依据模版和静态数据
-	[
-		{"icon":"images/move_01.png","focus":"images/210x138.png","link":'#','top':172,'left':76,'width':210, 'height':138},
-		{"icon":"images/move_02.png","focus":"images/210x138.png","link":'#','top':330,'left':76,'width':210, 'height':138},	
-		{"icon":"images/move_03.png","focus":"images/440x296.png","link":'#','top':172,'left':304,'width':440, 'height':296},
-		{"icon":"images/move_04.png","focus":"images/210x296.png","link":'#','top':172,'left':766,'width':210, 'height':296},
-		{"icon":"images/move_05.png","focus":"images/210x296.png","link":'#','top':172,'left':994,'width':210, 'height':296},
-		{"icon":"images/move_06.png","focus":"images/210x138.png","link":'#','top':488,'left':76,'width':210, 'height':138},
-		{"icon":"images/move_07.png","focus":"images/210x138.png","link":'#','top':488,'left':306,'width':210, 'height':138},
-		{"icon":"images/move_08.png","focus":"images/210x138.png","link":'#','top':488,'left':536,'width':210, 'height':138},
-		{"icon":"images/move_09.png","focus":"images/210x138.png","link":'#','top':488,'left':766,'width':210, 'height':138},
-		{"icon":"images/move_10.png","focus":"images/210x138.png","link":'#','top':488,'left':994,'width':210, 'height':138}
-	],
-	[
-		{"icon":"images/move_01.png","focus":"images/210x138.png","link":'#','top':172,'left':76,'width':210, 'height':138},
-		{"icon":"images/move_02.png","focus":"images/210x138.png","link":'#','top':330,'left':76,'width':210, 'height':138},	
-		{"icon":"images/move_03.png","focus":"images/440x296.png","link":'#','top':172,'left':304,'width':440, 'height':296},
-		{"icon":"images/move_04.png","focus":"images/210x296.png","link":'#','top':172,'left':766,'width':210, 'height':296},
-		{"icon":"images/move_05.png","focus":"images/210x296.png","link":'#','top':172,'left':994,'width':210, 'height':296},
-		{"icon":"images/move_06.png","focus":"images/210x138.png","link":'#','top':488,'left':76,'width':210, 'height':138},
-		{"icon":"images/move_07.png","focus":"images/210x138.png","link":'#','top':488,'left':306,'width':210, 'height':138},
-		{"icon":"images/move_08.png","focus":"images/210x138.png","link":'#','top':488,'left':536,'width':210, 'height':138},
-		{"icon":"images/move_09.png","focus":"images/210x138.png","link":'#','top':488,'left':766,'width':210, 'height':138},
-		{"icon":"images/move_10.png","focus":"images/210x138.png","link":'#','top':488,'left':994,'width':210, 'height':138}
-	],
-	[
-		{"icon":"images/move_01.png","focus":"images/210x138.png","link":'#','top':172,'left':76,'width':210, 'height':138},
-		{"icon":"images/move_02.png","focus":"images/210x138.png","link":'#','top':330,'left':76,'width':210, 'height':138},	
-		{"icon":"images/move_03.png","focus":"images/440x296.png","link":'#','top':172,'left':304,'width':440, 'height':296},
-		{"icon":"images/move_04.png","focus":"images/210x296.png","link":'#','top':172,'left':766,'width':210, 'height':296},
-		{"icon":"images/move_05.png","focus":"images/210x296.png","link":'#','top':172,'left':994,'width':210, 'height':296},
-		{"icon":"images/move_06.png","focus":"images/210x138.png","link":'#','top':488,'left':76,'width':210, 'height':138},
-		{"icon":"images/move_07.png","focus":"images/210x138.png","link":'#','top':488,'left':306,'width':210, 'height':138},
-		{"icon":"images/move_08.png","focus":"images/210x138.png","link":'#','top':488,'left':536,'width':210, 'height':138},
-		{"icon":"images/move_09.png","focus":"images/210x138.png","link":'#','top':488,'left':766,'width':210, 'height':138},
-		{"icon":"images/move_10.png","focus":"images/210x138.png","link":'#','top':488,'left':994,'width':210, 'height':138}
-	],
-	[
-		{"icon":"images/move_01.png","focus":"images/210x138.png","link":'#','top':172,'left':76,'width':210, 'height':138},
-		{"icon":"images/move_02.png","focus":"images/210x138.png","link":'#','top':330,'left':76,'width':210, 'height':138},	
-		{"icon":"images/move_03.png","focus":"images/440x296.png","link":'#','top':172,'left':304,'width':440, 'height':296},
-		{"icon":"images/move_04.png","focus":"images/210x296.png","link":'#','top':172,'left':766,'width':210, 'height':296},
-		{"icon":"images/move_05.png","focus":"images/210x296.png","link":'#','top':172,'left':994,'width':210, 'height':296},
-		{"icon":"images/move_06.png","focus":"images/210x138.png","link":'#','top':488,'left':76,'width':210, 'height':138},
-		{"icon":"images/move_07.png","focus":"images/210x138.png","link":'#','top':488,'left':306,'width':210, 'height':138},
-		{"icon":"images/move_08.png","focus":"images/210x138.png","link":'#','top':488,'left':536,'width':210, 'height':138},
-		{"icon":"images/move_09.png","focus":"images/210x138.png","link":'#','top':488,'left':766,'width':210, 'height':138},
-		{"icon":"images/move_10.png","focus":"images/210x138.png","link":'#','top':488,'left':994,'width':210, 'height':138}
-	],
-	[
-		{"icon":"images/move_01.png","focus":"images/210x138.png","link":'#','top':172,'left':76,'width':210, 'height':138},
-		{"icon":"images/move_02.png","focus":"images/210x138.png","link":'#','top':330,'left':76,'width':210, 'height':138},	
-		{"icon":"images/move_03.png","focus":"images/440x296.png","link":'#','top':172,'left':304,'width':440, 'height':296},
-		{"icon":"images/move_04.png","focus":"images/210x296.png","link":'#','top':172,'left':766,'width':210, 'height':296},
-		{"icon":"images/move_05.png","focus":"images/210x296.png","link":'#','top':172,'left':994,'width':210, 'height':296},
-		{"icon":"images/move_06.png","focus":"images/210x138.png","link":'#','top':488,'left':76,'width':210, 'height':138},
-		{"icon":"images/move_07.png","focus":"images/210x138.png","link":'#','top':488,'left':306,'width':210, 'height':138},
-		{"icon":"images/move_08.png","focus":"images/210x138.png","link":'#','top':488,'left':536,'width':210, 'height':138},
-		{"icon":"images/move_09.png","focus":"images/210x138.png","link":'#','top':488,'left':766,'width':210, 'height':138},
-		{"icon":"images/move_10.png","focus":"images/210x138.png","link":'#','top':488,'left':994,'width':210, 'height':138}
-	],
-	[
-		{"icon":"images/move_01.png","focus":"images/210x138.png","link":'#','top':172,'left':76,'width':210, 'height':138},
-		{"icon":"images/move_02.png","focus":"images/210x138.png","link":'#','top':330,'left':76,'width':210, 'height':138},	
-		{"icon":"images/move_03.png","focus":"images/440x296.png","link":'#','top':172,'left':304,'width':440, 'height':296},
-		{"icon":"images/move_04.png","focus":"images/210x296.png","link":'#','top':172,'left':766,'width':210, 'height':296},
-		{"icon":"images/move_05.png","focus":"images/210x296.png","link":'#','top':172,'left':994,'width':210, 'height':296},
-		{"icon":"images/move_06.png","focus":"images/210x138.png","link":'#','top':488,'left':76,'width':210, 'height':138},
-		{"icon":"images/move_07.png","focus":"images/210x138.png","link":'#','top':488,'left':306,'width':210, 'height':138},
-		{"icon":"images/move_08.png","focus":"images/210x138.png","link":'#','top':488,'left':536,'width':210, 'height':138},
-		{"icon":"images/move_09.png","focus":"images/210x138.png","link":'#','top':488,'left':766,'width':210, 'height':138},
-		{"icon":"images/move_10.png","focus":"images/210x138.png","link":'#','top':488,'left':994,'width':210, 'height':138}
+var contentDataDemo={ //动态数据demo
+	imageProfix:'',
+	data:[
+		{
+			imgUrl:'./images_second/index_img1.png',
+			name:'运营推广位',
+			href:''
+		},
+		{
+			imgUrl:'./images_second/index_img2.png',
+			name:'运营推广位',
+			href:''
+		},
+		{
+			imgUrl:'./images_second/index_img3.png',
+			name:'《新药中超》包里呢奥替身与美女大干一场',
+			href:''
+		},
+		{
+			imgUrl:'./images_second/index_img3.png',
+			name:'《新药中超》包里呢奥替身与美女大干一场',
+			href:''
+		},
+		{
+			imgUrl:'./images_second/index_img2.png',
+			name:'运营推广位',
+			href:''
+		}
+
 	]
-];
+};
+
+var contentLayoutModeData={ //内容布局模版数据
+	tpl0:[ //typeContent 1-1:图文-滚动文字 1-0:图-不滚动文字 0-1:文字-滚动文字 0-0:文字-不滚动文字 focusImg:为空光标用css边框，不为空用图片作为光标 
+		{"focusImg":"",'left':70,'top':120,'width':566,'height':331,"typeContent":'1-1'}
+		,{"focusImg":"",'left':643,'top':120,'width':280,'height':331,"typeContent":'1-1'}
+		,{"focusImg":"",'left':930,'top':120,'width':280,'height':162,"typeContent":'1-1'}
+		,{"focusImg":"",'left':930,'top':289,'width':280,'height':162,"typeContent":'1-1'}
+	],
+	tpl1:[
+
+	]
+};
 
 
 var menuPos = 0;//当前选择的菜单位置
@@ -255,7 +224,7 @@ function formatMenuData(json){
 
 	loadingObj.hide();
 
-	//getContentData();
+	getContentData();
 }
 
 
@@ -301,7 +270,6 @@ var menuObj={
 	init : function(){
 		this.render();
 		initMenuBox();
-		$("menu_focus").style.opacity = 1;
 		
 	},
 	render:function(){
@@ -311,6 +279,12 @@ var menuObj={
 		}
 		
 		$('menu_content').innerHTML=s;
+	},
+	focus:function(){
+		$("menu_focus").style.opacity = 1;
+	},
+	blur:function(){
+		$("menu_focus").style.opacity = 0;
 	},
 	changeMenu : function(_num){
 		var index_temp=0;
@@ -335,6 +309,12 @@ var menuObj={
 	up:function(){
 	},
 	down:function(){
+		this.outDown();
+	},
+	outDown:function(){
+		this.blur();
+		contral=subMenuObj;
+		contral.focus();
 	},
 	enter:function(){
 		alert(mainMenu[menuBox.position].link);
@@ -347,6 +327,9 @@ var menuObj={
 
 var contentReq=null;
 function getContentData(){//通过ajxa获取数据
+	formatContentData(contentDataDemo);
+	return 0;
+
 	if(contentReq){
 		contentReq.abort();
 		contentReq=null;
@@ -379,16 +362,16 @@ function getContentData(){//通过ajxa获取数据
 	});
 }
 function formatContentData(json){//绑定内容数据
-	var layoutIndex=menuBox.position%contentLayoutModeData.length;
-	mainMenu[menuBox.position].subMenu=contentLayoutModeData[layoutIndex];
-	for(var i=0,len=mainMenu[menuBox.position].subMenu.length;i<len;i++){
+	var templateId=mainMenu.templateId||0;//模版id
+	subMenu=contentLayoutModeData['tpl'+templateId];
+	for(var i=0,len=subMenu.length;i<len;i++){
 		if(!!!json.data[i].imgUrl){
-			mainMenu[menuBox.position].subMenu[i]=0;
+			subMenu[i]=0;
 			continue;
 		}
-		mainMenu[menuBox.position].subMenu[i].icon=(!!json.data[i].imgUrl ? json.imageProfix+json.data[i].imgUrl:'images/VIP_noData_2.png');
-		mainMenu[menuBox.position].subMenu[i].name=json.data[i].name;
-		mainMenu[menuBox.position].subMenu[i].link=(json.data[i].href&&json.data[i].href.indexOf('http://')>-1?json.data[i].href:json.data[i].href);
+		subMenu[i].img=(!!json.data[i].imgUrl ? json.imageProfix+json.data[i].imgUrl:'');
+		subMenu[i].name=json.data[i].name;
+		subMenu[i].href=json.data[i].href;
 	}
 
 	subMenuObj.init();	
@@ -397,16 +380,15 @@ function formatContentData(json){//绑定内容数据
 
 
 var subMenuObj = {
-	left:0,
-	top:0,
+	leftV:0,
+	topV:0,
 	subPos:0,
 	sm : null,//光标寻找对象
 	clear:function(){
 		$("content").innerHTML = "";
-		$("content_bj").innerHTML = ""; //背景结构
-		this.subPos = 2; //控制初始焦点
-		this.top = subMenu[this.subPos].top||0;
-		this.left = subMenu[this.subPos].left||0;
+		this.subPos = 0; //控制初始焦点
+		this.topV = subMenu[this.subPos].top||0;
+		this.leftV = subMenu[this.subPos].left||0;
 	},
 	init:function(){
 		this.clear();
@@ -419,7 +401,7 @@ var subMenuObj = {
 		var subMenuNum = subMenu.length;
 		for(var i = 0;i<subMenuNum;i++){
 			if(!!!subMenu[i]) continue;
-			s+='<div id="contentItem'+i+'" class="smooth" style="position:absolute; top:'+subMenu[i].top+'px; left:'+subMenu[i].left+'px; width:'+subMenu[i].width+'px; height:'+subMenu[i].height+'px; );"><img src="'+ subMenu[i].icon +'"></div>'
+			s+='<div id="contentItem'+i+'" style="position:absolute; top:'+subMenu[i].top+'px; left:'+subMenu[i].left+'px; width:'+subMenu[i].width+'px; height:'+subMenu[i].height+'px; );"><img src="'+ subMenu[i].img +'"></div>'
 		}
 		$("content").innerHTML = s;
 
@@ -440,78 +422,73 @@ var subMenuObj = {
 		$("content_focus").style.visibility = 'hidden';
 		this.beforeUpdateFocus();
 	},
-	isTop:function(){
-		return this.top<=172 ? true : false;
-	},
-	isBottom:function(){
-		return this.top+subMenu[this.subPos].height+140>630 ? true:false;
-	},
 	outUp:function(){
+		console.log('outUp');
 		this.blur();
-        $('menu_focus').style.background='url(images_second/menu-on2.png)';
+        contral=menuObj;
+        contral.focus();
 
 	},
 	outDown:function(){
-
+		console.log('outDown');
 	},
 	outLeft : function(){ //频道内容 到达左边切换频道
-		
+		console.log('outLeft');
 
 	},
 	outRight : function(){ //频道内容 到达右边切换频道
-	   
+	    console.log('outRight');
 
 	},
 	changeX:function(_num){ //控制频道内容左右移动
-		if(_num > 0){
-			this.left = this.left + subMenu[this.subPos].width+220;//预期加
-
-		}else{ 
-			this.left-=220;
-		}
 		
-		if(this.left <= 0){//边界
-			this.left += 220;
-			this.outLeft();
-
-			return 0;
-		}else if(this.left>=1280 ){//边界
-			this.left=this.left-subMenu[this.subPos].width-220;//预期减
-			this.outRight();
-			return 0;
-		}
+		var last_subPos=this.subPos;
 
 		this.beforeUpdateFocus();
 		this.sm.setData(subMenu);
 		//输入当前栏目内容数据
 		this.subPos=this.sm.getSubPosX(_num,this.subPos);
 		//this.subPos输出目标元素的索引值
+		if(_num>0&&this.subPos===last_subPos){//右边界
+			this.afterUpdateFocus();
+			this.outRight();
+			return 0;
+		}
+		if(_num<0&&this.subPos===last_subPos){//左边界
+			this.afterUpdateFocus();
+			this.outLeft();
+			return 0;
+		}
 		this.updateFocus();
 		this.afterUpdateFocus();
+		console.log('x',this.subPos);
 	},
 	afterUpdateFocus:function(){
+		$('contentItem'+this.subPos).style.zIndex=1;
 		$('contentItem'+this.subPos).style.transform='scale(1.08,1.08)';
 		$('contentItem'+this.subPos).style.webkitTransform='scale(1.08,1.08)';
 		// $('content_focus').style.transform='scale(1.08,1.08)';
 		// $('content_focus').style.webkitTransform='scale(1.08,1.08)';
 	},
 	beforeUpdateFocus:function(){
+		$('contentItem'+this.subPos).style.zIndex=0;
 		$('contentItem'+this.subPos).style.transform='scale(1,1)';
 		$('contentItem'+this.subPos).style.webkitTransform='scale(1,1)';
 		// $('content_focus').style.transform='scale(1,1)';
 		// $('content_focus').style.webkitTransform='scale(1,1)';
 	},
 	updateFocus:function(){
-		$("content_focus").style.backgroundImage="url("+ subMenu[this.subPos].focus +")";
+		//$("content_focus").style.backgroundImage="url("+ subMenu[this.subPos].focusImg +")";
 		var item = subMenu[this.subPos];
 		var focusDiv = $("content_focus");
-		var	width=item.width+112;
-		var height=item.height+114;
-		var	left=item.left-54;
-		var top=item.top-54;
 
-		this.left=item.left;
-		this.top=item.top;
+		var	width=item.width-8;
+		var height=item.height-8;
+		var	left=item.left;
+		var top=item.top;
+
+		this.leftV=item.left;
+		this.topV=item.top;
 
 		focusDiv.style.width  = width  + "px";
 		focusDiv.style.height = height + "px";
@@ -520,25 +497,28 @@ var subMenuObj = {
 
 	},
 	changeY:function(_num){
-		if(_num < 0 && this.isTop()){ //到顶了
-			this.outUp();
-			return false;
-		}else if(_num > 0 && this.isBottom()){//到底了
-			this.outDown();
-			return 0;
-		}else if(_num > 0){//下移
-			this.top = this.top + subMenu[this.subPos].height+140;
-		}else if(_num < 0){//上移
-			this.top = this.top -140;
-		}
+		var last_subPos=this.subPos;
 
 		this.beforeUpdateFocus();
 		this.sm.setData(subMenu);
 		//输入当前栏目内容数据
 		this.subPos=this.sm.getSubPosY(_num,this.subPos);
 		//this.subPos输出目标元素的索引值
+		if(_num>0&&this.subPos===last_subPos){//下边界
+			this.afterUpdateFocus();
+			this.outDown();
+			return 0;
+		}
+		if(_num<0&&this.subPos===last_subPos){//上边界
+			this.afterUpdateFocus();
+			this.outUp();
+			return 0;
+		}
+
 		this.updateFocus();
 		this.afterUpdateFocus();
+
+		console.log('y',this.subPos);
 	},
 	left:function(){
 		this.changeX(-1);
@@ -553,17 +533,16 @@ var subMenuObj = {
 		this.changeY(1);
 	},
 	enter:function(){
-		if(!!!mainMenu[menuBox.position].subMenu[this.subPos].link||mainMenu[menuBox.position].subMenu[this.subPos].link=='#'){
+		if(!!!subMenu[this.subPos].href||subMenu[this.subPos].href=='#'){
 			return 0;
 		}
-		var url = mainMenu[menuBox.position].subMenu[this.subPos].link;
-		url=url.replace('http://172.16.146.19/','');
+		var url = subMenu[this.subPos].href;
 		//url='list.html';
 		var backUrl=location.href;//'index.html?menuPos='+menuBox.position;
 		if(url.indexOf('?')>-1){
-			url+='&branchNo='+branchNo+'&backUrl='+Q.encode(backUrl);
+			url+='&backUrl='+Q.encode(backUrl);
 		}else{
-			url+='?branchNo='+branchNo+'&backUrl='+Q.encode(backUrl);
+			url+='?backUrl='+Q.encode(backUrl);
 		}
 		location.href = url;
 	}

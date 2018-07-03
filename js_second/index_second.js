@@ -46,8 +46,18 @@ var contentDataDemo={ //动态数据demo
 			href:''
 		},
 		{
-			imgUrl:'./images_second/index_img2.png',
-			name:'运营推广位',
+			imgUrl:'',
+			name:'回看$$中超第22轮 江苏苏宁易购 VS 广州恒大淘宝||回看$$中超第22轮 北京国安 VS 大连阿尔滨||点击观看更多赛事>',
+			href:''
+		},
+		{
+			imgUrl:'./images_second/index_img3.png',
+			name:'《新药中超》包里呢奥替身与美女大干一场',
+			href:''
+		},
+		{
+			imgUrl:'./images_second/index_img3.png',
+			name:'《新药中超》包里呢奥替身与美女大干一场',
 			href:''
 		}
 
@@ -55,11 +65,14 @@ var contentDataDemo={ //动态数据demo
 };
 
 var contentLayoutModeData={ //内容布局模版数据
-	tpl0:[ //typeContent 1-1:图文-滚动文字 1-0:图-不滚动文字 0-1:文字-滚动文字 0-0:文字-不滚动文字 focusImg:为空光标用css边框，不为空用图片作为光标 
-		{"focusImg":"",'left':70,'top':120,'width':566,'height':331,"typeContent":'1-1'}
-		,{"focusImg":"",'left':643,'top':120,'width':280,'height':331,"typeContent":'1-1'}
-		,{"focusImg":"",'left':930,'top':120,'width':280,'height':162,"typeContent":'1-1'}
-		,{"focusImg":"",'left':930,'top':289,'width':280,'height':162,"typeContent":'1-1'}
+	tpl0:[ //typeContent 1:图文滚动文字 0:文字不滚动文字 focusImg:为空光标用css边框，不为空用图片作为光标 
+		{"focusImg":"",'left':70,'top':120,'width':566,'height':331,"typeContent":1,'textBg':'./images_second/index_word_bg1.png'}
+		,{"focusImg":"",'left':643,'top':120,'width':280,'height':331,"typeContent":1,'textBg':'./images_second/index_word_bg2.png'}
+		,{"focusImg":"",'left':930,'top':120,'width':280,'height':162,"typeContent":1,'textBg':'./images_second/index_word_bg2.png'}
+		,{"focusImg":"",'left':930,'top':289,'width':280,'height':162,"typeContent":1,'textBg':'./images_second/index_word_bg2.png'}
+		,{"focusImg":"",'left':70,'top':458,'width':566,'height':162,"typeContent":0,'textBg':'./images_second/index_word_item_bg.png'}
+		,{"focusImg":"",'left':643,'top':458,'width':280,'height':162,"typeContent":1,'textBg':'./images_second/index_word_bg2.png'}
+		,{"focusImg":"",'left':930,'top':458,'width':280,'height':162,"typeContent":1,'textBg':'./images_second/index_word_bg2.png'}
 	],
 	tpl1:[
 
@@ -163,7 +176,8 @@ function init(){
 	}
 	document.onkeydown = grabEvent; 
 
-	contral=menuObj;//控制交接             
+	contral=menuObj;//控制交接   
+	contral.focus();          
 }
 
 //页面dom加载完成
@@ -365,11 +379,12 @@ function formatContentData(json){//绑定内容数据
 	var templateId=mainMenu.templateId||0;//模版id
 	subMenu=contentLayoutModeData['tpl'+templateId];
 	for(var i=0,len=subMenu.length;i<len;i++){
-		if(!!!json.data[i].imgUrl){
+		if(!!!json.data[i]&&!!!json.data[i].imgUrl&&!!!json.data[i].name&&!!!json.data[i].href){
 			subMenu[i]=0;
 			continue;
 		}
-		subMenu[i].img=(!!json.data[i].imgUrl ? json.imageProfix+json.data[i].imgUrl:'');
+		//subMenu[i].imgUrl=json.data[i].imgUrl;//原始图片地址
+		subMenu[i].img=(!!json.data[i].imgUrl ? json.imageProfix+json.data[i].imgUrl:'');//拼接后的图片地址
 		subMenu[i].name=json.data[i].name;
 		subMenu[i].href=json.data[i].href;
 	}
@@ -401,7 +416,22 @@ var subMenuObj = {
 		var subMenuNum = subMenu.length;
 		for(var i = 0;i<subMenuNum;i++){
 			if(!!!subMenu[i]) continue;
-			s+='<div id="contentItem'+i+'" style="position:absolute; top:'+subMenu[i].top+'px; left:'+subMenu[i].left+'px; width:'+subMenu[i].width+'px; height:'+subMenu[i].height+'px; );"><img src="'+ subMenu[i].img +'"></div>'
+			s+='<div id="contentItem'+i+'" style="position:absolute; top:'+subMenu[i].top+'px; left:'+subMenu[i].left+'px; width:'+subMenu[i].width+'px; height:'+subMenu[i].height+'px; );">'+
+				(!!subMenu[i].img&&subMenu[i].typeContent==1 ? '<img src="'+ subMenu[i].img +'" />' : '')+
+				(subMenu[i].typeContent==0 ? 
+					'<img src="'+ subMenu[i].textBg +'" />'+
+
+					'<div style="position:absolute;left:0px;top:0px;height:54px;line-height:54px;width:94px;text-align:center;color:#6a708e;font-size:23px;">'+(subMenu[i].name.split('||')[0] ? subMenu[i].name.split('||')[0].split('$$')[0] : '')+'</div>'+
+					'<div style="position:absolute;left:95px;top:0px;height:54px;line-height:54px;width:472px;text-align:left;color:#999cb0;font-size:23px;overflow:hidden;"><span style="padding-right:12px;padding-left:12px;">'+(subMenu[i].name.split('||')[0] ? subMenu[i].name.split('||')[0].split('$$')[1] : '')+'</span></div>'+
+					'<div style="position:absolute;left:0px;top:55px;height:54px;line-height:54px;width:94px;text-align:center;color:#6a708e;font-size:23px;">'+(subMenu[i].name.split('||')[1] ? subMenu[i].name.split('||')[1].split('$$')[0] : '')+'</div>'+
+					'<div style="position:absolute;left:95px;top:55px;height:54px;line-height:54px;width:472px;text-align:left;color:#999cb0;font-size:23px;overflow:hidden;"><span style="padding-right:12px;padding-left:12px;">'+(subMenu[i].name.split('||')[1] ? subMenu[i].name.split('||')[1].split('$$')[1] : '')+'</span></div>'+
+					'<div style="position:absolute;left:0px;top:109px;height:54px;line-height:54px;width:566px;text-align:center;color:#999cb0;font-size:23px;">'+(subMenu[i].name.split('||')[2] ? subMenu[i].name.split('||')[2] : '')+'</div>'
+
+					: 
+					''
+				)+
+				(subMenu[i].typeContent==1 ? '<div id="contentItemText'+i+'" style="position:absolute;width:'+subMenu[i].width+'px;height:74px;line-height:104px;left:0px;top:'+(subMenu[i].height-74)+'px;overflow:hidden;text-align:left;font-size:21px;color:#ffffff;'+(!!subMenu[i].textBg ? 'background:url('+subMenu[i].textBg+') left bottom no-repeat;':'')+'"><!--<marquee scrollamount="3" behavior="alternate" width="'+subMenu[i].width+'" style="width: '+subMenu[i].width+'px;">'+subMenu[i].name+'</marquee>--><span style="padding-left:10px;padding-right:10px;">'+subMenu[i].name+'</span></div>' : '')
+			+'</div>';
 		}
 		$("content").innerHTML = s;
 
@@ -469,11 +499,18 @@ var subMenuObj = {
 		$('contentItem'+this.subPos).style.webkitTransform='scale(1.08,1.08)';
 		// $('content_focus').style.transform='scale(1.08,1.08)';
 		// $('content_focus').style.webkitTransform='scale(1.08,1.08)';
+		if($('contentItemText'+this.subPos)){//滚动
+			$('contentItemText'+this.subPos).innerHTML='<marquee scrollamount="3" behavior="alternate" width="'+subMenu[this.subPos].width+'" style="width: '+subMenu[this.subPos].width+'px;">'+subMenu[this.subPos].name+'</marquee>';
+		}
 	},
 	beforeUpdateFocus:function(){
 		$('contentItem'+this.subPos).style.zIndex=0;
 		$('contentItem'+this.subPos).style.transform='scale(1,1)';
 		$('contentItem'+this.subPos).style.webkitTransform='scale(1,1)';
+
+		if($('contentItemText'+this.subPos)){//普通文字
+			$('contentItemText'+this.subPos).innerHTML='<span style="padding-left:10px;padding-right:10px;">'+subMenu[this.subPos].name+'</span>';
+		}
 		// $('content_focus').style.transform='scale(1,1)';
 		// $('content_focus').style.webkitTransform='scale(1,1)';
 	},

@@ -82,6 +82,8 @@ var contentLayoutModeData={ //内容布局模版数据
 
 var menuPos = 0;//当前选择的菜单位置
 menuPos=Q.getInt("menuPos",0);
+var menuId=0;//当前选择的菜单id
+menuId=Q.getInt('menuId',0);
 var leagueId =0;
 leagueId = Q.getInt('leagueId',0);
 
@@ -226,11 +228,13 @@ function formatMenuData(json){
 	mainMenu=[];
 	//mainMenu=json.indexJson;
 	mainMenu=index_second_menu_data;
-	// for(var i=0,len=mainMenu.length;i<len;i++){
-		//id
-		//name
-		//link
-	// }
+
+	for(var i=0,len=mainMenu.length;i<len;i++){
+		if(mainMenu[i].id===menuId){
+			menuPos=i; //设置选择的菜单位置
+		}
+	}
+
 	
 	menuObj.init();
 
@@ -331,9 +335,12 @@ var menuObj={
 		contral.focus();
 	},
 	enter:function(){
-		alert(mainMenu[menuBox.position].link);
-		return 0;
-		var url=mainMenu[menuBox.position].link+'?leagueId='+leagueId+'&backUrl='+Q.encode(backUrl);
+		// if(mainMenu[menuBox.position].id==menuId){
+		// 	return 0;
+		// }
+		// alert(mainMenu[menuBox.position].link);
+		// return 0;
+		var url=mainMenu[menuBox.position].link+'?menuId='+mainMenu[menuBox.position].id+'&leagueId='+leagueId+'&backUrl='+Q.encode(backUrl);
 		location.replace(url);
 	}
 

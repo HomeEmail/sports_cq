@@ -11,17 +11,17 @@ var index_second_menu_data=[
 	},
 	{
 		name:'回看',
-		id:1,
+		id:2,
 		link:'lookBack_second.html'
 	},
 	{
 		name:'赛事集锦',
-		id:1,
+		id:3,
 		link:'matchCollection_second.html'
 	},
 	{
 		name:'榜单',
-		id:1,
+		id:4,
 		link:'topList_second.html'
 	}
 ];

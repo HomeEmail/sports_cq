@@ -552,34 +552,7 @@ var listObj={
 		if(this.currentRowIndex>=(this.rowNum-1)) return true;
 		return false;
 	},
-	outUp:function(){
-		this.blur();
-		contral=menuObj;
-		menuObj.focus();
-	},//将要跳出本交互模块的处理
-	outDown:function(){//下一页
-		this.outRight();
-	},
-	outLeft:function(){//上一页
-		console.log('last page');
-		this.currentPage--;
-		if(!!listData['page'+this.currentPage]){
-			this.currentPageData=listData['page'+this.currentPage];
-			listObj.init();
-			listObj.render();
-			listObj.resetFocusInfo();
-			listObj.focus();
-			return 0;
-		}
-		// getContentData(
-		// 	listObj.currentPage,
-		// 	function(){
-		// 		listObj.focus();
-		// 	}
-		// );
-		
-	},//将要跳出本交互模块的处理
-	outRight:function(){//下一页
+	nextPage:function(){//下一页
 		console.log('next page');
 		this.currentPage++;
 		if(!!listData['page'+this.currentPage]){
@@ -597,11 +570,46 @@ var listObj={
 		// 		listObj.focus();
 		// 	}
 		// );
+
+	},
+	lastPage:function(){//上一页
+		console.log('last page');
+		this.currentPage--;
+		if(!!listData['page'+this.currentPage]){
+			this.currentPageData=listData['page'+this.currentPage];
+			listObj.init();
+			listObj.render();
+			listObj.resetFocusInfo();
+			listObj.focus();
+			return 0;
+		}
+		// getContentData(
+		// 	listObj.currentPage,
+		// 	function(){
+		// 		listObj.focus();
+		// 	}
+		// );
+	},
+	outUp:function(){
+		this.blur();
+		contral=menuObj;
+		menuObj.focus();
+	},//将要跳出本交互模块的处理
+	outDown:function(){
+	},
+	outLeft:function(){
+		
+	},//将要跳出本交互模块的处理
+	outRight:function(){
 		
 	},//将要跳出本交互模块的处理
 	left:function(){
 		if(this.isTouchLeft()){
-			this.outLeft();
+			if(this.currentPage<=1){
+				this.outLeft();
+				return 0;
+			}
+			this.lastPage();
 			return 0;
 		}
 		this.blur();
@@ -611,7 +619,11 @@ var listObj={
 	},
 	right:function(){
 		if(this.isTouchRight()||!!!this.currentPageData[this.index+1]){
-			this.outRight();
+			if(this.currentPage==this.totalPage){
+				this.outRight();
+				return 0;
+			}
+			this.nextPage();
 			return 0;
 		}
 		this.blur();
@@ -634,7 +646,11 @@ var listObj={
 	},
 	down:function(){
 		if(this.isTouchBottom()){
-			this.outDown();
+			if(this.currentPage==this.totalPage){
+				this.outDown();
+				return 0;
+			}
+			this.nextPage();
 			return 0;
 		}
 		if(!!!this.currentPageData[this.index+this.colNum]){//无数据,光标不移动

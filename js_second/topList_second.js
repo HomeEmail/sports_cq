@@ -410,17 +410,17 @@ function formatContentData(json,fn){//绑定内容数据
 var listObj={
 	wrapperId:'contentWrapper',//外层div id
 	itemId:'listItem',//每项 dom id的名称前缀
-	rowNum:2,//行数
-	colNum:3,//列数
-	itemWidth:333,//每一项的宽度px
-	itemHeight:237,//每一项的高度px
-	initTop:133,//初始top值px
-	initLeft:103,//初始left值px
-	rowMargin:37,//行之间间隙距离px
-	colMargin:37,//列之间间隙距离px
-	focusDivLeftOffset:-4,//光标left偏移值px
-	focusDivTopOffset:-4,//光标top偏移值px
-	pageSize:6,
+	rowNum:10,//行数
+	colNum:1,//列数
+	itemWidth:990,//每一项的宽度px
+	itemHeight:50,//每一项的高度px
+	initTop:173,//初始top值px
+	initLeft:223,//初始left值px
+	rowMargin:0,//行之间间隙距离px
+	colMargin:0,//列之间间隙距离px
+	focusDivLeftOffset:-2,//光标left偏移值px
+	focusDivTopOffset:-2,//光标top偏移值px
+	pageSize:10,
 	currentPage:1,
 	totalPage:1,
 	currentPageData:[
@@ -482,14 +482,68 @@ var listObj={
 		}
 	},
 	renderHtml : function(){
+		//return 0;
 		var s='';
+		var st='';
 		var item=[];
 		var dataIndex=0;
+
+		var colTitleAry=[
+			{
+				w:80,name:'排名'
+			},
+			{
+				w:250,name:'球队'
+			},
+			{
+				w:80,name:'场次'
+			},
+			{
+				w:80,name:'积分'
+			},
+			{
+				w:80,name:'胜'
+			},
+			{
+				w:80,name:'平'
+			},
+			{
+				w:80,name:'负'
+			},
+			{
+				w:80,name:'进球'
+			},
+			{
+				w:80,name:'失球'
+			},
+			{
+				w:100,name:'净胜球'
+			}
+		];
+		st='<div style="position: absolute;z-index: 2;top: 107px;left: 223px;width: 990px;height: 66px;">';
+		var newLeft=0;
+		for(var ii=0;ii<colTitleAry.length;ii++){
+			st+='<div style="position: absolute;height: 66px;line-height: 66px;color: #a2abdf;font-size: 24px;width: '+colTitleAry[ii].w+'px;left:'+(newLeft)+'px;top: 0px;text-align: center;">'+colTitleAry[ii].name+'</div>'
+			newLeft+=colTitleAry[ii].w;
+		}
+		st+='</div>';
+
 		for(var i=0;i<this.rowNum;i++){
 			for(var j=0;j<this.colNum;j++){
 				dataIndex=i*this.colNum+j;//数据数组下标
 				if(!!!this.currentPageData[dataIndex]) break;//没数据了
 				item=[
+					'<div id="'+this.itemId+'_'+(dataIndex)+'" style="position:absolute;z-index:2;top:'+(this.initTop+(this.itemHeight*i)+(i*this.rowMargin))+'px;left:223px;width:990px;height:50px;display:block;">',
+						'<div id="'+this.itemId+'Focus'+(dataIndex)+'" class="smooth" style="position:absolute; top:-2px; left:-2px; width:990px; height:50px; z-index:2; display:none;opacity:1;visibility: visible;  border:2px #ffffff solid; background: url(images_second/topList_bg_on.png) no-repeat;"></div>',
+						'<div style="position: absolute;height: 50px;line-height: 50px;color: #ffffff;font-size: 24px;width: 80px;left:0px;top: 0px;text-align: center;z-index: 3;overflow: hidden;">1</div>',
+						'<div style="position: absolute;height: 50px;line-height: 50px;color: #ffffff;font-size: 24px;width: 250px;left:80px;top: 0px;text-align: center;z-index: 3;overflow: hidden;">',
+							'<div style="position: absolute;left:0px;top:0px;width: 50px;height: 30px;line-height: 30px;padding: 10px 5px;overflow: hidden;text-align: center;"><img src="images_second/player1.png" height="30" /></div><div style="position: absolute;left: 60px;top:0px;width: 170px;height: 50px;line-height: 50px;text-align: left;padding: 0px 10px;">索朗多吉哈德第</div>',
+						'</div>',
+
+					'</div>'
+				];
+
+				/*item=[
 					'<div id="'+this.itemId+'_'+(dataIndex)+'" style="position:absolute;top:'+(this.initTop+(this.itemHeight*i)+(i*this.rowMargin))+'px;left:'+(this.initLeft+(this.itemWidth*j)+(j*this.colMargin))+'px;width:'+(this.itemWidth+0)+'px;height:'+(this.itemHeight+0)+'px;">',
 						'<div style="width:'+this.itemWidth+'px;height:'+this.itemHeight+'px;overflow:hidden;"><img src="'+(!this.currentPageData[dataIndex].img?'':this.currentPageData[dataIndex].img)+'" width="'+this.itemWidth+'" /></div>',
 						'<div id="'+this.itemId+'TextMask'+(dataIndex)+'" style="width:'+this.itemWidth+'px;height:50px;line-height:50px;font-size:20px;position:absolute;left:0px;top:'+(this.itemHeight-50)+'px;background:url(./images_second/lookBack_word_bg.png);color:#a2a9c6;overflow:hidden;">',
@@ -497,14 +551,14 @@ var listObj={
 						'</div>',
 						'<div id="'+this.itemId+'Focus'+(dataIndex)+'" style="position:absolute;left:'+this.focusDivLeftOffset+'px;top:'+this.focusDivTopOffset+'px;width:'+(this.itemWidth+0)+'px;height:'+(this.itemHeight+0)+'px;display:none;z-index:5;border:4px #ffffff solid;"></div>',
 					'</div>'
-				];
+				];*/
 				s+=item.join('');
 			}
 		}
 		if(this.currentPageData.length<=0){
 			s='<div style="height:60px;color: #cccccc;font-size: 20px;text-align: center;padding-top: 200px;">无数据（小编会努力补上的~~）</div>';
 		}
-		$(this.wrapperId).innerHTML=s;
+		$(this.wrapperId).innerHTML=st+s;
 	},
 	generateMarquee:function(text){
 		return '<marquee scrollamount="3" behavior="alternate" width="'+this.itemWidth+'" style="width: '+this.itemWidth+'px;">'+text+'</marquee>';
@@ -513,16 +567,16 @@ var listObj={
 		return '<span style="padding-left:10px;padding-right:10px;">'+text+'</span>';
 	},
 	afterFocus:function(){
-		var s='';
+		/*var s='';
 		if(Util.str.getStrBite(this.currentPageData[this.index].name)>15){
 			s=this.generateMarquee(this.currentPageData[this.index].name);
 		}else{
 			s=this.generateItemName(this.currentPageData[this.index].name);
 		}
-		$(this.itemId+'TextMask'+this.index).innerHTML=s;
+		$(this.itemId+'TextMask'+this.index).innerHTML=s;*/
 	},
 	afterBlur:function(){
-		$(this.itemId+'TextMask'+this.index).innerHTML=this.generateItemName(this.currentPageData[this.index].name);
+		//$(this.itemId+'TextMask'+this.index).innerHTML=this.generateItemName(this.currentPageData[this.index].name);
 	},
 	focus:function(){
 		$(this.itemId+'Focus'+this.index).style.display='block';
@@ -552,7 +606,25 @@ var listObj={
 		if(this.currentRowIndex>=(this.rowNum-1)) return true;
 		return false;
 	},
-	nextPage:function(){//下一页
+	lastPage:function(){
+		console.log('last page');
+		this.currentPage--;
+		if(!!listData['page'+this.currentPage]){
+			this.currentPageData=listData['page'+this.currentPage];
+			listObj.init();
+			listObj.render();
+			listObj.resetFocusInfo();
+			listObj.focus();
+			return 0;
+		}
+		// getContentData(
+		// 	listObj.currentPage,
+		// 	function(){
+		// 		listObj.focus();
+		// 	}
+		// );	
+	},
+	nextPage:function(){
 		console.log('next page');
 		this.currentPage++;
 		if(!!listData['page'+this.currentPage]){
@@ -572,24 +644,6 @@ var listObj={
 		// );
 
 	},
-	lastPage:function(){//上一页
-		console.log('last page');
-		this.currentPage--;
-		if(!!listData['page'+this.currentPage]){
-			this.currentPageData=listData['page'+this.currentPage];
-			listObj.init();
-			listObj.render();
-			listObj.resetFocusInfo();
-			listObj.focus();
-			return 0;
-		}
-		// getContentData(
-		// 	listObj.currentPage,
-		// 	function(){
-		// 		listObj.focus();
-		// 	}
-		// );
-	},
 	outUp:function(){
 		this.blur();
 		contral=menuObj;
@@ -607,11 +661,7 @@ var listObj={
 	},//将要跳出本交互模块的处理
 	left:function(){
 		if(this.isTouchLeft()){
-			if(this.currentPage<=1){
-				this.outLeft();
-				return 0;
-			}
-			this.lastPage();
+			this.outLeft();
 			return 0;
 		}
 		this.blur();
@@ -621,11 +671,7 @@ var listObj={
 	},
 	right:function(){
 		if(this.isTouchRight()||!!!this.currentPageData[this.index+1]){
-			if(this.currentPage==this.totalPage){
-				this.outRight();
-				return 0;
-			}
-			this.nextPage();
+			this.outRight();
 			return 0;
 		}
 		this.blur();
@@ -635,7 +681,12 @@ var listObj={
 	},
 	up:function(){
 		if(this.isTouchTop()){
-			this.outUp();
+			if(this.currentPage==1){
+				this.outUp();
+			}else{
+				this.lastPage();
+			}
+			
 			return 0;
 		}
 		if(!!!this.currentPageData[this.index-this.colNum]){//无数据,光标不移动

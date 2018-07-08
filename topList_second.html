@@ -1,0 +1,95 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no"/>
+<meta name="page-view-size" content="1280*720" />
+<title>榜单-联赛</title>
+<style>
+body,html{
+	padding: 0;
+	margin: 0;
+}
+*{font-family: microsoft yahei;}
+.smooth {
+ /*-webkit-transition-duration:300ms,300ms,300ms,300ms;-webkit-transition-property: width,height,top,left;*/
+    transform: scale(1,1);
+    -webkit-transform: scale(1,1);
+    transition: transform 0.2s;
+    -webkit-transition: -webkit-transform 0.2s;
+ }
+.menu{
+	font-size:24px;
+	font-weight:bold;
+	color:#8285b6;
+	text-align:center;
+}
+
+</style>
+</head>
+
+<body onunload="pageOnunload();" onload="pageOnload();" style="background:url(images_second/bg.jpg) no-repeat; width:1280px; height:720px; overflow:hidden;">
+
+<!-- <div id="loadingDiv" class="smooth" style="position:absolute; top:320px; left:600px; width:139px; height:139px; z-index:10; visibility:hidden;">
+	<img src="./images/loading.gif" style="position:absolute; top:0px; left:0px;background: transparent;" />
+</div> -->
+<div style="position:absolute; top:31px; left:68px;height: 55px;width: auto;vertical-align: middle;">
+	<img id="league_logo" src="images_second/index_logo1.png" height="55" style="vertical-align: middle;" /><span id="league_name" style="padding:0px 15px;font-size: 23px;color:#6791d1;vertical-align: middle;">中超</span>
+	<div id="leagueOrderStatus" style="position: absolute;left: 20px;top:30px;background-color: #3da311;border-radius: 10px;text-align: center;font-size: 16px;color: #ffffff;height: 24px;line-height: 24px;width: 70px;">已订购</div>
+</div>
+
+<div id="Menu" style="position:absolute; top:0px; left:0px; width:1280px; height:120px;">
+	
+	<!--<img src="images/happyclass/logo/h1.png"style="position: absolute;top: 24px;left: 120px;"/> menu的菜单栏为图片-->
+
+	<div id="menu_content" style="position: absolute;top: 0px;left: 0px;width: 1280px;height: 120px;">
+	  	<!-- <div id="menu_0" class="menu" style="position:absolute; top:31px; left:287px; width:126px; height:55px;line-height: 55px;"></div> -->
+	</div>
+
+	<!-- <div id="menu_focus" style="position:absolute; top:26px; left:273px; width:157px; height:66px; background:url(images_second/menu-on.png) no-repeat; opacity:0;z-index:2;"></div> -->
+	<div id="menu_focus" style="position:absolute; top:31px; left:273px; width:149px; height:50px; border:4px #ffffff solid; border-radius: 30px; opacity:0;z-index:2;"></div>
+	
+</div>
+
+
+<!-- 右边内容 begin -->
+
+<img style="position: absolute;z-index: 1;left: 223px;top: 107px;" src="./images_second/topList_bg.png" />
+<div id="contentWrapper" style="position:absolute; top:0px; left:0px; width:1280px; height:720px;">
+	<div style="position: absolute;z-index: 2;top: 107px;left: 223px;width: 990px;height: 66px;">
+		<div style="position: absolute;height: 66px;line-height: 66px;color: #a2abdf;font-size: 24px;width: 80px;left:0px;top: 0px;text-align: center;">排名</div>
+		<div style="position: absolute;height: 66px;line-height: 66px;color: #a2abdf;font-size: 24px;width: 250px;left:80px;top: 0px;text-align: center;">球队</div>
+	</div>
+	<div style="position:absolute;z-index:2;top:173px;left:223px;width:990px;height:50px;display:block;">
+		<div id="listItemFocus0" class="smooth" style="position:absolute; top:-2px; left:-2px; width:990px; height:50px; z-index:2; display:block;opacity:1;visibility: visible;  border:2px #ffffff solid; background: url(images_second/topList_bg_on.png) no-repeat;"></div>
+		<div style="position: absolute;height: 50px;line-height: 50px;color: #ffffff;font-size: 24px;width: 80px;left:0px;top: 0px;text-align: center;z-index: 3;overflow: hidden;">1</div>
+		<div style="position: absolute;height: 50px;line-height: 50px;color: #ffffff;font-size: 24px;width: 250px;left:80px;top: 0px;text-align: center;z-index: 3;overflow: hidden;">
+			<div style="position: absolute;left:0px;top:0px;width: 50px;height: 30px;line-height: 30px;padding: 10px 5px;overflow: hidden;text-align: center;"><img src="images_second/player1.png" height="30" /></div><div style="position: absolute;left: 60px;top:0px;width: 170px;height: 50px;line-height: 50px;text-align: left;padding: 0px 10px;">索朗多吉哈德第</div>
+		</div>
+
+	</div>
+</div>
+
+<div id="pageNumNavText" style="position:absolute;left: 0px;top: 650px;color: #909090;font-size:30px;text-align: center;width: 1280px;opacity: 0;">1/1</div>
+
+<img style="position:absolute;left:60px;top:368px;opacity: 0;" src="./images_second/arrow_left.png" />
+<img style="position:absolute;left:60px;top:368px;opacity: 0;" src="./images_second/arrow_left.png" id="contentArrowLeft" />
+<img style="position:absolute;left:1195px;top:368px;opacity: 0;" src="./images_second/arrow_right.png" />
+<img style="position:absolute;left:1195px;top:368px;opacity: 0;" src="./images_second/arrow_right.png" id="contentArrowRight" />
+
+<!-- 右边内容 end -->
+
+
+
+
+</body>
+<script type="text/javascript" src="js_second/lib.js"></script>
+<script type="text/javascript" src="js_second/ajax.js"></script>
+<script type="text/javascript" src="js_second/keyEvent.js"></script>
+<script type="text/javascript" src="js_second/showList.js"></script>
+<script type="text/javascript" src="js_second/common.js"></script>
+<script type="text/javascript" src="js_second/config.js"></script>
+<script type="text/javascript" src="js_second/superMouse.js"></script>
+<script type="text/javascript" src="js_second/index_second_menu.js"></script>
+<script type="text/javascript" src="js_second/topList_second.js"></script>
+</html>

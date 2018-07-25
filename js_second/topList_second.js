@@ -28,40 +28,258 @@ var contentDataDemo={ //动态数据demo
 	totalPage:2,
 	data:[
 		{
-			imgUrl:'./images_second/lookBack_img1.png',
-			name:'中超第22轮 江苏苏宁易购-广州恒大的雷锋精神的放松',
-			id:''
+			imgUrl:'./images_second/player1.png',
+			name:'哈德森菲尔德瑟都等',
+			id:'',
+			index:1,
+			sessionIndex:3,
+			jifen:3,
+			sheng:1,
+			ping:2,
+			fu:3,
+			jinqiu:3,
+			shiqiu:2,
+			jingshengqiu:2
 		},
 		{
-			imgUrl:'./images_second/lookBack_img1.png',
-			name:'中超第22轮 江苏苏宁易购-广州恒大的雷锋精神的放松',
-			id:''
+			imgUrl:'./images_second/player1.png',
+			name:'哈德森菲尔德瑟都等',
+			id:'',
+			index:1,
+			sessionIndex:3,
+			jifen:3,
+			sheng:1,
+			ping:2,
+			fu:3,
+			jinqiu:3,
+			shiqiu:2,
+			jingshengqiu:2
 		},
 		{
-			imgUrl:'./images_second/lookBack_img1.png',
-			name:'中超第22轮 江苏苏宁易购-广州恒大的雷锋精神的放松',
-			id:''
+			imgUrl:'./images_second/player1.png',
+			name:'哈德森菲尔德瑟都等',
+			id:'',
+			index:1,
+			sessionIndex:3,
+			jifen:3,
+			sheng:1,
+			ping:2,
+			fu:3,
+			jinqiu:3,
+			shiqiu:2,
+			jingshengqiu:2
 		},
 		{
-			imgUrl:'./images_second/lookBack_img1.png',
-			name:'中超第22轮 江苏苏宁易购-广州恒大的雷锋精神的放松',
-			id:''
+			imgUrl:'./images_second/player1.png',
+			name:'哈德森菲尔德瑟都等',
+			id:'',
+			index:1,
+			sessionIndex:3,
+			jifen:3,
+			sheng:1,
+			ping:2,
+			fu:3,
+			jinqiu:3,
+			shiqiu:2,
+			jingshengqiu:2
 		},
 		{
-			imgUrl:'./images_second/lookBack_img1.png',
-			name:'中超第22轮 江苏苏宁易购-广州恒大的雷锋精神的放松',
-			id:''
+			imgUrl:'./images_second/player1.png',
+			name:'哈德森菲尔德瑟都等',
+			id:'',
+			index:1,
+			sessionIndex:3,
+			jifen:3,
+			sheng:1,
+			ping:2,
+			fu:3,
+			jinqiu:3,
+			shiqiu:2,
+			jingshengqiu:2
 		},
 		{
-			imgUrl:'./images_second/lookBack_img1.png',
-			name:'中超第22轮 江苏苏宁易购-广州恒大的雷锋精神的放松',
-			id:''
+			imgUrl:'./images_second/player1.png',
+			name:'哈德森菲尔德瑟都等',
+			id:'',
+			index:1,
+			sessionIndex:3,
+			jifen:3,
+			sheng:1,
+			ping:2,
+			fu:3,
+			jinqiu:3,
+			shiqiu:2,
+			jingshengqiu:2
+		},
+		{
+			imgUrl:'./images_second/player1.png',
+			name:'哈德森菲尔德瑟都等',
+			id:'',
+			index:1,
+			sessionIndex:3,
+			jifen:3,
+			sheng:1,
+			ping:2,
+			fu:3,
+			jinqiu:3,
+			shiqiu:2,
+			jingshengqiu:2
+		},
+		{
+			imgUrl:'./images_second/player1.png',
+			name:'哈德森菲尔德瑟都等',
+			id:'',
+			index:1,
+			sessionIndex:3,
+			jifen:3,
+			sheng:1,
+			ping:2,
+			fu:3,
+			jinqiu:3,
+			shiqiu:2,
+			jingshengqiu:2
+		},
+		{
+			imgUrl:'./images_second/player1.png',
+			name:'哈德森菲尔德瑟都等',
+			id:'',
+			index:1,
+			sessionIndex:3,
+			jifen:3,
+			sheng:1,
+			ping:2,
+			fu:3,
+			jinqiu:3,
+			shiqiu:2,
+			jingshengqiu:2
+		},
+		{
+			imgUrl:'./images_second/player1.png',
+			name:'哈德森菲尔德瑟都等',
+			id:'',
+			index:1,
+			sessionIndex:3,
+			jifen:3,
+			sheng:1,
+			ping:2,
+			fu:3,
+			jinqiu:3,
+			shiqiu:2,
+			jingshengqiu:2
 		}
 
 	]
 };
 
 
+var contentDataDemo1={ //动态数据demo //射手榜
+	imageProfix:'',
+	pageNo:1,
+	totalPage:2,
+	data:[
+		{
+			name:'哈德森菲尔德瑟都等',
+			id:'',
+			index:1,
+			qiudui:'莱斯特城',
+			totalNum:3,
+			putongNum:1,
+			dianqiuNum:2,
+			wulongNum:3
+		},
+		{
+			name:'哈德森菲尔德瑟都等',
+			id:'',
+			index:1,
+			qiudui:'莱斯特城',
+			totalNum:3,
+			putongNum:1,
+			dianqiuNum:2,
+			wulongNum:3
+		},
+		{
+			name:'哈德森菲尔德瑟都等',
+			id:'',
+			index:1,
+			qiudui:'莱斯特城',
+			totalNum:3,
+			putongNum:1,
+			dianqiuNum:2,
+			wulongNum:3
+		},
+		{
+			name:'哈德森菲尔德瑟都等',
+			id:'',
+			index:1,
+			qiudui:'莱斯特城',
+			totalNum:3,
+			putongNum:1,
+			dianqiuNum:2,
+			wulongNum:3
+		},
+		{
+			name:'哈德森菲尔德瑟都等',
+			id:'',
+			index:1,
+			qiudui:'莱斯特城',
+			totalNum:3,
+			putongNum:1,
+			dianqiuNum:2,
+			wulongNum:3
+		},
+		{
+			name:'哈德森菲尔德瑟都等',
+			id:'',
+			index:1,
+			qiudui:'莱斯特城',
+			totalNum:3,
+			putongNum:1,
+			dianqiuNum:2,
+			wulongNum:3
+		},
+		{
+			name:'哈德森菲尔德瑟都等',
+			id:'',
+			index:1,
+			qiudui:'莱斯特城',
+			totalNum:3,
+			putongNum:1,
+			dianqiuNum:2,
+			wulongNum:3
+		},
+		{
+			name:'哈德森菲尔德瑟都等',
+			id:'',
+			index:1,
+			qiudui:'莱斯特城',
+			totalNum:3,
+			putongNum:1,
+			dianqiuNum:2,
+			wulongNum:3
+		},
+		{
+			name:'哈德森菲尔德瑟都等',
+			id:'',
+			index:1,
+			qiudui:'莱斯特城',
+			totalNum:3,
+			putongNum:1,
+			dianqiuNum:2,
+			wulongNum:3
+		},
+		{
+			name:'哈德森菲尔德瑟都等',
+			id:'',
+			index:1,
+			qiudui:'莱斯特城',
+			totalNum:3,
+			putongNum:1,
+			dianqiuNum:2,
+			wulongNum:3
+		}
+
+	]
+};
 
 var menuPos = 0;//当前选择的菜单位置
 menuPos=Q.getInt("menuPos",0);
@@ -70,7 +288,6 @@ menuId=Q.getInt('menuId',0);
 var leagueId =0;
 leagueId = Q.getInt('leagueId',0);
 var pageNoInit=Q.getInt('pageNo',1);
-var rFpos=Q.getInt('rFpos','');
 
 function eventInit(_event){
 	if (_event.type=='keydown') {
@@ -227,20 +444,12 @@ function formatMenuData(json){
 	loadingObj.hide();
 
 	contral=menuObj;//控制交接给菜单  
-	contral.focus();   
+	contral.focus();  
 
-	getContentData(pageNoInit,function(){//此区域初始化 光标位置
-		if(rFpos!==''){ //表示页面初始光标在内容列表里
-			contral.blur();
-			listObj.index=rFpos;
-			listObj.setCurrentColAndRowByIndex();
-			contral=listObj;//控制交接   
-			contral.focus();   
-		}
-		
-	});
+	menuPad.init();
+
+	
 }
-
 
 var menuBox = null;
 function initMenuBox(){ //调用 showlist函数配置导航列表
@@ -274,9 +483,6 @@ function initMenuBox(){ //调用 showlist函数配置导航列表
 
 	
 }
-
-
-
 var menuObj={
 	initLeft:287,
 	itemWidth:182,
@@ -327,7 +533,7 @@ var menuObj={
 	},
 	outDown:function(){
 		this.blur();
-		contral=listObj;
+		contral=menuPad;
 		contral.focus();
 	},
 	enter:function(){
@@ -342,8 +548,175 @@ var menuObj={
 
 };
 
+//左边菜单 begin
+var menuPad={
+	listObj:null,
+	initLeft:80,
+	itemWidth:123,
+	initTop:150,
+	itemHeight:63,
+	showItemCount:5,//可视个数
+	initDataPos:0,
+	menuData:[
+		{name:'积分榜'},
+		{name:'射手榜'}
+	],
+	init:function(){
+		this.render();
+		this.initList({initFocusDataIndex:0});
+		this.updateContent();
+	},
+	render:function(){
+		var s='';
+		for(var i=0;i<this.showItemCount;i++){
+			s+='<div id="menuLeft_'+i+'" class="menu" style="position:absolute; top:'+(this.initTop+(i*this.itemHeight))+'px; left:'+(this.initLeft)+'px; width:'+this.itemWidth+'px; height:'+this.itemHeight+'px;z-index:3;line-height: '+this.itemHeight+'px;color:#7a8096;"></div>';
+		}
+		
+		$('menuLeft_content').innerHTML=s;
+	}
+	,initList:function(o){
+		var o=o||{};
+		var dataLen=this.menuData.length;//列表数据总总长度
+		var focusIndex=o.initFocusDataIndex||0;//初始化focus第几个数据
+		var itemHigh=63;//每项的高度或宽度
+		var sign=0;//1左右模式，0上下模式
+		var focusLoop=false;//true为循环，false为不循环
+		this.listObj=null;
+		this.listObj = new showList(this.showItemCount, dataLen, focusIndex,0, window);
+		this.listObj.focusDiv = 'menuLeft_focus';
+		this.listObj.listHigh = itemHigh; 
+		this.listObj.listSign = sign;
+	    this.listObj.focusLoop = focusLoop;  
+	    this.listObj.focusPos=0;//当前列表焦点的位置；
+	    this.listObj.position=this.initDataPos;//当前数据焦点的位置；
+		this.listObj.haveData = function(list){ //list.idPos:对象id,list.dataPos:数据id      
+			$("menuLeft_" + list.idPos).style.visibility = "visible";
+			$("menuLeft_" + list.idPos).innerHTML = menuPad.menuData[list.dataPos].name; 
+			if(list.dataPos==menuPad.listObj.position){
+				$("menuLeft_" + list.idPos).style.background='url(images_second/left_menu_bg.png) center center no-repeat';
+				$("menuLeft_" + list.idPos).style.color='#ffffff';
+			}else{
+				$("menuLeft_" + list.idPos).style.background='none';
+				$("menuLeft_" + list.idPos).style.color='#7a8096';
+			}
+		};
+		this.listObj.notData  = function(list){
+			$("menuLeft_" + list.idPos).style.visibility = "hidden";
+			$("menuLeft_" + list.idPos).innerHTML = "";
+		};
+		this.listObj.startShow();//去掉不移动
+	},
+	updateSelect:function(){
+		
+		$("menuLeft_" + this.listObj.lastFocusPos).style.background='none';
+		$("menuLeft_" + this.listObj.lastFocusPos).style.color='#7a8096';
+
+		$("menuLeft_" + this.listObj.focusPos).style.background='url(images_second/left_menu_bg.png) center center no-repeat';
+		$("menuLeft_" + this.listObj.focusPos).style.color='#ffffff';
+
+	}
+	,focus:function(){
+		$('menuLeft_focus').style.opacity=1;
+	}
+	,blur:function(){
+		$('menuLeft_focus').style.opacity=0;
+	}
+	,updateContent:function(){//更新右边内容
+		var that = this;
+		
+		if(this.listObj.position==0){//积分榜
+			if(!!menuPad.menuData[menuPad.listObj.position].currentPage&&!!listData['page'+menuPad.menuData[menuPad.listObj.position].currentPage]){
+				contentPad.currentPage=menuPad.menuData[menuPad.listObj.position].currentPage;
+				contentPad.totalPage=menuPad.menuData[menuPad.listObj.position].totalPage;
+				contentPad.currentPageData=listData['page'+contentPad.currentPage];
+				contentPad.init();
+				contentPad.render();
+				contentPad.resetFocusInfo();
+				return 0;
+			}
+			getContentData(pageNoInit,function(){//此区域初始化 光标位置
+
+				/*if(rFpos!==''){ //表示页面初始光标在内容列表里
+					contral.blur();
+					contentPad.index=rFpos;
+					contentPad.setCurrentColAndRowByIndex();
+					contral=contentPad;//控制交接   
+					contral.focus();   
+				}*/
+				
+			});
+		}
+		if(this.listObj.position==1){//射手榜
+			if(!!menuPad.menuData[menuPad.listObj.position].currentPage&&!!listData['pages'+menuPad.menuData[menuPad.listObj.position].currentPage]){
+				contentPad.currentPage=menuPad.menuData[menuPad.listObj.position].currentPage;
+				contentPad.totalPage=menuPad.menuData[menuPad.listObj.position].totalPage;
+				contentPad.currentPageData=listData['pages'+contentPad.currentPage];
+				contentPad.init();
+				contentPad.render1();
+				contentPad.resetFocusInfo();
+				return 0;
+			}
+			getContentData1(pageNoInit,function(){//此区域初始化 光标位置
+				
+			});
+		}
+	}
+	,outUp:function(){
+		this.blur();
+		contral=menuObj;
+		contral.focus();
+	}//将要跳出本交互模块的处理
+	,outDown:function(){}//将要跳出本交互模块的处理
+	,outLeft:function(){}//将要跳出本交互模块的处理
+	,outRight:function(){
+
+		if(menuPad.listObj.position==0&&!!!listData['page'+menuPad.menuData[menuPad.listObj.position].currentPage]){//右边没内容
+			return 0;
+		}
+		if(menuPad.listObj.position==1&&!!!listData['pages'+menuPad.menuData[menuPad.listObj.position].currentPage]){//右边没内容
+			return 0;
+		}
+
+		this.blur();
+		contral=contentPad;
+		contentPad.focus();
+	}//将要跳出本交互模块的处理
+	,left:function(){
+
+	},
+	right:function(){
+		this.outRight();
+	},
+	up:function(){
+		if(this.listObj.position<=0){
+			this.outUp();
+		}
+		this.listObj.up();
+		this.updateSelect();
+		this.updateContent();
+	},
+	down:function(){
+		if(this.listObj.position==this.menuData.length-1){
+			return 0;
+		}
+		this.listObj.down();
+		this.updateSelect();
+		this.updateContent();
+	},
+	enter:function(){
+		return 0;
+		
+		// alert(this.menuData[this.listObj.position].name);
+	},
+	inputNum:function(i){
+
+	}
+};
+//左边菜单 end
+
+
 var contentReq=null;
-function getContentData(pageNo,fn){//通过ajxa获取数据
+function getContentData(pageNo,fn){//通过ajxa获取数据 积分榜
 	formatContentData(contentDataDemo,fn);
 	return 0;
 
@@ -379,35 +752,130 @@ function getContentData(pageNo,fn){//通过ajxa获取数据
 	});
 }
 function formatContentData(json,fn){//绑定内容数据
-	listObj.currentPage=json.pageNo||1;
-	listObj.totalPage=json.totalPage||1;
-	listObj.currentPageData=[];
-	listData['page'+listObj.currentPage]=[];//缓存此页数据
+	contentPad.currentPage=json.pageNo||1;
+	contentPad.totalPage=json.totalPage||1;
+	menuPad.menuData[menuPad.listObj.position].currentPage=contentPad.currentPage;
+	menuPad.menuData[menuPad.listObj.position].totalPage=contentPad.totalPage;
+	contentPad.currentPageData=[];
+	listData['page'+contentPad.currentPage]=[];//缓存此页数据
 	for(var i=0,len=json.data.length;i<len;i++){
-		listObj.currentPageData.push({
+		contentPad.currentPageData.push({
 			img:json.data[i].imgUrl,
 			name:json.data[i].name,
-			id:json.data[i].id
+			id:json.data[i].id,
+			index:json.data[i].index,
+			sessionIndex:json.data[i].sessionIndex,
+			jifen:json.data[i].jifen,
+			sheng:json.data[i].sheng,
+			ping:json.data[i].ping,
+			fu:json.data[i].fu,
+			jinqiu:json.data[i].jinqiu,
+			shiqiu:json.data[i].shiqiu,
+			jingshengqiu:json.data[i].jingshengqiu
+		
 		});
 		//缓存此页数据
-		listData['page'+listObj.currentPage].push({
+		listData['page'+contentPad.currentPage].push({
 			img:json.data[i].imgUrl,
 			name:json.data[i].name,
-			id:json.data[i].id
+			id:json.data[i].id,
+			index:json.data[i].index,
+			sessionIndex:json.data[i].sessionIndex,
+			jifen:json.data[i].jifen,
+			sheng:json.data[i].sheng,
+			ping:json.data[i].ping,
+			fu:json.data[i].fu,
+			jinqiu:json.data[i].jinqiu,
+			shiqiu:json.data[i].shiqiu,
+			jingshengqiu:json.data[i].jingshengqiu
 		});
 	}
 
-	listObj.init();
-	listObj.render();
-	listObj.resetFocusInfo();
+	contentPad.init();
+	contentPad.render();
+	contentPad.resetFocusInfo();
 	!!fn&&fn();
 
 }
 
-//listObj
+
+
+function getContentData1(pageNo,fn){//通过ajxa获取数据 //射手榜
+	formatContentData1(contentDataDemo1,fn);
+	return 0;
+
+	if(contentReq){
+		contentReq.abort();
+		contentReq=null;
+	}
+	loadingObj.show();
+	var url=apiBasePath+'/ui/tv/index/select?menuId='+menuId+'&leagueId='+leagueId+'&pageNo='+pageNo;
+	contentReq=ajax({
+	    url: url,
+	    type: "GET", //HTTP 请求类型,GET或POST
+	    dataType: "html", //请求的文件类型html/xml
+	    onSuccess: function(html){ //请求成功后执行[可选]
+	    	contentReq=null;
+	        var json=eval('('+html+')');
+	        loadingObj.hide();
+
+	        if(parseInt(json.code,10)==1){
+	        	formatContentData1(json,fn);
+	        }else{
+	        	alert(json.message);
+	        }
+	    },
+	    onComplete:function(){
+	       
+	    },
+	    onError:function(){ //请求失败后执行[可选]
+	    	contentReq=null;
+	    },
+	    post:"",  
+	    timeout:70000  
+	});
+}
+function formatContentData1(json,fn){//绑定内容数据
+	contentPad.currentPage=json.pageNo||1;
+	contentPad.totalPage=json.totalPage||1;
+	menuPad.menuData[menuPad.listObj.position].currentPage=contentPad.currentPage;
+	menuPad.menuData[menuPad.listObj.position].totalPage=contentPad.totalPage;
+	contentPad.currentPageData=[];
+	listData['pages'+contentPad.currentPage]=[];//缓存此页数据
+	for(var i=0,len=json.data.length;i<len;i++){
+		contentPad.currentPageData.push({
+			name:json.data[i].name,
+			id:json.data[i].id,
+			index:json.data[i].index,
+			qiudui:json.data[i].qiudui,
+			totalNum:json.data[i].totalNum,
+			putongNum:json.data[i].putongNum,
+			dianqiuNum:json.data[i].dianqiuNum,
+			wulongNum:json.data[i].wulongNum
+		
+		});
+		//缓存此页数据
+		listData['pages'+contentPad.currentPage].push({
+			name:json.data[i].name,
+			id:json.data[i].id,
+			index:json.data[i].index,
+			qiudui:json.data[i].qiudui,
+			totalNum:json.data[i].totalNum,
+			putongNum:json.data[i].putongNum,
+			dianqiuNum:json.data[i].dianqiuNum,
+			wulongNum:json.data[i].wulongNum
+		});
+	}
+
+	contentPad.init();
+	contentPad.render1();
+	contentPad.resetFocusInfo();
+	!!fn&&fn();
+
+}
 
 //右边内容 begin
-var listObj={
+var contentPad={
 	wrapperId:'contentWrapper',//外层div id
 	itemId:'listItem',//每项 dom id的名称前缀
 	rowNum:10,//行数
@@ -468,17 +936,21 @@ var listObj={
 		this.renderHtml();
 		this.renderPageNav();
 	},
+	render1:function(){
+		this.renderHtml1();
+		this.renderPageNav();
+	},
 	renderPageNav:function(){
 		$('pageNumNavText').innerHTML=this.currentPage+'/'+this.totalPage;
 		if(this.currentPage<=1){
-			$('contentArrowLeft').style.display='none';
+			$('contentArrowUp').style.display='none';
 		}else{
-			$('contentArrowLeft').style.display='block';
+			$('contentArrowUp').style.display='block';
 		}
 		if(this.currentPage>=this.totalPage){
-			$('contentArrowRight').style.display='none';
+			$('contentArrowDown').style.display='none';
 		}else{
-			$('contentArrowRight').style.display='block';
+			$('contentArrowDown').style.display='block';
 		}
 	},
 	renderHtml : function(){
@@ -523,6 +995,7 @@ var listObj={
 		st='<div style="position: absolute;z-index: 2;top: 107px;left: 223px;width: 990px;height: 66px;">';
 		var newLeft=0;
 		for(var ii=0;ii<colTitleAry.length;ii++){
+			colTitleAry[ii].left=newLeft;
 			st+='<div style="position: absolute;height: 66px;line-height: 66px;color: #a2abdf;font-size: 24px;width: '+colTitleAry[ii].w+'px;left:'+(newLeft)+'px;top: 0px;text-align: center;">'+colTitleAry[ii].name+'</div>'
 			newLeft+=colTitleAry[ii].w;
 		}
@@ -535,23 +1008,88 @@ var listObj={
 				item=[
 					'<div id="'+this.itemId+'_'+(dataIndex)+'" style="position:absolute;z-index:2;top:'+(this.initTop+(this.itemHeight*i)+(i*this.rowMargin))+'px;left:223px;width:990px;height:50px;display:block;">',
 						'<div id="'+this.itemId+'Focus'+(dataIndex)+'" class="smooth" style="position:absolute; top:-2px; left:-2px; width:990px; height:50px; z-index:2; display:none;opacity:1;visibility: visible;  border:2px #ffffff solid; background: url(images_second/topList_bg_on.png) no-repeat;"></div>',
-						'<div style="position: absolute;height: 50px;line-height: 50px;color: #ffffff;font-size: 24px;width: 80px;left:0px;top: 0px;text-align: center;z-index: 3;overflow: hidden;">1</div>',
-						'<div style="position: absolute;height: 50px;line-height: 50px;color: #ffffff;font-size: 24px;width: 250px;left:80px;top: 0px;text-align: center;z-index: 3;overflow: hidden;">',
-							'<div style="position: absolute;left:0px;top:0px;width: 50px;height: 30px;line-height: 30px;padding: 10px 5px;overflow: hidden;text-align: center;"><img src="images_second/player1.png" height="30" /></div><div style="position: absolute;left: 60px;top:0px;width: 170px;height: 50px;line-height: 50px;text-align: left;padding: 0px 10px;">索朗多吉哈德第</div>',
+						'<div style="position: absolute;height: 50px;line-height: 50px;color: #ffffff;font-size: 24px;width: '+colTitleAry[0].w+'px;left:'+colTitleAry[0].left+'px;top: 0px;text-align: center;z-index: 3;overflow: hidden;">'+this.currentPageData[dataIndex].index+'</div>',
+						'<div style="position: absolute;height: 50px;line-height: 50px;color: #ffffff;font-size: 24px;width: '+colTitleAry[1].w+'px;left:'+colTitleAry[1].left+'px;top: 0px;text-align: center;z-index: 3;overflow: hidden;">',
+							'<div style="position: absolute;left:0px;top:0px;width: 50px;height: 30px;line-height: 30px;padding: 10px 5px;overflow: hidden;text-align: center;"><img src="'+this.currentPageData[dataIndex].img+'" height="30" /></div><div style="position: absolute;left: 60px;top:0px;width: 170px;height: 50px;line-height: 50px;text-align: left;padding: 0px 10px;">'+this.currentPageData[dataIndex].name+'</div>',
 						'</div>',
+						'<div style="position: absolute;height: 50px;line-height: 50px;color: #ffffff;font-size: 24px;width: '+colTitleAry[2].w+'px;left:'+colTitleAry[2].left+'px;top: 0px;text-align: center;z-index: 3;overflow: hidden;">'+this.currentPageData[dataIndex].sessionIndex+'</div>',
+						'<div style="position: absolute;height: 50px;line-height: 50px;color: #ffffff;font-size: 24px;width: '+colTitleAry[3].w+'px;left:'+colTitleAry[3].left+'px;top: 0px;text-align: center;z-index: 3;overflow: hidden;">'+this.currentPageData[dataIndex].jifen+'</div>',
+						'<div style="position: absolute;height: 50px;line-height: 50px;color: #ffffff;font-size: 24px;width: '+colTitleAry[4].w+'px;left:'+colTitleAry[4].left+'px;top: 0px;text-align: center;z-index: 3;overflow: hidden;">'+this.currentPageData[dataIndex].sheng+'</div>',
+						'<div style="position: absolute;height: 50px;line-height: 50px;color: #ffffff;font-size: 24px;width: '+colTitleAry[5].w+'px;left:'+colTitleAry[5].left+'px;top: 0px;text-align: center;z-index: 3;overflow: hidden;">'+this.currentPageData[dataIndex].ping+'</div>',
+						'<div style="position: absolute;height: 50px;line-height: 50px;color: #ffffff;font-size: 24px;width: '+colTitleAry[6].w+'px;left:'+colTitleAry[6].left+'px;top: 0px;text-align: center;z-index: 3;overflow: hidden;">'+this.currentPageData[dataIndex].fu+'</div>',
+						'<div style="position: absolute;height: 50px;line-height: 50px;color: #ffffff;font-size: 24px;width: '+colTitleAry[7].w+'px;left:'+colTitleAry[7].left+'px;top: 0px;text-align: center;z-index: 3;overflow: hidden;">'+this.currentPageData[dataIndex].jinqiu+'</div>',
+						'<div style="position: absolute;height: 50px;line-height: 50px;color: #ffffff;font-size: 24px;width: '+colTitleAry[8].w+'px;left:'+colTitleAry[8].left+'px;top: 0px;text-align: center;z-index: 3;overflow: hidden;">'+this.currentPageData[dataIndex].shiqiu+'</div>',
+						'<div style="position: absolute;height: 50px;line-height: 50px;color: #ffffff;font-size: 24px;width: '+colTitleAry[9].w+'px;left:'+colTitleAry[9].left+'px;top: 0px;text-align: center;z-index: 3;overflow: hidden;">'+this.currentPageData[dataIndex].jingshengqiu+'</div>',
 
 					'</div>'
 				];
 
-				/*item=[
-					'<div id="'+this.itemId+'_'+(dataIndex)+'" style="position:absolute;top:'+(this.initTop+(this.itemHeight*i)+(i*this.rowMargin))+'px;left:'+(this.initLeft+(this.itemWidth*j)+(j*this.colMargin))+'px;width:'+(this.itemWidth+0)+'px;height:'+(this.itemHeight+0)+'px;">',
-						'<div style="width:'+this.itemWidth+'px;height:'+this.itemHeight+'px;overflow:hidden;"><img src="'+(!this.currentPageData[dataIndex].img?'':this.currentPageData[dataIndex].img)+'" width="'+this.itemWidth+'" /></div>',
-						'<div id="'+this.itemId+'TextMask'+(dataIndex)+'" style="width:'+this.itemWidth+'px;height:50px;line-height:50px;font-size:20px;position:absolute;left:0px;top:'+(this.itemHeight-50)+'px;background:url(./images_second/lookBack_word_bg.png);color:#a2a9c6;overflow:hidden;">',
-							'<span style="padding-left:10px;padding-right:10px;">'+this.currentPageData[dataIndex].name+'</span>',
-						'</div>',
-						'<div id="'+this.itemId+'Focus'+(dataIndex)+'" style="position:absolute;left:'+this.focusDivLeftOffset+'px;top:'+this.focusDivTopOffset+'px;width:'+(this.itemWidth+0)+'px;height:'+(this.itemHeight+0)+'px;display:none;z-index:5;border:4px #ffffff solid;"></div>',
+			
+				s+=item.join('');
+			}
+		}
+		if(this.currentPageData.length<=0){
+			s='<div style="height:60px;color: #cccccc;font-size: 20px;text-align: center;padding-top: 200px;">无数据（小编会努力补上的~~）</div>';
+		}
+		$(this.wrapperId).innerHTML=st+s;
+	},
+	renderHtml1 : function(){
+		var s='';
+		var st='';
+		var item=[];
+		var dataIndex=0;
+
+		var colTitleAry=[
+			{
+				w:80,name:'排名'
+			},
+			{
+				w:230,name:'球员'
+			},
+			{
+				w:200,name:'球队'
+			},
+			{
+				w:120,name:'总进球数'
+			},
+			{
+				w:120,name:'普通球数'
+			},
+			{
+				w:120,name:'点球'
+			},
+			{
+				w:120,name:'乌龙球'
+			}
+		];
+		st='<div style="position: absolute;z-index: 2;top: 107px;left: 223px;width: 990px;height: 66px;">';
+		var newLeft=0;
+		for(var ii=0;ii<colTitleAry.length;ii++){
+			colTitleAry[ii].left=newLeft;
+			st+='<div style="position: absolute;height: 66px;line-height: 66px;color: #a2abdf;font-size: 24px;width: '+colTitleAry[ii].w+'px;left:'+(newLeft)+'px;top: 0px;text-align: center;">'+colTitleAry[ii].name+'</div>'
+			newLeft+=colTitleAry[ii].w;
+		}
+		st+='</div>';
+
+		for(var i=0;i<this.rowNum;i++){
+			for(var j=0;j<this.colNum;j++){
+				dataIndex=i*this.colNum+j;//数据数组下标
+				if(!!!this.currentPageData[dataIndex]) break;//没数据了
+				item=[
+					'<div id="'+this.itemId+'_'+(dataIndex)+'" style="position:absolute;z-index:2;top:'+(this.initTop+(this.itemHeight*i)+(i*this.rowMargin))+'px;left:223px;width:990px;height:50px;display:block;">',
+						'<div id="'+this.itemId+'Focus'+(dataIndex)+'" class="smooth" style="position:absolute; top:-2px; left:-2px; width:990px; height:50px; z-index:2; display:none;opacity:1;visibility: visible;  border:2px #ffffff solid; background: url(images_second/topList_bg_on.png) no-repeat;"></div>',
+						'<div style="position: absolute;height: 50px;line-height: 50px;color: #ffffff;font-size: 24px;width: '+(colTitleAry[0].w-20)+'px;padding:0px 10px;left:'+colTitleAry[0].left+'px;top: 0px;text-align: center;z-index: 3;overflow: hidden;">'+this.currentPageData[dataIndex].index+'</div>',
+						'<div style="position: absolute;height: 50px;line-height: 50px;color: #ffffff;font-size: 24px;width: '+(colTitleAry[1].w-20)+'px;padding:0px 10px;left:'+colTitleAry[1].left+'px;top: 0px;text-align: center;z-index: 3;overflow: hidden;">'+this.currentPageData[dataIndex].name+'</div>',
+						'<div style="position: absolute;height: 50px;line-height: 50px;color: #ffffff;font-size: 24px;width: '+(colTitleAry[2].w-20)+'px;padding:0px 10px;left:'+colTitleAry[2].left+'px;top: 0px;text-align: center;z-index: 3;overflow: hidden;">'+this.currentPageData[dataIndex].qiudui+'</div>',
+						'<div style="position: absolute;height: 50px;line-height: 50px;color: #ffffff;font-size: 24px;width: '+(colTitleAry[3].w-20)+'px;padding:0px 10px;left:'+colTitleAry[3].left+'px;top: 0px;text-align: center;z-index: 3;overflow: hidden;">'+this.currentPageData[dataIndex].totalNum+'</div>',
+						'<div style="position: absolute;height: 50px;line-height: 50px;color: #ffffff;font-size: 24px;width: '+(colTitleAry[4].w-20)+'px;padding:0px 10px;left:'+colTitleAry[4].left+'px;top: 0px;text-align: center;z-index: 3;overflow: hidden;">'+this.currentPageData[dataIndex].putongNum+'</div>',
+						'<div style="position: absolute;height: 50px;line-height: 50px;color: #ffffff;font-size: 24px;width: '+(colTitleAry[5].w-20)+'px;padding:0px 10px;left:'+colTitleAry[5].left+'px;top: 0px;text-align: center;z-index: 3;overflow: hidden;">'+this.currentPageData[dataIndex].dianqiuNum+'</div>',
+						'<div style="position: absolute;height: 50px;line-height: 50px;color: #ffffff;font-size: 24px;width: '+(colTitleAry[6].w-20)+'px;padding:0px 10px;left:'+colTitleAry[6].left+'px;top: 0px;text-align: center;z-index: 3;overflow: hidden;">'+this.currentPageData[dataIndex].wulongNum+'</div>',
+
 					'</div>'
-				];*/
+				];
+
+			
 				s+=item.join('');
 			}
 		}
@@ -580,8 +1118,8 @@ var listObj={
 	},
 	focus:function(){
 		$(this.itemId+'Focus'+this.index).style.display='block';
-		$(this.itemId+'_'+this.index).style.transform='scale(1.06,1.06)';
-		$(this.itemId+'_'+this.index).style.webkitTransform='scale(1.06,1.06)';
+		$(this.itemId+'_'+this.index).style.transform='scale(1.02,1.02)';
+		$(this.itemId+'_'+this.index).style.webkitTransform='scale(1.02,1.02)';
 		this.afterFocus&&this.afterFocus();
 	},
 	blur:function(){
@@ -609,39 +1147,80 @@ var listObj={
 	lastPage:function(){
 		console.log('last page');
 		this.currentPage--;
-		if(!!listData['page'+this.currentPage]){
-			this.currentPageData=listData['page'+this.currentPage];
-			listObj.init();
-			listObj.render();
-			listObj.resetFocusInfo();
-			listObj.focus();
-			return 0;
+		menuPad.menuData[menuPad.listObj.position].currentPage=this.currentPage;
+		if(menuPad.listObj.position==0){
+			if(!!listData['page'+this.currentPage]){
+				this.currentPageData=listData['page'+this.currentPage];
+				contentPad.init();
+				contentPad.render();
+				contentPad.resetFocusInfo();
+				contentPad.focus();
+				return 0;
+			}
+
+			// getContentData(
+			// 	contentPad.currentPage,
+			// 	function(){
+			// 		contentPad.focus();
+			// 	}
+			// );
 		}
-		// getContentData(
-		// 	listObj.currentPage,
-		// 	function(){
-		// 		listObj.focus();
-		// 	}
-		// );	
+		if(menuPad.listObj.position==1){
+			if(!!listData['pages'+this.currentPage]){
+				this.currentPageData=listData['pages'+this.currentPage];
+				contentPad.init();
+				contentPad.render1();
+				contentPad.resetFocusInfo();
+				contentPad.focus();
+				return 0;
+			}
+
+			// getContentData1(
+			// 	contentPad.currentPage,
+			// 	function(){
+			// 		contentPad.focus();
+			// 	}
+			// );
+		}
 	},
 	nextPage:function(){
 		console.log('next page');
 		this.currentPage++;
-		if(!!listData['page'+this.currentPage]){
-			this.currentPageData=listData['page'+this.currentPage];
-			listObj.init();
-			listObj.render();
-			listObj.resetFocusInfo();
-			listObj.focus();
-			return 0;
-		}
+		menuPad.menuData[menuPad.listObj.position].currentPage=this.currentPage;
+		if(menuPad.listObj.position==0){
+			if(!!listData['page'+this.currentPage]){
+				this.currentPageData=listData['page'+this.currentPage];
+				contentPad.init();
+				contentPad.render();
+				contentPad.resetFocusInfo();
+				contentPad.focus();
+				return 0;
+			}
 
-		// getContentData(
-		// 	listObj.currentPage,
-		// 	function(){
-		// 		listObj.focus();
-		// 	}
-		// );
+			// getContentData(
+			// 	contentPad.currentPage,
+			// 	function(){
+			// 		contentPad.focus();
+			// 	}
+			// );
+		}
+		if(menuPad.listObj.position==1){
+			if(!!listData['pages'+this.currentPage]){
+				this.currentPageData=listData['pages'+this.currentPage];
+				contentPad.init();
+				contentPad.render1();
+				contentPad.resetFocusInfo();
+				contentPad.focus();
+				return 0;
+			}
+
+			// getContentData1(
+			// 	contentPad.currentPage,
+			// 	function(){
+			// 		contentPad.focus();
+			// 	}
+			// );
+		}
 
 	},
 	outUp:function(){
@@ -653,7 +1232,9 @@ var listObj={
 		
 	},
 	outLeft:function(){
-		
+		this.blur();
+		contral=menuPad;
+		contral.focus();
 		
 	},//将要跳出本交互模块的处理
 	outRight:function(){
@@ -719,7 +1300,7 @@ var listObj={
 
 		var backUrl=location.href;//'index.html?menuPos='+menuBox.position;
 
-		backUrl=createUrlByObject(backUrl,{pageNo:this.currentPage,menuId:menuId,rFpos:this.index});
+		backUrl=createUrlByObject(backUrl,{pageNo:this.currentPage,menuId:menuId});
 
 		var url='';		
 

@@ -1,6 +1,7 @@
 // JavaScript Document
+//showTips('网络异常',6000,24,{zIndex:10,left:'',top:'',width:'',height:'',background:'',backgroundColor:''});
 var timerTip = null;
-function showTips(strs,times,fontSize,obj){
+function showTips(strs,times,fontSize,obj){//times<=0 毫秒 提示将不会自动消失
 	var el=$('tips_id');
 	var zIndex=!!obj?(obj.zIndex||10):10;
 	var left=!!obj?(obj.left||'426px'):'426px';
@@ -18,6 +19,7 @@ function showTips(strs,times,fontSize,obj){
 	if(!!!el){
 
 		el=document.createElement('div');
+		el.id='tips_id';
 		el.style.position='absolute';
 		el.style.zIndex=zIndex;
 		el.style.left=left;

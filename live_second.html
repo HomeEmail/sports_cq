@@ -1,0 +1,176 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta http-equiv="pragma" content="no-cache" />
+<meta http-equiv="cache-control" content="no-cache"/>
+<meta http-equiv="expires" content="0"/>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<meta name="viewport" content="width=1280,height=720" />
+<title>直播播放器</title>
+<style>
+body,html{
+	padding: 0;
+	margin: 0;
+}
+*{ font-family: "Microsoft YaHei"; margin: 0px; padding: 0px; }
+
+</style>
+</head>
+
+<body onUnload="release()" style="background:transparent; width:1280px; height:720px; overflow:hidden; position:relative;">
+
+	<div id="loadingDiv" style="position:absolute; top:250px; left:500px; width:334px; height:122px; z-index:10;background: url(images_second/loading_bg.png) left top no-repeat; visibility:hidden;">
+		<!-- <img src="./images_second/loading_bg.png" style="position:absolute; top:0px; left:0px;background: transparent;" /> -->
+		<div style="line-height: 122px;color: #ffffff;font-size: 26px;text-align: center;">加载中...</div>
+	</div>
+
+
+</body>
+<script type="text/javascript" src="./js_second/lib.js"></script>
+<script type="text/javascript" src="./js_second/ajax.js"></script>
+<script type="text/javascript" src="./js_second/keyEvent.js"></script>
+<script type="text/javascript" src="js_second/showList.js"></script>
+<script type="text/javascript" src="js_second/common.js"></script>
+<script type="text/javascript" src="js_second/showTips.js"></script>
+<script type="text/javascript" src="./js_second/config.js"></script>
+<script type="text/javascript">
+document.onkeydown = grabEvent;
+if(document.onkeypress!==null){
+	document.onkeypress = grabEvent;
+}
+document.onsystemevent = grabEvents;
+function grabEvents(_event){
+    var code = Event(_event);
+    switch(code){
+        case "EIS_VOD_RERADY_SUCCESS": //
+        	hideLoadingDiv();
+            media.AV.play();
+            return 0;
+            break;
+        case "EIS_VOD_PROGRAM_END"://当前流媒体已经播放结束
+            return 0;
+            break
+        default:
+            break;
+    }
+}
+function grabEvent(_event){
+	var code = Event(_event);
+	switch(code){
+		case "KEY_SELECT": //
+			control.clickSelect();
+			return 0;
+			break;
+		case "KEY_EXIT":
+		case "KEY_BACK":
+			control.clickDoBack();
+			return 0;
+			break;
+		default:
+			//if(_event.which > 5000 && _event.which < 6000)$("debugShow").innerText += "-d-"+_event.which;
+			break;
+	}
+}
+
+window.onload = init;
+var curChanId = "";  //频道Id
+var progId = "";  //节目Id
+var playId = 0;  //
+var dgCode = 9;
+var dgMsg = "";
+
+function init(){
+	// showLoadingDiv();
+
+	curChanId = Q.getDecoded("curChanId");  //直播id
+	progId = Q.getDecoded("progId");  //直播id
+
+
+	control.init();
+}
+
+function release(){
+	DVB.stopAV(0);
+	media.AV.close();
+}
+
+var control = {
+	focusArea : 0,
+	init : function(){
+		play_ajax(playId,curChanId);
+	},
+	clickUp : function(){
+		return 0;
+	},
+	clickDown : function(){
+		return 0;
+	},
+	clickLeft : function(){
+		return 0;
+	},
+	clickRight : function(){
+		return 0;
+	},
+	clickSelect : function(){
+		return 0;
+	},
+	clickDoBack : function(){
+		if(!!backUrl){
+			location.href=backUrl;
+		}else{
+			history.back();
+		}
+	}
+}
+
+
+function play_ajax(_audioId,curChanId){
+	showLoadingDiv();
+	if(req != null){
+		req.abort();
+		req = null;
+		// release();
+	}
+	req = ajax({
+		url: iPanel.eventFrame.pre_epg_url +'/tstvindex.jsp?User=&pwd=&ip='+iPanel.ioctlRead("IP")+'&NTID='+iPanel.ioctlRead("NTID")+'&CARDID='+iPanel.ioctlRead("ICID")+'&Version=1.0&lang=1&ChannelID='+curChanId+'&Prognum=30&ServiceGroupID='+iPanel.eventFrame.ServiceGroupID+'&supportnet='+iPanel.eventFrame.netType+'&decodemode=H.264HD;MPEG-2HD&CA=1',
+		type: "GET", //HTTP 请求类型,GET或POST
+		dataType: "html", //请求的文件类型html/xml
+		onSuccess: function(html){ //请求成功后执行[可选]
+			hideLoadingDiv();
+			req = null;
+			var json = {'Result':'','PlayUrl':''};
+			var arr1 = html.split('\n');
+			for(var i=0;i<arr1.length;i++){
+				if(arr1[i].indexOf('Result')>-1){
+					json.Result = arr1[i].split('=')[1];
+				}else if(arr1[i].indexOf('PlayUrl')>-1){
+					var rtsp_url = arr1[i].split('=')[1];
+					json.PlayUrl = rtsp_url.split("^")[4];
+				}
+			}
+			if(parseInt(json.Result)==0){
+				media.AV.open(json.PlayUrl,"VOD");			
+				media.video.fullScreen();
+			}else{
+				play_ajax(playId,curChanId);
+				//showTips(parseInt(json.Result),2000);
+			}
+
+		},
+		onComplete:function(){
+			
+		},
+		onError:function(){ //请求失败后执行[可选]
+			req = null;
+			hideLoadingDiv();
+			showTips('网络异常',6000,24,{zIndex:10,left:'',top:'',width:'',height:'',background:'',backgroundColor:'#666666'});
+		},
+        post:"",  
+        timeout:7000  
+	});	
+}
+
+
+
+</script>
+</html>

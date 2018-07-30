@@ -1,0 +1,128 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no"/>
+<meta name="page-view-size" content="1280*720" />
+<title>比赛详情-联赛</title>
+<style>
+body,html{
+	padding: 0;
+	margin: 0;
+}
+*{font-family: microsoft yahei;}
+.smooth {
+ /*-webkit-transition-duration:300ms,300ms,300ms,300ms;-webkit-transition-property: width,height,top,left;*/
+    transform: scale(1,1);
+    -webkit-transform: scale(1,1);
+    transition: transform 0.2s;
+    -webkit-transition: -webkit-transform 0.2s;
+ }
+.menu{
+	font-size:24px;
+	font-weight:bold;
+	color:#8285b6;
+	text-align:center;
+}
+
+</style>
+</head>
+
+<body onunload="pageOnunload();" onload="pageOnload();" style="background:url(images_second/bg.jpg) no-repeat; width:1280px; height:720px; overflow:hidden;">
+
+<!-- <div id="loadingDiv" class="smooth" style="position:absolute; top:320px; left:600px; width:139px; height:139px; z-index:10; visibility:hidden;">
+	<img src="./images/loading.gif" style="position:absolute; top:0px; left:0px;background: transparent;" />
+</div> -->
+
+<img id="logo" src="images_second/detail/logo.png" style="position:absolute;left:73px;top:25px;" />
+
+<div id="timeNow" style="position:absolute;left:1110px;top:34px;width:100px;text-align:right;font-size:18px;color:#9798a3;">00:00</div>
+
+
+<img id="playImg" src="images_second/detail/notStart.png"style="width:640px;height:367px;position: absolute;top: 87px;left: 70px;  z-index:1;"/>
+<img id="playImgIcon" src="images_second/detail/playing_icon.png"style="width:100px;height:100px;position: absolute;top: 220px;left: 332px;  z-index:2;display:none;"/>
+<div id="notStartText" style="font-size:32px;color:#a8a8a8;text-align:center;width:640px;height:367px;line-height:367px;position: absolute;top: 87px;left: 70px;z-index:2;display:none;">节目尚未开始</div>
+
+
+<img src="images_second/detail/bg1.png"style="position: absolute;top: 87px;left: 710px;z-index:1;"/>
+
+<!-- 详情按钮 -->
+<div id="detailBt" style="position:absolute; top:0px; left:0px; width:1280px; height:120px;z-index:2;">
+	
+	<div id="contentName" style="position:absolute;left:710px;top:113px;width:500px;text-align:center;font-size:21px;color:#ffffff;">美操 第14轮</div>
+	<div id="sayerName" style="position:absolute;left:710px;top:148px;width:500px;text-align:center;font-size:16px;color:#4c568c;">解说: 王洋</div>
+	<!--<img src="images/happyclass/logo/h1.png"style="position: absolute;top: 24px;left: 120px;"/> menu的菜单栏为图片-->
+	<div id="scoreBox" style="position:absolute;left:872px;top:236px;width:170px;height:42px;background:url(images_second/detail/scoreBg.png) no-repeat;display:none;">
+		<div id="score1" style="font-size:32px;color:#ffffff;width:85px;height:42px;line-height:42px;position:absolute;left:0px;top:0px;text-align:center;">5</div>
+		<div id="score2" style="font-size:32px;color:#ffffff;width:85px;height:42px;line-height:42px;position:absolute;left:85px;top:0px;text-align:center;">6</div>
+	</div>
+	<div id="lookBackTips" style="width:67px;height:27px;line-height:27px; position:absolute;left:923px;top:306px;text-align:center;background:url(images_second/detail/lookBack_mask.png) no-repeat; font-size:16px;color:#60647c;display:none;">回看</div>
+
+	<div id="playingBox" style="position:absolute;left:872px;top:236px;width:170px;height:42px;line-height:42px; font-size:24px;color:#ff7a22;text-align:center;display:none;">
+		正在直播
+	</div>
+	<div id="startTimeBox" style="position:absolute;left:872px;top:200px;width:170px;height:100px;display:none;">
+		<div style="position:absolute;left:0px;top:0px;width:170px; font-size:18px;color:#96a5ba;text-align:center;">开播时间</div>
+		<div id="startTimeText" style="position:absolute;left:0px;top:36px;width:170px;height:42px;line-height:42px; font-size:24px;color:#ff7a22;text-align:center;">1月20日 22:33</div>
+	</div>
+
+	<div id="playerIcon1" style="position:absolute;left:758px;top:215px;height:75px;width:75px;text-align:center;">
+		<img src="images_second/detail/player1.png" height="75" />
+	</div>
+	<div id="playerName1" style="position:absolute;left:710px;top:310px;height:30px;width:168px;text-align:center;font-size:18px;color:#5c6288;">
+		利物浦
+	</div>
+
+	<div id="playerIcon2" style="position:absolute;left:1088px;top:215px;height:75px;width:75px;text-align:center;">
+		<img src="images_second/detail/player2.png" height="75" />
+	</div>
+	<div id="playerName2" style="position:absolute;left:1040px;top:310px;height:30px;width:168px;text-align:center;font-size:18px;color:#5c6288;">
+		切尔西对方
+	</div>
+
+
+
+	<div id="detailBt_content" style="position: absolute;top: 0px;left: 0px;width: 1280px;height: 720px;">
+	  	<!-- <div id="detailBt_0" class="menu" style="position:absolute; top:31px; left:287px; width:126px; height:55px;line-height: 55px;"></div> -->
+	</div>
+
+	<!-- <div id="menu_focus" style="position:absolute; top:26px; left:273px; width:157px; height:66px; background:url(images_second/menu-on.png) no-repeat; opacity:0;z-index:2;"></div> -->
+	<!-- <div style="position:absolute;top:113px; left:42px;"><div id="detailBt_focus" style="position:absolute; top:0px; left:0px; width:199px; height:139px;background: url(images_second/left_menu_on.png) left top no-repeat; opacity:0;z-index:2;"></div></div> --><!-- left_menu_bg -->
+	<div style="position:absolute;top:378px; left:725px;"><div id="detailBt_focus" style="position:absolute; top:0px; left:0px; width:149px; height:54px;opacity:0;border:3px #ffffff solid; border-radius: 2px;z-index:3;"></div></div>
+	
+</div>
+
+
+<!-- 右边内容 begin -->
+
+<!-- <img style="position: absolute;z-index: 1;left: 223px;top: 107px;" src="./images_second/topList_bg.png" /> -->
+<div id="contentWrapper" style="position:absolute; top:0px; left:0px; width:1280px; height:720px;">
+	
+	
+</div>
+
+<div id="pageNumNavText" style="position:absolute;left: 0px;top: 650px;color: #909090;font-size:30px;text-align: center;width: 1280px;opacity: 0;">1/1</div>
+
+<img style="position:absolute;left:60px;top:368px;opacity: 0;" src="./images_second/arrow_left.png" />
+<img style="position:absolute;left:60px;top:368px;opacity: 0;" src="./images_second/arrow_left.png" id="contentArrowLeft" />
+<img style="position:absolute;left:1195px;top:368px;opacity: 0;" src="./images_second/arrow_right.png" />
+<img style="position:absolute;left:1195px;top:368px;opacity: 0;" src="./images_second/arrow_right.png" id="contentArrowRight" />
+<img style="position:absolute;left:695px;top:170px;z-index: 5;display: none;" src="./images_second/arrow_up.png" id="contentArrowUp" />
+<img style="position:absolute;left:695px;top:670px;z-index: 5;display: none;" src="./images_second/arrow_down.png" id="contentArrowDown" />
+
+<!-- 右边内容 end -->
+
+
+
+
+</body>
+<script type="text/javascript" src="js_second/lib.js"></script>
+<script type="text/javascript" src="js_second/ajax.js"></script>
+<script type="text/javascript" src="js_second/keyEvent.js"></script>
+<script type="text/javascript" src="js_second/showList.js"></script>
+<script type="text/javascript" src="js_second/common.js"></script>
+<script type="text/javascript" src="js_second/config.js"></script>
+<script type="text/javascript" src="js_second/superMouse.js"></script>
+<script type="text/javascript" src="js_second/showTips.js"></script>
+<script type="text/javascript" src="js_second/detail_second.js"></script>
+</html>

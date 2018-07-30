@@ -357,6 +357,7 @@ var menuObj={
 		this.outDown();
 	},
 	outDown:function(){
+		if(menuPad.menuData.length<=0) return 0;
 		this.blur();
 		contral=menuPad;
 		contral.focus();
@@ -430,6 +431,13 @@ function formatLeftMenuData(json){
 		if(menuPad.menuData[i].id===leftMenuId){
 			initIndex=i;
 		}
+	}
+	
+	var s='';
+	if(menuPad.menuData.length<=0){
+		s='<div style="height:60px;color: #cccccc;font-size: 20px;text-align: center;padding-top: 200px;">无数据（小编会努力补上的~~）</div>';
+		$('contentWrapper').innerHTML=s;
+		return 0;
 	}
 	
 
@@ -986,13 +994,13 @@ var contentPad={
 		this.focus();
 	},
 	enter:function(){
-		return 0;
+		///return 0;
 
 		var backUrl=location.href;//'index.html?menuPos='+menuBox.position;
 
-		backUrl=createUrlByObject(backUrl,{pageNo:this.currentPage,menuId:menuId});
+		backUrl=createUrlByObject(backUrl,{pageNo:this.currentPage,menuId:menuId,leftMenuId:menuPad.menuData[menuPad.listObj.position].id});
 
-		var url='';		
+		var url='detail_second.html?id='+this.currentPageData[this.index].id;		
 
 		if(url.indexOf('?')>-1){
 			url+='&backUrl='+Q.encode(backUrl);

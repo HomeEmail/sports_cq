@@ -34,13 +34,14 @@ body,html{
 	<img src="./images/loading.gif" style="position:absolute; top:0px; left:0px;background: transparent;" />
 </div> -->
 
+
 <img id="logo" src="images_second/detail/logo.png" style="position:absolute;left:73px;top:25px;" />
 
 <div id="timeNow" style="position:absolute;left:1110px;top:34px;width:100px;text-align:right;font-size:18px;color:#9798a3;">00:00</div>
 
 
-<img id="playImg" src="images_second/detail/notStart.png"style="width:640px;height:367px;position: absolute;top: 87px;left: 70px;  z-index:1;"/>
-<img id="playImgIcon" src="images_second/detail/playing_icon.png"style="width:100px;height:100px;position: absolute;top: 220px;left: 332px;  z-index:2;display:none;"/>
+<img id="playImg" src="images_second/detail/notStart.png" style="width:640px;height:367px;position: absolute;top: 87px;left: 70px;  z-index:1;"/>
+<img id="playImgIcon" src="images_second/detail/playing_icon.png" style="width:100px;height:100px;position: absolute;top: 220px;left: 332px;  z-index:2;display:none;"/>
 <div id="notStartText" style="font-size:32px;color:#a8a8a8;text-align:center;width:640px;height:367px;line-height:367px;position: absolute;top: 87px;left: 70px;z-index:2;display:none;">节目尚未开始</div>
 
 
@@ -93,16 +94,24 @@ body,html{
 </div>
 
 
-<!-- 右边内容 begin -->
 
-<!-- <img style="position: absolute;z-index: 1;left: 223px;top: 107px;" src="./images_second/topList_bg.png" /> -->
-<div id="contentWrapper" style="position:absolute; top:0px; left:0px; width:1280px; height:720px;">
+
+<!-- 推荐按钮 -->
+<div style="position:absolute;left: 70px;top: 476px;color: #ffffff;font-size:18px;text-align: left;width: 680px;">相关推荐<span id="currentNumNav" style="padding:0px 20px;">1/1</span></div>
+
+
+<div id="recomment" style="position:absolute; top:0px; left:0px; width:1280px; height:120px;z-index:2;">
 	
+	<div id="recomment_content" style="position: absolute;top: 0px;left: 0px;width: 1280px;height: 720px;">
+	  	<!-- <div id="recomment_0" class="menu" style="position:absolute; top:31px; left:287px; width:126px; height:55px;line-height: 55px;"></div> -->
+	</div>
+
+	<div style="position:absolute;top:476px; left:31px;"><div id="recomment_focus" style="position:absolute; top:0px; left:0px; width:343px; height:240px;opacity:0;background:url(images_second/detail/list_focus.png) no-repeat; z-index:3;"></div></div>
 	
 </div>
 
-<div id="pageNumNavText" style="position:absolute;left: 0px;top: 650px;color: #909090;font-size:30px;text-align: center;width: 1280px;opacity: 0;">1/1</div>
 
+<div id="pageNumNavText" style="position:absolute;left: 0px;top: 650px;color: #909090;font-size:30px;text-align: center;width: 1280px;opacity: 0;">1/1</div>
 <img style="position:absolute;left:60px;top:368px;opacity: 0;" src="./images_second/arrow_left.png" />
 <img style="position:absolute;left:60px;top:368px;opacity: 0;" src="./images_second/arrow_left.png" id="contentArrowLeft" />
 <img style="position:absolute;left:1195px;top:368px;opacity: 0;" src="./images_second/arrow_right.png" />
@@ -110,7 +119,6 @@ body,html{
 <img style="position:absolute;left:695px;top:170px;z-index: 5;display: none;" src="./images_second/arrow_up.png" id="contentArrowUp" />
 <img style="position:absolute;left:695px;top:670px;z-index: 5;display: none;" src="./images_second/arrow_down.png" id="contentArrowDown" />
 
-<!-- 右边内容 end -->
 
 
 

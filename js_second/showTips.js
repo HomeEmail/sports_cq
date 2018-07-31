@@ -1,5 +1,5 @@
 // JavaScript Document
-//showTips('网络异常',6000,24,{zIndex:10,left:'',top:'',width:'',height:'',background:'',backgroundColor:''});
+//showTips('网络异常',6000,24,{zIndex:10,left:'',top:'',width:'',height:'',background:'',backgroundColor:'#222222'});
 var timerTip = null;
 function showTips(strs,times,fontSize,obj){//times<=0 毫秒 提示将不会自动消失
 	var el=$('tips_id');

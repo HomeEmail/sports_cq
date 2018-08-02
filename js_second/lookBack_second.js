@@ -68,7 +68,7 @@ menuPos=Q.getInt("menuPos",0);
 var menuId=0;//当前选择的菜单id
 menuId=Q.getInt('menuId',0);
 var leagueId =0;
-leagueId = Q.getInt('leagueId',0);
+leagueId = Q.getInt('leagueId',131897);
 var pageNoInit=Q.getInt('pageNo',1);
 var rFpos=Q.getInt('rFpos','');
 
@@ -179,11 +179,11 @@ function pageOnunload(){
 
 function getMenuData(){
 
-	formatMenuData();
-	return 0;
+	// formatMenuData();
+	// return 0;
 
 	loadingObj.show();
-	var url=apiBasePath+'/ui/tv/index/types';
+	var url=serverPath+'portalData/leagueCategoryTitle.utvgo?categoryCode='+leagueId+'&platform='+platform;
 	//alert(url);
 	ajax({
 	    url: url,
@@ -210,14 +210,54 @@ function getMenuData(){
 }
 function formatMenuData(json){
 	mainMenu=[];
-	//mainMenu=json.indexJson;
-	mainMenu=index_second_menu_data;
+	//mainMenu=index_second_menu_data;
+	if(!!json.data.index){
+		mainMenu.push({
+			name:json.data.index.blockName,
+			id:json.data.index.categoryCode,
+			link:'index_second.html'
+		});
+	}
+	if(!!json.data.schedule){
+		mainMenu.push({
+			name:json.data.schedule.blockName,
+			id:json.data.schedule.categoryCode,
+			link:'schedule_second.html'
+		});
+	}
+	if(!!json.data.lookBack){
+		mainMenu.push({
+			name:json.data.lookBack.blockName,
+			id:json.data.lookBack.categoryCode,
+			link:'lookBack_second.html'
+		});
+	}
+	if(!!json.data.highlights){
+		mainMenu.push({
+			name:json.data.highlights.blockName,
+			id:json.data.highlights.categoryCode,
+			link:'matchCollection_second.html'
+		});
+	}
+	if(!!json.data.rank){
+		mainMenu.push({
+			name:json.data.rank.blockName,
+			id:json.data.rank.categoryCode,
+			link:'topList_second.html'
+		});
+	}
+	$('league_name').innerHTML=json.data.leagueName;
+	$('league_logo').src=json.data.imageUrl;
+
 
 	for(var i=0,len=mainMenu.length;i<len;i++){
-		if(mainMenu[i].id===menuId){
+		if(mainMenu[i].id==menuId){
 			menuPos=i; //设置选择的菜单位置
 		}
 	}
+
+	//订购状态
+	$('leagueOrderStatus').style.display='none';
 
 	
 	menuObj.init();
@@ -344,15 +384,17 @@ var menuObj={
 
 var contentReq=null;
 function getContentData(pageNo,fn){//通过ajxa获取数据
-	formatContentData(contentDataDemo,fn);
-	return 0;
+	// formatContentData(contentDataDemo,fn);
+	// return 0;
 
 	if(contentReq){
 		contentReq.abort();
 		contentReq=null;
 	}
 	loadingObj.show();
-	var url=apiBasePath+'/ui/tv/index/select?menuId='+menuId+'&leagueId='+leagueId+'&pageNo='+pageNo;
+	var pageSize=6;
+	var url=serverPath+'portalData/leagueCategoryContent.utvgo?categoryCode='+menuId+'&leagueId='+leagueId+'&platform='+platform+'&pageNo='+pageNo+'&pageSize='+pageSize;
+
 	contentReq=ajax({
 	    url: url,
 	    type: "GET", //HTTP 请求类型,GET或POST
@@ -379,23 +421,36 @@ function getContentData(pageNo,fn){//通过ajxa获取数据
 	});
 }
 function formatContentData(json,fn){//绑定内容数据
-	listObj.currentPage=json.pageNo||1;
+	listObj.currentPage=json.currentPage||1;
 	listObj.totalPage=json.totalPage||1;
 	listObj.currentPageData=[];
 	listData['page'+listObj.currentPage]=[];//缓存此页数据
 	for(var i=0,len=json.data.length;i<len;i++){
 		listObj.currentPageData.push({
-			img:json.data[i].imgUrl,
+			img:json.data[i].imageUrl,
 			name:json.data[i].name,
-			id:json.data[i].id
+			id:json.data[i].pkId,
+			status:json.data[i].status,
+			playUrl:json.data[i].playUrl,
+			vodid:json.data[i].vodid,
+			code:json.data[i].code,
+			duration:json.data[i].duration,
+			href:'' //自己拼接链接地址
 		});
 		//缓存此页数据
 		listData['page'+listObj.currentPage].push({
-			img:json.data[i].imgUrl,
+			img:json.data[i].imageUrl,
 			name:json.data[i].name,
-			id:json.data[i].id
+			id:json.data[i].pkId,
+			status:json.data[i].status,
+			playUrl:json.data[i].playUrl,
+			vodid:json.data[i].vodid,
+			code:json.data[i].code,
+			duration:json.data[i].duration,
+			href:'' //自己拼接链接地址
 		});
 	}
+
 
 	listObj.init();
 	listObj.render();
@@ -564,12 +619,12 @@ var listObj={
 			return 0;
 		}
 
-		// getContentData(
-		// 	listObj.currentPage,
-		// 	function(){
-		// 		listObj.focus();
-		// 	}
-		// );
+		getContentData(
+			listObj.currentPage,
+			function(){
+				listObj.focus();
+			}
+		);
 
 	},
 	lastPage:function(){//上一页
@@ -583,12 +638,12 @@ var listObj={
 			listObj.focus();
 			return 0;
 		}
-		// getContentData(
-		// 	listObj.currentPage,
-		// 	function(){
-		// 		listObj.focus();
-		// 	}
-		// );
+		getContentData(
+			listObj.currentPage,
+			function(){
+				listObj.focus();
+			}
+		);
 	},
 	outUp:function(){
 		this.blur();
@@ -664,14 +719,15 @@ var listObj={
 		this.focus();
 	},
 	enter:function(){
-		return 0;
+		//return 0;
 
 		var backUrl=location.href;//'index.html?menuPos='+menuBox.position;
 
 		backUrl=createUrlByObject(backUrl,{pageNo:this.currentPage,menuId:menuId,rFpos:this.index});
 
-		var url='';		
-
+		var url=this.currentPageData[this.index].href;	
+		if(!!!url) return 0;	
+		
 		if(url.indexOf('?')>-1){
 			url+='&backUrl='+Q.encode(backUrl);
 		}else{

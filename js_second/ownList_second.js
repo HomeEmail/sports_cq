@@ -1,7 +1,7 @@
 
 
-var listData = {////存储每一页最终内容渲染数据 
-	//'page1':[] //demo
+var listData = {////存储每个菜单的每一页最终内容渲染数据 
+	//'page_1_1':[] //demo
 };
 
 var contentDataDemo={ //动态数据demo
@@ -59,11 +59,15 @@ var contentDataDemo={ //动态数据demo
 };
 
 
+var categoryCode=0;
+categoryCode=Q.get('categoryCode',136085);
 
 
 var pageNoInit=Q.getInt('pageNo',1);
 var leftMenuId=0;//左边菜单id
 leftMenuId=Q.getInt('leftMenuId',0);
+var rFpos=Q.getInt('rFpos','');
+
 
 function eventInit(_event){
 	if (_event.type=='keydown') {
@@ -173,11 +177,11 @@ function pageOnunload(){
 
 function getLeftMenuData(){
 
-	formatLeftMenuData();
-	return 0;
+	// formatLeftMenuData();
+	// return 0;
 
 	loadingObj.show();
-	var url=apiBasePath+'/ui/tv/index/types';
+	var url=serverPath+'portalData/homemadeCategoryClassify.utvgo?categoryCode='+categoryCode;
 	//alert(url);
 	ajax({
 	    url: url,
@@ -204,7 +208,7 @@ function getLeftMenuData(){
 }
 function formatLeftMenuData(json){
 	menuPad.menuData=[];
-	menuPad.menuData=[ //demo data 
+	/*menuPad.menuData=[ //demo data 
 		{name:'英超观瞻',id:1},
 		{name:'中超吐口秀',id:2},
 		{name:'英超秀',id:3},
@@ -214,7 +218,14 @@ function formatLeftMenuData(json){
 		{name:'中超一分钟',id:7},
 		{name:'其他bb节目',id:7}
 
-	];
+	];*/
+	for(var j=0,len=json.data.list.length;j<len;j++){
+		menuPad.menuData.push({
+			name:json.data.list[j].name,
+			id:json.data.list[j].code,
+			sequence:json.data.list.sequence
+		});
+	}
 	var initIndex=0;
 	for(var i=0,len=menuPad.menuData.length;i<len;i++){
 		if(menuPad.menuData[i].id===leftMenuId){
@@ -236,6 +247,7 @@ function formatLeftMenuData(json){
 		contral.focus();  
 	}
 	
+	$('ownLogo').src=json.data.logoUrl||'';
 
 	
 
@@ -322,10 +334,10 @@ var menuPad={
 	,updateContent:function(){//更新右边内容
 		var that = this;
 		
-		if(!!menuPad.menuData[menuPad.listObj.position].currentPage&&!!listData['page'+menuPad.menuData[menuPad.listObj.position].currentPage]){
+		if(!!menuPad.menuData[menuPad.listObj.position].currentPage&&!!listData['page_'+menuPad.menuData[menuPad.listObj.position].id+'_'+menuPad.menuData[menuPad.listObj.position].currentPage]){
 			contentPad.currentPage=menuPad.menuData[menuPad.listObj.position].currentPage;
 			contentPad.totalPage=menuPad.menuData[menuPad.listObj.position].totalPage;
-			contentPad.currentPageData=listData['page'+contentPad.currentPage];
+			contentPad.currentPageData=listData['page_'+menuPad.menuData[menuPad.listObj.position].id+'_'+contentPad.currentPage];
 			contentPad.init();
 			contentPad.render();
 			contentPad.resetFocusInfo();
@@ -333,13 +345,13 @@ var menuPad={
 		}
 		getContentData(pageNoInit,function(){//此区域初始化 光标位置
 
-			/*if(rFpos!==''){ //表示页面初始光标在内容列表里
+			if(rFpos!==''){ //表示页面初始光标在内容列表里
 				contral.blur();
 				contentPad.index=rFpos;
 				contentPad.setCurrentColAndRowByIndex();
 				contral=contentPad;//控制交接   
 				contral.focus();   
-			}*/
+			}
 			
 		});
 	}
@@ -350,7 +362,7 @@ var menuPad={
 	,outLeft:function(){}//将要跳出本交互模块的处理
 	,outRight:function(){
 
-		if(menuPad.listObj.position==0&&!!!listData['page'+menuPad.menuData[menuPad.listObj.position].currentPage]){//右边没内容
+		if(!!!listData['page_'+menuPad.menuData[menuPad.listObj.position].id+'_'+menuPad.menuData[menuPad.listObj.position].currentPage]||listData['page_'+menuPad.menuData[menuPad.listObj.position].id+'_'+menuPad.menuData[menuPad.listObj.position].currentPage].length<=0){//右边没内容
 			return 0;
 		}
 		this.blur();
@@ -393,8 +405,8 @@ var menuPad={
 
 var contentReq=null;
 function getContentData(pageNo,fn){//通过ajxa获取数据 积分榜
-	formatContentData(contentDataDemo,fn);
-	return 0;
+	// formatContentData(contentDataDemo,fn);
+	// return 0;
 
 	if(contentReq){
 		contentReq.abort();
@@ -402,7 +414,7 @@ function getContentData(pageNo,fn){//通过ajxa获取数据 积分榜
 	}
 	loadingObj.show();
 	//menuPad.menuData[menuPad.listObj.position].id //左边菜单id
-	var url=apiBasePath+'/ui/tv/index/select?menuId='+menuId+'&leagueId='+leagueId+'&pageNo='+pageNo;
+	var url=serverPath+'portalData/categoryProgram.utvgo?categoryCode='+menuPad.menuData[menuPad.listObj.position].id+'&pageSize='+9+'&pageNo='+pageNo;
 	contentReq=ajax({
 	    url: url,
 	    type: "GET", //HTTP 请求类型,GET或POST
@@ -429,24 +441,35 @@ function getContentData(pageNo,fn){//通过ajxa获取数据 积分榜
 	});
 }
 function formatContentData(json,fn){//绑定内容数据
-	contentPad.currentPage=json.pageNo||1;
+	contentPad.currentPage=json.currentPage||1;
 	contentPad.totalPage=json.totalPage||1;
 	menuPad.menuData[menuPad.listObj.position].currentPage=contentPad.currentPage;
 	menuPad.menuData[menuPad.listObj.position].totalPage=contentPad.totalPage;
 	contentPad.currentPageData=[];
-	listData['page'+contentPad.currentPage]=[];//缓存此页数据
+	listData['page_'+menuPad.menuData[menuPad.listObj.position].id+'_'+contentPad.currentPage]=[];//缓存此页数据
 	for(var i=0,len=json.data.length;i<len;i++){
 		contentPad.currentPageData.push({
-			img:json.data[i].imgUrl,
+			img:json.data[i].imageUrl,
 			name:json.data[i].name,//
-			id:json.data[i].id
-		
+			id:json.data[i].pkId,
+			vodid:json.data[i].vodid,
+			playUrl:json.data[i].playUrl,
+			code:json.data[i].code,
+			status:json.data[i].status,
+			duration:json.data[i].duration,
+			href:'' //自己拼接链接地址
 		});
 		//缓存此页数据
-		listData['page'+contentPad.currentPage].push({
-			img:json.data[i].imgUrl,
+		listData['page_'+menuPad.menuData[menuPad.listObj.position].id+'_'+contentPad.currentPage].push({
+			img:json.data[i].imageUrl,
 			name:json.data[i].name,//
-			id:json.data[i].id
+			id:json.data[i].pkId,
+			vodid:json.data[i].vodid,
+			playUrl:json.data[i].playUrl,
+			code:json.data[i].code,
+			status:json.data[i].status,
+			duration:json.data[i].duration,
+			href:'' //自己拼接链接地址
 		});
 	}
 
@@ -618,8 +641,8 @@ var contentPad={
 		console.log('last page');
 		this.currentPage--;
 		menuPad.menuData[menuPad.listObj.position].currentPage=this.currentPage;
-		if(!!listData['page'+this.currentPage]){
-			this.currentPageData=listData['page'+this.currentPage];
+		if(!!listData['page_'+menuPad.menuData[menuPad.listObj.position].id+'_'+this.currentPage]){
+			this.currentPageData=listData['page_'+menuPad.menuData[menuPad.listObj.position].id+'_'+this.currentPage];
 			contentPad.init();
 			contentPad.render();
 			contentPad.resetFocusInfo();
@@ -627,12 +650,12 @@ var contentPad={
 			return 0;
 		}
 
-		// getContentData(
-		// 	contentPad.currentPage,
-		// 	function(){
-		// 		contentPad.focus();
-		// 	}
-		// );
+		getContentData(
+			contentPad.currentPage,
+			function(){
+				contentPad.focus();
+			}
+		);
 	
 	},
 	nextPage:function(){
@@ -640,8 +663,8 @@ var contentPad={
 		this.currentPage++;
 		menuPad.menuData[menuPad.listObj.position].currentPage=this.currentPage;
 		
-		if(!!listData['page'+this.currentPage]){
-			this.currentPageData=listData['page'+this.currentPage];
+		if(!!listData['page_'+menuPad.menuData[menuPad.listObj.position].id+'_'+this.currentPage]){
+			this.currentPageData=listData['page_'+menuPad.menuData[menuPad.listObj.position].id+'_'+this.currentPage];
 			contentPad.init();
 			contentPad.render();
 			contentPad.resetFocusInfo();
@@ -649,12 +672,12 @@ var contentPad={
 			return 0;
 		}
 
-		// getContentData(
-		// 	contentPad.currentPage,
-		// 	function(){
-		// 		contentPad.focus();
-		// 	}
-		// );
+		getContentData(
+			contentPad.currentPage,
+			function(){
+				contentPad.focus();
+			}
+		);
 		
 
 	},
@@ -729,13 +752,13 @@ var contentPad={
 		this.focus();
 	},
 	enter:function(){
-		return 0;
-
+		
 		var backUrl=location.href;//'index.html?menuPos='+menuBox.position;
 
-		backUrl=createUrlByObject(backUrl,{pageNo:this.currentPage,leftMenuId:menuPad.menuData[menuPad.listObj.position].id});
+		backUrl=createUrlByObject(backUrl,{pageNo:this.currentPage,leftMenuId:menuPad.menuData[menuPad.listObj.position].id,rFpos:this.index});
 
-		var url='detail_second.html?id='+this.currentPageData[this.index].id;		
+		var url=this.currentPageData[this.index].href;
+		if(!!!url) return 0;		
 
 		if(url.indexOf('?')>-1){
 			url+='&backUrl='+Q.encode(backUrl);

@@ -286,8 +286,10 @@ menuPos=Q.getInt("menuPos",0);
 var menuId=0;//当前选择的菜单id
 menuId=Q.getInt('menuId',0);
 var leagueId =0;
-leagueId = Q.getInt('leagueId',0);
+leagueId = Q.getInt('leagueId',131897);
 var pageNoInit=Q.getInt('pageNo',1);
+
+var leagueName='';
 
 function eventInit(_event){
 	if (_event.type=='keydown') {
@@ -396,11 +398,11 @@ function pageOnunload(){
 
 function getMenuData(){
 
-	formatMenuData();
-	return 0;
+	// formatMenuData();
+	// return 0;
 
 	loadingObj.show();
-	var url=apiBasePath+'/ui/tv/index/types';
+	var url=serverPath+'portalData/leagueCategoryTitle.utvgo?categoryCode='+leagueId+'&platform='+platform;
 	//alert(url);
 	ajax({
 	    url: url,
@@ -427,14 +429,54 @@ function getMenuData(){
 }
 function formatMenuData(json){
 	mainMenu=[];
-	//mainMenu=json.indexJson;
-	mainMenu=index_second_menu_data;
+	//mainMenu=index_second_menu_data;
+	if(!!json.data.index){
+		mainMenu.push({
+			name:json.data.index.blockName,
+			id:json.data.index.categoryCode,
+			link:'index_second.html'
+		});
+	}
+	if(!!json.data.schedule){
+		mainMenu.push({
+			name:json.data.schedule.blockName,
+			id:json.data.schedule.categoryCode,
+			link:'schedule_second.html'
+		});
+	}
+	if(!!json.data.lookBack){
+		mainMenu.push({
+			name:json.data.lookBack.blockName,
+			id:json.data.lookBack.categoryCode,
+			link:'lookBack_second.html'
+		});
+	}
+	if(!!json.data.highlights){
+		mainMenu.push({
+			name:json.data.highlights.blockName,
+			id:json.data.highlights.categoryCode,
+			link:'matchCollection_second.html'
+		});
+	}
+	if(!!json.data.rank){
+		mainMenu.push({
+			name:json.data.rank.blockName,
+			id:json.data.rank.categoryCode,
+			link:'topList_second.html'
+		});
+	}
+	$('league_name').innerHTML=json.data.leagueName;
+	$('league_logo').src=json.data.imageUrl;
+	leagueName=json.data.leagueName;
 
 	for(var i=0,len=mainMenu.length;i<len;i++){
-		if(mainMenu[i].id===menuId){
+		if(mainMenu[i].id==menuId){
 			menuPos=i; //设置选择的菜单位置
 		}
 	}
+
+	//订购状态
+	$('leagueOrderStatus').style.display='none';
 
 	
 	menuObj.init();
@@ -717,15 +759,15 @@ var menuPad={
 
 var contentReq=null;
 function getContentData(pageNo,fn){//通过ajxa获取数据 积分榜
-	formatContentData(contentDataDemo,fn);
-	return 0;
+	// formatContentData(contentDataDemo,fn);
+	// return 0;
 
 	if(contentReq){
 		contentReq.abort();
 		contentReq=null;
 	}
 	loadingObj.show();
-	var url=apiBasePath+'/ui/tv/index/select?menuId='+menuId+'&leagueId='+leagueId+'&pageNo='+pageNo;
+	var url=serverPath+'score/rank.utvgo?menuId='+menuId+'&leagueId='+leagueId+'&leagueName='+leagueName+'&pageNo='+pageNo+'&pageSize=10';
 	contentReq=ajax({
 	    url: url,
 	    type: "GET", //HTTP 请求类型,GET或POST
@@ -752,7 +794,7 @@ function getContentData(pageNo,fn){//通过ajxa获取数据 积分榜
 	});
 }
 function formatContentData(json,fn){//绑定内容数据
-	contentPad.currentPage=json.pageNo||1;
+	contentPad.currentPage=json.currentPage||1;
 	contentPad.totalPage=json.totalPage||1;
 	menuPad.menuData[menuPad.listObj.position].currentPage=contentPad.currentPage;
 	menuPad.menuData[menuPad.listObj.position].totalPage=contentPad.totalPage;
@@ -760,34 +802,34 @@ function formatContentData(json,fn){//绑定内容数据
 	listData['page'+contentPad.currentPage]=[];//缓存此页数据
 	for(var i=0,len=json.data.length;i<len;i++){
 		contentPad.currentPageData.push({
-			img:json.data[i].imgUrl,
-			name:json.data[i].name,
-			id:json.data[i].id,
-			index:json.data[i].index,
-			sessionIndex:json.data[i].sessionIndex,
-			jifen:json.data[i].jifen,
-			sheng:json.data[i].sheng,
-			ping:json.data[i].ping,
-			fu:json.data[i].fu,
-			jinqiu:json.data[i].jinqiu,
-			shiqiu:json.data[i].shiqiu,
-			jingshengqiu:json.data[i].jingshengqiu
+			img:json.data[i].teamImageUrl,
+			name:json.data[i].teamName,
+			id:json.data[i].pkId,
+			index:json.data[i].rank,
+			sessionIndex:json.data[i].matchNum,
+			jifen:json.data[i].score,
+			sheng:json.data[i].winNum,
+			ping:json.data[i].drawNum,
+			fu:json.data[i].loseNum,
+			jinqiu:json.data[i].goalsNum,
+			shiqiu:json.data[i].loseGoalsNum,
+			jingshengqiu:json.data[i].goalsNum-json.data[i].loseGoalsNum
 		
 		});
 		//缓存此页数据
 		listData['page'+contentPad.currentPage].push({
-			img:json.data[i].imgUrl,
-			name:json.data[i].name,
-			id:json.data[i].id,
-			index:json.data[i].index,
-			sessionIndex:json.data[i].sessionIndex,
-			jifen:json.data[i].jifen,
-			sheng:json.data[i].sheng,
-			ping:json.data[i].ping,
-			fu:json.data[i].fu,
-			jinqiu:json.data[i].jinqiu,
-			shiqiu:json.data[i].shiqiu,
-			jingshengqiu:json.data[i].jingshengqiu
+			img:json.data[i].teamImageUrl,
+			name:json.data[i].teamName,
+			id:json.data[i].pkId,
+			index:json.data[i].rank,
+			sessionIndex:json.data[i].matchNum,
+			jifen:json.data[i].score,
+			sheng:json.data[i].winNum,
+			ping:json.data[i].drawNum,
+			fu:json.data[i].loseNum,
+			jinqiu:json.data[i].goalsNum,
+			shiqiu:json.data[i].loseGoalsNum,
+			jingshengqiu:json.data[i].goalsNum-json.data[i].loseGoalsNum
 		});
 	}
 
@@ -801,15 +843,15 @@ function formatContentData(json,fn){//绑定内容数据
 
 
 function getContentData1(pageNo,fn){//通过ajxa获取数据 //射手榜
-	formatContentData1(contentDataDemo1,fn);
-	return 0;
+	// formatContentData1(contentDataDemo1,fn);
+	// return 0;
 
 	if(contentReq){
 		contentReq.abort();
 		contentReq=null;
 	}
 	loadingObj.show();
-	var url=apiBasePath+'/ui/tv/index/select?menuId='+menuId+'&leagueId='+leagueId+'&pageNo='+pageNo;
+	var url=serverPath+'shoot/rank.utvgo?menuId='+menuId+'&leagueId='+leagueId+'&leagueName='+leagueName+'&pageNo='+pageNo+'&pageSize=10';
 	contentReq=ajax({
 	    url: url,
 	    type: "GET", //HTTP 请求类型,GET或POST
@@ -836,7 +878,7 @@ function getContentData1(pageNo,fn){//通过ajxa获取数据 //射手榜
 	});
 }
 function formatContentData1(json,fn){//绑定内容数据
-	contentPad.currentPage=json.pageNo||1;
+	contentPad.currentPage=json.currentPage||1;
 	contentPad.totalPage=json.totalPage||1;
 	menuPad.menuData[menuPad.listObj.position].currentPage=contentPad.currentPage;
 	menuPad.menuData[menuPad.listObj.position].totalPage=contentPad.totalPage;
@@ -844,26 +886,26 @@ function formatContentData1(json,fn){//绑定内容数据
 	listData['pages'+contentPad.currentPage]=[];//缓存此页数据
 	for(var i=0,len=json.data.length;i<len;i++){
 		contentPad.currentPageData.push({
-			name:json.data[i].name,
-			id:json.data[i].id,
-			index:json.data[i].index,
-			qiudui:json.data[i].qiudui,
-			totalNum:json.data[i].totalNum,
-			putongNum:json.data[i].putongNum,
-			dianqiuNum:json.data[i].dianqiuNum,
-			wulongNum:json.data[i].wulongNum
+			name:json.data[i].playerName,
+			id:json.data[i].pkId,
+			index:json.data[i].rank,
+			qiudui:json.data[i].teamName,
+			totalNum:json.data[i].itemValue||'-',
+			putongNum:json.data[i].putongNum||'-',
+			dianqiuNum:json.data[i].dianqiuNum||'-',
+			wulongNum:json.data[i].wulongNum||'-'
 		
 		});
 		//缓存此页数据
 		listData['pages'+contentPad.currentPage].push({
-			name:json.data[i].name,
-			id:json.data[i].id,
-			index:json.data[i].index,
-			qiudui:json.data[i].qiudui,
-			totalNum:json.data[i].totalNum,
-			putongNum:json.data[i].putongNum,
-			dianqiuNum:json.data[i].dianqiuNum,
-			wulongNum:json.data[i].wulongNum
+			name:json.data[i].playerName,
+			id:json.data[i].pkId,
+			index:json.data[i].rank,
+			qiudui:json.data[i].teamName,
+			totalNum:json.data[i].itemValue||'-',
+			putongNum:json.data[i].putongNum||'-',
+			dianqiuNum:json.data[i].dianqiuNum||'-',
+			wulongNum:json.data[i].wulongNum||'-'
 		});
 	}
 
@@ -1158,12 +1200,12 @@ var contentPad={
 				return 0;
 			}
 
-			// getContentData(
-			// 	contentPad.currentPage,
-			// 	function(){
-			// 		contentPad.focus();
-			// 	}
-			// );
+			getContentData(
+				contentPad.currentPage,
+				function(){
+					contentPad.focus();
+				}
+			);
 		}
 		if(menuPad.listObj.position==1){
 			if(!!listData['pages'+this.currentPage]){
@@ -1175,12 +1217,12 @@ var contentPad={
 				return 0;
 			}
 
-			// getContentData1(
-			// 	contentPad.currentPage,
-			// 	function(){
-			// 		contentPad.focus();
-			// 	}
-			// );
+			getContentData1(
+				contentPad.currentPage,
+				function(){
+					contentPad.focus();
+				}
+			);
 		}
 	},
 	nextPage:function(){
@@ -1197,12 +1239,12 @@ var contentPad={
 				return 0;
 			}
 
-			// getContentData(
-			// 	contentPad.currentPage,
-			// 	function(){
-			// 		contentPad.focus();
-			// 	}
-			// );
+			getContentData(
+				contentPad.currentPage,
+				function(){
+					contentPad.focus();
+				}
+			);
 		}
 		if(menuPad.listObj.position==1){
 			if(!!listData['pages'+this.currentPage]){
@@ -1214,12 +1256,12 @@ var contentPad={
 				return 0;
 			}
 
-			// getContentData1(
-			// 	contentPad.currentPage,
-			// 	function(){
-			// 		contentPad.focus();
-			// 	}
-			// );
+			getContentData1(
+				contentPad.currentPage,
+				function(){
+					contentPad.focus();
+				}
+			);
 		}
 
 	},

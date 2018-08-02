@@ -31,21 +31,6 @@ var contentDataDemo={ //动态数据demo
 			href:''
 		},
 		{
-			imgUrl:'./images_second/index_img2.png',
-			name:'运营推广位',
-			href:''
-		},
-		{
-			imgUrl:'./images_second/index_img3.png',
-			name:'《新药中超》包里呢奥替身与美女大干一场',
-			href:''
-		},
-		{
-			imgUrl:'./images_second/index_img3.png',
-			name:'《新药中超》包里呢奥替身与美女大干一场',
-			href:''
-		},
-		{
 			imgUrl:'',
 			name:'回看$$中超第22轮 江苏苏宁易购 VS 广州恒大淘宝',
 			href:''
@@ -58,6 +43,21 @@ var contentDataDemo={ //动态数据demo
 		{
 			imgUrl:'',
 			name:'点击观看更多赛事>',
+			href:''
+		},
+		{
+			imgUrl:'./images_second/index_img2.png',
+			name:'运营推广位',
+			href:''
+		},
+		{
+			imgUrl:'./images_second/index_img3.png',
+			name:'《新药中超》包里呢奥替身与美女大干一场',
+			href:''
+		},
+		{
+			imgUrl:'./images_second/index_img3.png',
+			name:'《新药中超》包里呢奥替身与美女大干一场',
 			href:''
 		},
 		{
@@ -77,12 +77,14 @@ var contentDataDemo={ //动态数据demo
 var contentLayoutModeData={ //内容布局模版数据
 	tpl0:[ //typeContent 1:图文滚动文字 0:文字不滚动文字 focusImg:为空光标用css边框，不为空用图片作为光标 
 		{"focusImg":"",'left':70,'top':120,'width':566,'height':331,"typeContent":1,'textBg':'./images_second/index_word_bg1.png'}
-		,{"focusImg":"",'left':643,'top':120,'width':280,'height':331,"typeContent":1,'textBg':'./images_second/index_word_bg2.png'}
-		,{"focusImg":"",'left':930,'top':120,'width':280,'height':162,"typeContent":1,'textBg':'./images_second/index_word_bg2.png'}
-		,{"focusImg":"",'left':930,'top':289,'width':280,'height':162,"typeContent":1,'textBg':'./images_second/index_word_bg2.png'}
+
 		,{"focusImg":"",'left':70,'top':458,'width':566,'height':54,"typeContent":0,'textBg':'./images_second/index_word_item_bg.png'}
 		,{"focusImg":"",'left':70,'top':512,'width':566,'height':54,"typeContent":0,'textBg':'./images_second/index_word_item_bg.png'}
 		,{"focusImg":"",'left':70,'top':566,'width':566,'height':54,"typeContent":0,'textBg':'./images_second/index_word_item_bg.png'}
+
+		,{"focusImg":"",'left':643,'top':120,'width':280,'height':331,"typeContent":1,'textBg':'./images_second/index_word_bg2.png'}
+		,{"focusImg":"",'left':930,'top':120,'width':280,'height':162,"typeContent":1,'textBg':'./images_second/index_word_bg2.png'}
+		,{"focusImg":"",'left':930,'top':289,'width':280,'height':162,"typeContent":1,'textBg':'./images_second/index_word_bg2.png'}
 		,{"focusImg":"",'left':643,'top':458,'width':280,'height':162,"typeContent":1,'textBg':'./images_second/index_word_bg2.png'}
 		,{"focusImg":"",'left':930,'top':458,'width':280,'height':162,"typeContent":1,'textBg':'./images_second/index_word_bg2.png'}
 	],
@@ -97,7 +99,7 @@ menuPos=Q.getInt("menuPos",0);
 var menuId=0;//当前选择的菜单id
 menuId=Q.getInt('menuId',0);
 var leagueId =0;
-leagueId = Q.getInt('leagueId',0);
+leagueId = Q.getInt('leagueId',131897);
 
 function eventInit(_event){
 	if (_event.type=='keydown') {
@@ -207,11 +209,11 @@ function pageOnunload(){
 
 function getMenuData(){
 
-	formatMenuData();
-	return 0;
+	// formatMenuData();
+	// return 0;
 
 	loadingObj.show();
-	var url=apiBasePath+'/ui/tv/index/types';
+	var url=serverPath+'portalData/leagueCategoryTitle.utvgo?categoryCode='+leagueId+'&platform='+platform;
 	//alert(url);
 	ajax({
 	    url: url,
@@ -238,15 +240,53 @@ function getMenuData(){
 }
 function formatMenuData(json){
 	mainMenu=[];
-	//mainMenu=json.indexJson;
-	mainMenu=index_second_menu_data;
+	//mainMenu=index_second_menu_data;
+	if(!!json.data.index){
+		mainMenu.push({
+			name:json.data.index.blockName,
+			id:json.data.index.categoryCode,
+			link:'index_second.html'
+		});
+	}
+	if(!!json.data.schedule){
+		mainMenu.push({
+			name:json.data.schedule.blockName,
+			id:json.data.schedule.categoryCode,
+			link:'schedule_second.html'
+		});
+	}
+	if(!!json.data.lookBack){
+		mainMenu.push({
+			name:json.data.lookBack.blockName,
+			id:json.data.lookBack.categoryCode,
+			link:'lookBack_second.html'
+		});
+	}
+	if(!!json.data.highlights){
+		mainMenu.push({
+			name:json.data.highlights.blockName,
+			id:json.data.highlights.categoryCode,
+			link:'matchCollection_second.html'
+		});
+	}
+	if(!!json.data.rank){
+		mainMenu.push({
+			name:json.data.rank.blockName,
+			id:json.data.rank.categoryCode,
+			link:'topList_second.html'
+		});
+	}
+	$('league_name').innerHTML=json.data.leagueName;
+	$('league_logo').src=json.data.imageUrl;
 
 	for(var i=0,len=mainMenu.length;i<len;i++){
-		if(mainMenu[i].id===menuId){
+		if(mainMenu[i].id==menuId){
 			menuPos=i; //设置选择的菜单位置
 		}
 	}
 
+	//订购状态
+	$('leagueOrderStatus').style.display='none';
 	
 	menuObj.init();
 
@@ -290,6 +330,8 @@ function initMenuBox(){ //调用 showlist函数配置导航列表
 
 	
 }
+
+
 
 
 
@@ -360,15 +402,15 @@ var menuObj={
 
 var contentReq=null;
 function getContentData(){//通过ajxa获取数据
-	formatContentData(contentDataDemo);
-	return 0;
+	// formatContentData(contentDataDemo);
+	// return 0;
 
 	if(contentReq){
 		contentReq.abort();
 		contentReq=null;
 	}
 	loadingObj.show();
-	var url=apiBasePath+'/ui/tv/index/select?typeId='+mainMenu[menuBox.position].typeId;
+	var url=serverPath+'portalData/leaguePage.utvgo?categoryCode='+mainMenu[menuBox.position].id;
 	contentReq=ajax({
 	    url: url,
 	    type: "GET", //HTTP 请求类型,GET或POST
@@ -395,9 +437,42 @@ function getContentData(){//通过ajxa获取数据
 	});
 }
 function formatContentData(json){//绑定内容数据
-	var templateId=mainMenu.templateId||0;//模版id
+	var templateId=0;//模版id
 	subMenu=contentLayoutModeData['tpl'+templateId];
-	for(var i=0,len=subMenu.length;i<len;i++){
+
+	var recomendList=json.data.liveRecommend.list||[];
+	for(var i=0;i<3;i++){
+		//subMenu[i]=recomendList[i];
+		subMenu[i].img=recomendList[i].opBigPicUrl;
+		subMenu[i].name=recomendList[i].description.replace('#','$$$$');
+		subMenu[i].hrefType=recomendList[i].hrefType;
+		subMenu[i].code=recomendList[i].code;
+		subMenu[i].pkId=recomendList[i].pkId;
+		subMenu[i].contentMid=recomendList[i].contentMid;
+		subMenu[i].showFlag=recomendList[i].showFlag;
+		subMenu[i].href='';//自己拼接链接地址
+
+	}
+	//点击观看更多赛事>
+	subMenu[i].name='点击观看更多赛事>';
+	subMenu[i].href=mainMenu[1].link+'?menuId='+mainMenu[1].id+'&leagueId='+leagueId;//去赛程安排
+	i++;
+
+	var operationList=json.data.operationPosition.list||[];
+	for(;i<9;i++){//i从4开始
+		//subMenu[i]=operationList[i-4];
+		subMenu[i].img=operationList[i-4].opBigPicUrl;
+		subMenu[i].name=operationList[i-4].description;
+		subMenu[i].hrefType=operationList[i-4].hrefType;
+		subMenu[i].code=operationList[i-4].code;
+		subMenu[i].pkId=operationList[i-4].pkId;
+		subMenu[i].contentMid=operationList[i-4].contentMid;
+		subMenu[i].showFlag=operationList[i-4].showFlag;
+		subMenu[i].href='';//自己拼接链接地址
+	}
+
+	//demo test
+	/*for(var i=0,len=subMenu.length;i<len;i++){
 		if(!!!json.data[i]&&!!!json.data[i].imgUrl&&!!!json.data[i].name&&!!!json.data[i].href){
 			subMenu[i]=0;
 			continue;
@@ -406,7 +481,7 @@ function formatContentData(json){//绑定内容数据
 		subMenu[i].img=(!!json.data[i].imgUrl ? json.imageProfix+json.data[i].imgUrl:'');//拼接后的图片地址
 		subMenu[i].name=json.data[i].name;
 		subMenu[i].href=json.data[i].href;
-	}
+	}*/
 
 	subMenuObj.init();	
 	
@@ -435,8 +510,9 @@ var subMenuObj = {
 		var subMenuNum = subMenu.length;
 		for(var i = 0;i<subMenuNum;i++){
 			if(!!!subMenu[i]) continue;
+			//console.log(subMenu[i].name);
 			s+='<div id="contentItem'+i+'" style="position:absolute; top:'+subMenu[i].top+'px; left:'+subMenu[i].left+'px; width:'+subMenu[i].width+'px; height:'+subMenu[i].height+'px; );overflow:hidden;">'+
-				(!!subMenu[i].img&&subMenu[i].typeContent==1 ? '<img src="'+ subMenu[i].img +'" />' : '')+
+				(!!subMenu[i].img&&subMenu[i].typeContent==1 ? '<img src="'+ subMenu[i].img +'" width="'+subMenu[i].width+'" height="'+subMenu[i].height+'" />' : '')+
 				(subMenu[i].typeContent==0 ? 
 					(!!subMenu[i].textBg ? '<img src="'+ subMenu[i].textBg +'" style="position:absolute;left:0px;top:'+(textCount++ ? (-(textCount-1)*54) : 0)+'px;" />' : '')+
 					'<div style="position:absolute;left:0px;top:0px;height:54px;line-height:54px;width:94px;text-align:center;color:#6a708e;font-size:23px;display:'+(subMenu[i].name.split('$$')[1]?'block':'none')+';">'+(subMenu[i].name.split('$$')[0])+'</div>'+
@@ -599,3 +675,16 @@ var subMenuObj = {
 	}
 };
 
+
+/*
+hrefType:
+1:视频
+2:图片
+3:自定义栏目
+4:栏目专题
+7:轮播频道
+10:赛事首页
+11:更多赛事
+12:更多赛程
+
+*/

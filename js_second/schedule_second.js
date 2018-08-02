@@ -109,7 +109,7 @@ menuPos=Q.getInt("menuPos",0);
 var menuId=0;//当前选择的菜单id
 menuId=Q.getInt('menuId',0);
 var leagueId =0;
-leagueId = Q.getInt('leagueId',0);
+leagueId = Q.getInt('leagueId',131897);
 var pageNoInit=Q.getInt('pageNo',1);
 var leftMenuId=0;//左边菜单id
 leftMenuId=Q.getInt('leftMenuId',0);
@@ -221,11 +221,11 @@ function pageOnunload(){
 
 function getMenuData(){
 
-	formatMenuData();
-	return 0;
+	// formatMenuData();
+	// return 0;
 
 	loadingObj.show();
-	var url=apiBasePath+'/ui/tv/index/types';
+	var url=serverPath+'portalData/leagueCategoryTitle.utvgo?categoryCode='+leagueId+'&platform='+platform;
 	//alert(url);
 	ajax({
 	    url: url,
@@ -252,15 +252,54 @@ function getMenuData(){
 }
 function formatMenuData(json){
 	mainMenu=[];
-	//mainMenu=json.indexJson;
-	mainMenu=index_second_menu_data;
+	//mainMenu=index_second_menu_data;
+	if(!!json.data.index){
+		mainMenu.push({
+			name:json.data.index.blockName,
+			id:json.data.index.categoryCode,
+			link:'index_second.html'
+		});
+	}
+	if(!!json.data.schedule){
+		mainMenu.push({
+			name:json.data.schedule.blockName,
+			id:json.data.schedule.categoryCode,
+			link:'schedule_second.html'
+		});
+	}
+	if(!!json.data.lookBack){
+		mainMenu.push({
+			name:json.data.lookBack.blockName,
+			id:json.data.lookBack.categoryCode,
+			link:'lookBack_second.html'
+		});
+	}
+	if(!!json.data.highlights){
+		mainMenu.push({
+			name:json.data.highlights.blockName,
+			id:json.data.highlights.categoryCode,
+			link:'matchCollection_second.html'
+		});
+	}
+	if(!!json.data.rank){
+		mainMenu.push({
+			name:json.data.rank.blockName,
+			id:json.data.rank.categoryCode,
+			link:'topList_second.html'
+		});
+	}
+	$('league_name').innerHTML=json.data.leagueName;
+	$('league_logo').src=json.data.imageUrl;
+
 
 	for(var i=0,len=mainMenu.length;i<len;i++){
-		if(mainMenu[i].id===menuId){
+		if(mainMenu[i].id==menuId){
 			menuPos=i; //设置选择的菜单位置
 		}
 	}
-
+	
+	//订购状态
+	$('leagueOrderStatus').style.display='none';
 	
 	menuObj.init();
 

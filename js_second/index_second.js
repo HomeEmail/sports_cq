@@ -47,7 +47,17 @@ var contentDataDemo={ //动态数据demo
 		},
 		{
 			imgUrl:'',
-			name:'回看$$中超第22轮 江苏苏宁易购 VS 广州恒大淘宝||回看$$中超第22轮 北京国安 VS 大连阿尔滨||点击观看更多赛事>',
+			name:'回看$$中超第22轮 江苏苏宁易购 VS 广州恒大淘宝',
+			href:''
+		},
+		{
+			imgUrl:'',
+			name:'回看$$中超第22轮 北京国安 VS 大连阿尔滨',
+			href:''
+		},
+		{
+			imgUrl:'',
+			name:'点击观看更多赛事>',
 			href:''
 		},
 		{
@@ -70,7 +80,9 @@ var contentLayoutModeData={ //内容布局模版数据
 		,{"focusImg":"",'left':643,'top':120,'width':280,'height':331,"typeContent":1,'textBg':'./images_second/index_word_bg2.png'}
 		,{"focusImg":"",'left':930,'top':120,'width':280,'height':162,"typeContent":1,'textBg':'./images_second/index_word_bg2.png'}
 		,{"focusImg":"",'left':930,'top':289,'width':280,'height':162,"typeContent":1,'textBg':'./images_second/index_word_bg2.png'}
-		,{"focusImg":"",'left':70,'top':458,'width':566,'height':162,"typeContent":0,'textBg':'./images_second/index_word_item_bg.png'}
+		,{"focusImg":"",'left':70,'top':458,'width':566,'height':54,"typeContent":0,'textBg':'./images_second/index_word_item_bg.png'}
+		,{"focusImg":"",'left':70,'top':512,'width':566,'height':54,"typeContent":0,'textBg':'./images_second/index_word_item_bg.png'}
+		,{"focusImg":"",'left':70,'top':566,'width':566,'height':54,"typeContent":0,'textBg':'./images_second/index_word_item_bg.png'}
 		,{"focusImg":"",'left':643,'top':458,'width':280,'height':162,"typeContent":1,'textBg':'./images_second/index_word_bg2.png'}
 		,{"focusImg":"",'left':930,'top':458,'width':280,'height':162,"typeContent":1,'textBg':'./images_second/index_word_bg2.png'}
 	],
@@ -418,22 +430,17 @@ var subMenuObj = {
 		this.render();
 	},
 	render:function(){
-
+		var textCount=0;//纯文字点击块计数
 		var s = '';
 		var subMenuNum = subMenu.length;
 		for(var i = 0;i<subMenuNum;i++){
 			if(!!!subMenu[i]) continue;
-			s+='<div id="contentItem'+i+'" style="position:absolute; top:'+subMenu[i].top+'px; left:'+subMenu[i].left+'px; width:'+subMenu[i].width+'px; height:'+subMenu[i].height+'px; );">'+
+			s+='<div id="contentItem'+i+'" style="position:absolute; top:'+subMenu[i].top+'px; left:'+subMenu[i].left+'px; width:'+subMenu[i].width+'px; height:'+subMenu[i].height+'px; );overflow:hidden;">'+
 				(!!subMenu[i].img&&subMenu[i].typeContent==1 ? '<img src="'+ subMenu[i].img +'" />' : '')+
 				(subMenu[i].typeContent==0 ? 
-					'<img src="'+ subMenu[i].textBg +'" />'+
-
-					'<div style="position:absolute;left:0px;top:0px;height:54px;line-height:54px;width:94px;text-align:center;color:#6a708e;font-size:23px;">'+(subMenu[i].name.split('||')[0] ? subMenu[i].name.split('||')[0].split('$$')[0] : '')+'</div>'+
-					'<div style="position:absolute;left:95px;top:0px;height:54px;line-height:54px;width:472px;text-align:left;color:#999cb0;font-size:23px;overflow:hidden;"><span style="padding-right:12px;padding-left:12px;">'+(subMenu[i].name.split('||')[0] ? subMenu[i].name.split('||')[0].split('$$')[1] : '')+'</span></div>'+
-					'<div style="position:absolute;left:0px;top:55px;height:54px;line-height:54px;width:94px;text-align:center;color:#6a708e;font-size:23px;">'+(subMenu[i].name.split('||')[1] ? subMenu[i].name.split('||')[1].split('$$')[0] : '')+'</div>'+
-					'<div style="position:absolute;left:95px;top:55px;height:54px;line-height:54px;width:472px;text-align:left;color:#999cb0;font-size:23px;overflow:hidden;"><span style="padding-right:12px;padding-left:12px;">'+(subMenu[i].name.split('||')[1] ? subMenu[i].name.split('||')[1].split('$$')[1] : '')+'</span></div>'+
-					'<div style="position:absolute;left:0px;top:109px;height:54px;line-height:54px;width:566px;text-align:center;color:#999cb0;font-size:23px;">'+(subMenu[i].name.split('||')[2] ? subMenu[i].name.split('||')[2] : '')+'</div>'
-
+					(!!subMenu[i].textBg ? '<img src="'+ subMenu[i].textBg +'" style="position:absolute;left:0px;top:'+(textCount++ ? (-(textCount-1)*54) : 0)+'px;" />' : '')+
+					'<div style="position:absolute;left:0px;top:0px;height:54px;line-height:54px;width:94px;text-align:center;color:#6a708e;font-size:23px;display:'+(subMenu[i].name.split('$$')[1]?'block':'none')+';">'+(subMenu[i].name.split('$$')[0])+'</div>'+
+					'<div style="position:absolute;left:'+(subMenu[i].name.split('$$')[1]? '95':'0')+'px;top:0px;height:54px;line-height:54px;width:'+(subMenu[i].name.split('$$')[1]? '472':'566')+'px;text-align:'+(subMenu[i].name.split('$$')[1]? 'left':'center')+';color:#999cb0;font-size:23px;overflow:hidden;"><span style="padding-right:12px;padding-left:12px;">'+(subMenu[i].name.split('$$')[1]||subMenu[i].name.split('$$')[0])+'</span></div>'
 					: 
 					''
 				)+

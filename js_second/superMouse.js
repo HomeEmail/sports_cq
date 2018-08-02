@@ -29,7 +29,7 @@ function SuperMouse(data){//ata：光标数据列表
 		   if(_num>0){
 		   		for(var i = 0 ; i < this.listData.length; i++){
 			  		item = this.listData[i];
-			  		if( item.left > (thisLeft+thisWidth) ){
+			  		if( item.left >= (thisLeft+thisWidth) ){
 			  			//目标元素的left大于本身元素left+宽度。
 				  		item.index=i;
 				  		if(item.top+item.height >= thisTop&&item.top<=thisTop+thisHeight){
@@ -274,7 +274,7 @@ function SuperMouse(data){//ata：光标数据列表
 		    if(_num>0){
 		   		for(var i = 0 ; i < this.listData.length; i++){
 			  		item = this.listData[i];
-			  		if( item.top > (thisTop+thisHeight) ){
+			  		if( item.top >= (thisTop+thisHeight) ){
 			  		//目标元素的top小于当前元素的top+高度值
 				  		item.index=i;
 
@@ -389,7 +389,7 @@ function SuperMouse(data){//ata：光标数据列表
 		    if(_num<0){
 		   		for(var i = 0 ; i < this.listData.length; i++){
 			  		item = this.listData[i];
-			  		if( item.top + item.height < thisTop ){
+			  		if( item.top + item.height <= thisTop ){
 			  		//目标元素的top+高小于当前元素的top
 				  		item.index=i;
 				  		if(item.left+item.width >= thisLeft&&item.left<=thisLeft+thisWidth){

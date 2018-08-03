@@ -74,8 +74,8 @@ function grabEvent(_event){
 
 window.onload = init;
 var curChanId = "";  //频道Id
-var progId = "";  //节目Id
-var playId = 0;  //
+var progId = "";  //节目Id 暂无用
+var playId = 0;  //播放id 暂无用
 var dgCode = 9;
 var dgMsg = "";
 
@@ -83,7 +83,7 @@ function init(){
 	// showLoadingDiv();
 
 	curChanId = Q.getDecoded("curChanId");  //直播id
-	progId = Q.getDecoded("progId");  //直播id
+	progId = Q.getDecoded("progId");  //节目Id
 
 
 	control.init();

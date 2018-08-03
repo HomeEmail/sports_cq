@@ -7,7 +7,8 @@ homeUrl="http://10.105.248.139";//天津广电 测试
 
 
 var serverPath = ''; //数据接口
-serverPath = 'http://172.16.146.56:8081/cq-sports-client-web/';//测试
+serverPath = 'http://172.16.146.56:8081/cq-sports-client-web/';//南网公司内测试
+serverPath = 'http://192.168.18.51:8280/cq-sports-client-web/';//重庆测试
 
 var userPath = ''; // 用户信息
 

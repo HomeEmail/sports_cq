@@ -18,8 +18,8 @@ var mainMenu = [ //菜单
 	}
 ];
 
-var listData = {////存储每一页最终内容渲染数据 
-	//'page1':[] //demo
+var listData = {////存储每个左边菜单的每一页最终内容渲染数据 
+	//'page_1_1':[] //demo
 };
 
 var contentDataDemo={ //动态数据demo
@@ -297,7 +297,7 @@ function formatMenuData(json){
 			menuPos=i; //设置选择的菜单位置
 		}
 	}
-	
+
 	//订购状态
 	$('leagueOrderStatus').style.display='none';
 	
@@ -417,11 +417,11 @@ var menuObj={
 
 function getLeftMenuData(){
 
-	formatLeftMenuData();
-	return 0;
+	// formatLeftMenuData();
+	// return 0;
 
 	loadingObj.show();
-	var url=apiBasePath+'/ui/tv/index/types';
+	var url=serverPath+'portalData/categoryScheduleDate.utvgo?category='+menuId;
 	//alert(url);
 	ajax({
 	    url: url,
@@ -448,23 +448,21 @@ function getLeftMenuData(){
 }
 function formatLeftMenuData(json){
 	menuPad.menuData=[];
-	menuPad.menuData=[ //demo data 
-		{name:'8月17号',id:1},
-		{name:'8月18号',id:2},
-		{name:'8月19号',id:3},
-		{name:'8月20号',id:4},
-		{name:'8月21号',id:5},
-		{name:'8月22号',id:6},
-		{name:'8月23号',id:7},
-		{name:'8月24号',id:8},
-		{name:'8月25号',id:9},
-		{name:'8月26号',id:10},
-		{name:'8月27号',id:11},
-		{name:'8月28号',id:12},
-		{name:'8月29号',id:13},
-		{name:'8月30号',id:14}
-
-	];
+	/*menuPad.menuData=[ //demo data 
+		{name:'7月28日',id:1,startDate:'20180728'},
+		{name:'7月29日',id:2,startDate:'20180729'},
+		{name:'8月01日',id:3,startDate:'20180801'},
+		{name:'8月02日',id:4,startDate:'20180802'},
+		{name:'8月04日',id:5,startDate:'20180804'},
+		{name:'8月05日',id:6,startDate:'20180805'}
+	];*/
+	for(var j=0,jlen=json.data.length;j<jlen;j++){
+		menuPad.menuData.push({
+			name:json.data[j].dateName,
+			id:j,
+			startDate:json.data[j].dateValue
+		});
+	}
 	var initIndex=0;
 	for(var i=0,len=menuPad.menuData.length;i<len;i++){
 		if(menuPad.menuData[i].id===leftMenuId){
@@ -474,7 +472,7 @@ function formatLeftMenuData(json){
 	
 	var s='';
 	if(menuPad.menuData.length<=0){
-		s='<div style="height:60px;color: #cccccc;font-size: 20px;text-align: center;padding-top: 200px;">无数据（小编会努力补上的~~）</div>';
+		s='<div style="height:60px;color: #cccccc;font-size: 20px;text-align: center;padding-top: 200px;">暂无赛事内容~~</div>';
 		$('contentWrapper').innerHTML=s;
 		return 0;
 	}
@@ -563,10 +561,10 @@ var menuPad={
 	,updateContent:function(){//更新右边内容
 		var that = this;
 		
-		if(!!menuPad.menuData[menuPad.listObj.position].currentPage&&!!listData['page'+menuPad.menuData[menuPad.listObj.position].currentPage]){
+		if(!!menuPad.menuData[menuPad.listObj.position].currentPage&&!!listData['page_'+menuPad.menuData[menuPad.listObj.position].id+'_'+menuPad.menuData[menuPad.listObj.position].currentPage]){
 			contentPad.currentPage=menuPad.menuData[menuPad.listObj.position].currentPage;
 			contentPad.totalPage=menuPad.menuData[menuPad.listObj.position].totalPage;
-			contentPad.currentPageData=listData['page'+contentPad.currentPage];
+			contentPad.currentPageData=listData['page_'+menuPad.menuData[menuPad.listObj.position].id+'_'+contentPad.currentPage];
 			contentPad.init();
 			contentPad.render();
 			contentPad.resetFocusInfo();
@@ -593,7 +591,7 @@ var menuPad={
 	,outLeft:function(){}//将要跳出本交互模块的处理
 	,outRight:function(){
 
-		if(menuPad.listObj.position==0&&!!!listData['page'+menuPad.menuData[menuPad.listObj.position].currentPage]){//右边没内容
+		if(!!!listData['page_'+menuPad.menuData[menuPad.listObj.position].id+'_'+menuPad.menuData[menuPad.listObj.position].currentPage]||listData['page_'+menuPad.menuData[menuPad.listObj.position].id+'_'+menuPad.menuData[menuPad.listObj.position].currentPage].length<=0){//右边没内容
 			return 0;
 		}
 		this.blur();
@@ -633,11 +631,54 @@ var menuPad={
 };
 //左边菜单 end
 
+//传入193020 返回19:30:20 m:true表示只精确到分 
+function formatTime1(str,m){
+	var ary=[];
+	var s='';
+	try{
+		ary=str.split('');
+		s=(ary[0]||'')+(ary[1]||'')+':'+(ary[2]||'')+(ary[3]||'');
+		if(!!!m){
+			s+=':'+(ary[4]||'')+(ary[5]||'')
+		}
+	}catch(err){
+		s='';
+	}
+	return s;
+
+}
+//formatTime1('193020',true);
+
+//传入 20180802 返回 2018-08-02
+function formatDate1(str){
+	var ary=[];
+	var s='';
+	try{
+		ary=str.split('');
+		s=(ary[0]||'')+(ary[1]||'')+(ary[2]||'')+(ary[3]||'');
+		s+='-'+(ary[4]||'')+(ary[5]||'')
+		s+='-'+(ary[6]||'')+(ary[7]||'')
+		
+	}catch(err){
+		s='';
+	}
+	return s;
+}
+//formatDate1('20180802');
+//传入 20180802193020 返回2018-08-02 19:30:20 m:true表示只精确到分
+function formatDateTime1(str,m){
+	var str1=str.substring(0,8);//date
+	var str2=str.substring(8);//time
+	return formatDate1(str1)+ ' ' +formatTime1(str2,m);
+}
+//formatDateTime1('20180802193020');
+
+
 
 var contentReq=null;
 function getContentData(pageNo,fn){//通过ajxa获取数据 积分榜
-	formatContentData(contentDataDemo,fn);
-	return 0;
+	// formatContentData(contentDataDemo,fn);
+	// return 0;
 
 	if(contentReq){
 		contentReq.abort();
@@ -645,15 +686,17 @@ function getContentData(pageNo,fn){//通过ajxa获取数据 积分榜
 	}
 	loadingObj.show();
 	//menuPad.menuData[menuPad.listObj.position].id //左边菜单id
-	var url=apiBasePath+'/ui/tv/index/select?menuId='+menuId+'&leagueId='+leagueId+'&pageNo='+pageNo;
+	var url=serverPath+'portalData/categorySchedule.utvgo?leagueCode=&seasonCode=&gameRoundsCode=&channelCode=&channelID=&startDate='+menuPad.menuData[menuPad.listObj.position].startDate+'&platform='+platform+'&categoryCode='+menuId+'&pageNo='+pageNo+'&pageSize=6';
+
 	contentReq=ajax({
 	    url: url,
 	    type: "GET", //HTTP 请求类型,GET或POST
 	    dataType: "html", //请求的文件类型html/xml
 	    onSuccess: function(html){ //请求成功后执行[可选]
 	    	contentReq=null;
-	        var json=eval('('+html+')');
 	        loadingObj.hide();
+	        if(!!!html) return ;
+	        var json=eval('('+html+')');
 
 	        if(parseInt(json.code,10)==1){
 	        	formatContentData(json,fn);
@@ -672,38 +715,54 @@ function getContentData(pageNo,fn){//通过ajxa获取数据 积分榜
 	});
 }
 function formatContentData(json,fn){//绑定内容数据
-	contentPad.currentPage=json.pageNo||1;
+	contentPad.currentPage=json.currentPage||1;
 	contentPad.totalPage=json.totalPage||1;
 	menuPad.menuData[menuPad.listObj.position].currentPage=contentPad.currentPage;
 	menuPad.menuData[menuPad.listObj.position].totalPage=contentPad.totalPage;
 	contentPad.currentPageData=[];
-	listData['page'+contentPad.currentPage]=[];//缓存此页数据
+	listData['page_'+menuPad.menuData[menuPad.listObj.position].id+'_'+contentPad.currentPage]=[];//缓存此页数据
 	for(var i=0,len=json.data.length;i<len;i++){
 		contentPad.currentPageData.push({
-			img1:json.data[i].imgUrl1,
-			name1:json.data[i].name1,
-			img2:json.data[i].imgUrl2,
-			name2:json.data[i].name2,
-			name:json.data[i].name,//中超第几轮
-			scoreText:json.data[i].scoreText,//'3-2',//3-2 VS
-			status:json.data[i].status,//1,//结束1 未开播-1 正在直播0
-			startTime:json.data[i].startTime,//'08-18 09:23',
-			reserve:json.data[i].reserve,//0,//已预约1 未预约0
-			id:json.data[i].id
+			img1:json.data[i].homeTeamImageUrl,
+			name1:json.data[i].homeTeamName,
+			img2:json.data[i].visitingTeamImageUrl,
+			name2:json.data[i].visitingTeamName,
+			name:json.data[i].leagueName+json.data[i].roundsName,//中超第几轮
+			scheduleType:json.data[i].scheduleType,//节目单类型 1：直播 2:录播
+			liveBroadcastFlg:json.data[i].liveBroadcastFlg,//直播状态，0未开始，1正在直播，2直播结束
+			subscribeFlg:json.data[i].subscribeFlg,//是否预约，0未预约，1已预约
+			scoreText:json.data[i].score||'VS',//'3-2',//3-2 VS
+			status:json.data[i].liveBroadcastFlg==0?-1:(json.data[i].liveBroadcastFlg==1?0:1),//1,//结束1 未开播-1 正在直播0  //json.data[i].status状态标志\r\n0:失效 1:生效
+			startTime:formatTime1(json.data[i].startTime,true),//'08-18 09:23',
+			reserve:json.data[i].subscribeFlg,//0,//已预约1 未预约0
+			id:json.data[i].pkId,
+			code:json.data[i].code,//赛事code
+			leagueCode:json.data[i].leagueCode,//联赛code
+			seasonCode:json.data[i].seasonCode,//赛季code
+			gameRoundsCode:json.data[i].gameRoundsCode, //轮次code
+			href:'live_second.html?curChanId='+json.data[i].signalCode+'&progId=' //自己拼接链接地址 'detail_second.html?id='+json.data[i].code
 		
 		});
 		//缓存此页数据
-		listData['page'+contentPad.currentPage].push({
-			img1:json.data[i].imgUrl1,
-			name1:json.data[i].name1,
-			img2:json.data[i].imgUrl2,
-			name2:json.data[i].name2,
-			name:json.data[i].name,//中超第几轮
-			scoreText:json.data[i].scoreText,//'3-2',//3-2 VS
-			status:json.data[i].status,//1,//结束1 未开播-1 正在直播0
-			startTime:json.data[i].startTime,//'08-18 09:23',
-			reserve:json.data[i].reserve,//0,//已预约1 未预约0
-			id:json.data[i].id
+		listData['page_'+menuPad.menuData[menuPad.listObj.position].id+'_'+contentPad.currentPage].push({
+			img1:json.data[i].homeTeamImageUrl,
+			name1:json.data[i].homeTeamName,
+			img2:json.data[i].visitingTeamImageUrl,
+			name2:json.data[i].visitingTeamName,
+			name:json.data[i].leagueName+json.data[i].roundsName,//中超第几轮
+			scheduleType:json.data[i].scheduleType,//节目单类型 1：直播 2:录播
+			liveBroadcastFlg:json.data[i].liveBroadcastFlg,//直播状态，0未开始，1正在直播，2直播结束
+			subscribeFlg:json.data[i].subscribeFlg,//是否预约，0未预约，1已预约
+			scoreText:json.data[i].score||'VS',//'3-2',//3-2 VS
+			status:json.data[i].liveBroadcastFlg==0?-1:(json.data[i].liveBroadcastFlg==1?0:1),//1,//结束1 未开播-1 正在直播0  //json.data[i].status状态标志\r\n0:失效 1:生效
+			startTime:formatTime1(json.data[i].startTime,true),//'08-18 09:23',
+			reserve:json.data[i].subscribeFlg,//0,//已预约1 未预约0
+			id:json.data[i].pkId,
+			code:json.data[i].code,//赛事code
+			leagueCode:json.data[i].leagueCode,//联赛code
+			seasonCode:json.data[i].seasonCode,//赛季code
+			gameRoundsCode:json.data[i].gameRoundsCode, //轮次code
+			href:'live_second.html?curChanId='+json.data[i].signalCode+'&progId='  //自己拼接链接地址 'detail_second.html?id='+json.data[i].code
 		});
 	}
 
@@ -848,7 +907,7 @@ var contentPad={
 						'<div id="'+this.itemId+'Col_5_'+(dataIndex)+'" style="position: absolute;height: 90px;line-height: 90px;color: #989caf;font-size: 20px;width: '+colTitleAry[5].w+'px;left:'+colTitleAry[5].left+'px;top: 0px;text-align: left;z-index: 3;overflow: hidden;"><div style="padding-left:10px;padding-right:10px;">'+this.currentPageData[dataIndex].name2+'</div></div>',
 						'<div style="position: absolute;height: 90px;line-height: 90px;color: #989caf;font-size: 20px;width: '+colTitleAry[6].w+'px;left:'+colTitleAry[6].left+'px;top: 0px;text-align: center;z-index: 3;overflow: hidden;">'+'<div style="position: absolute;left:0px;top:0px;width: '+colTitleAry[6].w+'px;height: 60px;line-height: 60px;padding: 15px 0px;overflow: hidden;text-align: center;"><img src="'+this.currentPageData[dataIndex].img2+'" height="60" /></div>'+'</div>',
 						
-						'<div style="position: absolute;height: 90px;line-height: 90px;color: '+(this.currentPageData[dataIndex].reserve?'#1c8cff':'#6d77a2')+';font-size: 20px;width: '+colTitleAry[7].w+'px;left:'+colTitleAry[7].left+'px;top: 0px;text-align: center;z-index: 3;overflow: hidden;"><div style="padding-left:10px;padding-right:10px;">'+(this.currentPageData[dataIndex].status==1?'':(this.currentPageData[dataIndex].reserve?'已预约':'预约'))+'</div></div>',
+						'<div style="position: absolute;height: 90px;line-height: 90px;color: '+(this.currentPageData[dataIndex].reserve==1?'#1c8cff':'#6d77a2')+';font-size: 20px;width: '+colTitleAry[7].w+'px;left:'+colTitleAry[7].left+'px;top: 0px;text-align: center;z-index: 3;overflow: hidden;"><div style="padding-left:10px;padding-right:10px;">'+(this.currentPageData[dataIndex].status==1?'':(this.currentPageData[dataIndex].reserve==1?'已预约':'预约'))+'</div></div>',
 
 					'</div>'
 				];
@@ -858,7 +917,7 @@ var contentPad={
 			}
 		}
 		if(this.currentPageData.length<=0){
-			s='<div style="height:60px;color: #cccccc;font-size: 20px;text-align: center;padding-top: 200px;">无数据（小编会努力补上的~~）</div>';
+			s='<div style="height:60px;color: #cccccc;font-size: 20px;text-align: center;padding-top: 200px;">暂无赛事内容~~</div>';
 		}
 		$(this.wrapperId).innerHTML=s;
 	},
@@ -920,8 +979,8 @@ var contentPad={
 		console.log('last page');
 		this.currentPage--;
 		menuPad.menuData[menuPad.listObj.position].currentPage=this.currentPage;
-		if(!!listData['page'+this.currentPage]){
-			this.currentPageData=listData['page'+this.currentPage];
+		if(!!listData['page_'+menuPad.menuData[menuPad.listObj.position].id+'_'+this.currentPage]){
+			this.currentPageData=listData['page_'+menuPad.menuData[menuPad.listObj.position].id+'_'+this.currentPage];
 			contentPad.init();
 			contentPad.render();
 			contentPad.resetFocusInfo();
@@ -929,12 +988,12 @@ var contentPad={
 			return 0;
 		}
 
-		// getContentData(
-		// 	contentPad.currentPage,
-		// 	function(){
-		// 		contentPad.focus();
-		// 	}
-		// );
+		getContentData(
+			contentPad.currentPage,
+			function(){
+				contentPad.focus();
+			}
+		);
 	
 	},
 	nextPage:function(){
@@ -942,8 +1001,8 @@ var contentPad={
 		this.currentPage++;
 		menuPad.menuData[menuPad.listObj.position].currentPage=this.currentPage;
 		
-		if(!!listData['page'+this.currentPage]){
-			this.currentPageData=listData['page'+this.currentPage];
+		if(!!listData['page_'+menuPad.menuData[menuPad.listObj.position].id+'_'+this.currentPage]){
+			this.currentPageData=listData['page_'+menuPad.menuData[menuPad.listObj.position].id+'_'+this.currentPage];
 			contentPad.init();
 			contentPad.render();
 			contentPad.resetFocusInfo();
@@ -951,12 +1010,12 @@ var contentPad={
 			return 0;
 		}
 
-		// getContentData(
-		// 	contentPad.currentPage,
-		// 	function(){
-		// 		contentPad.focus();
-		// 	}
-		// );
+		getContentData(
+			contentPad.currentPage,
+			function(){
+				contentPad.focus();
+			}
+		);
 		
 
 	},
@@ -1039,7 +1098,8 @@ var contentPad={
 
 		backUrl=createUrlByObject(backUrl,{pageNo:this.currentPage,menuId:menuId,leftMenuId:menuPad.menuData[menuPad.listObj.position].id});
 
-		var url='detail_second.html?id='+this.currentPageData[this.index].id;		
+		var url=this.currentPageData[this.index].href;		
+		if(!!!url) return;
 
 		if(url.indexOf('?')>-1){
 			url+='&backUrl='+Q.encode(backUrl);

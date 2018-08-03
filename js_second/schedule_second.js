@@ -740,7 +740,7 @@ function formatContentData(json,fn){//绑定内容数据
 			leagueCode:json.data[i].leagueCode,//联赛code
 			seasonCode:json.data[i].seasonCode,//赛季code
 			gameRoundsCode:json.data[i].gameRoundsCode, //轮次code
-			href:'live_second.html?curChanId='+json.data[i].signalCode+'&progId=' //自己拼接链接地址 'detail_second.html?id='+json.data[i].code
+			href:json.data[i].liveBroadcastFlg==1 ? ('live_second.html?curChanId='+json.data[i].signalCode+'&progId=') : '' //自己拼接链接地址 'detail_second.html?id='+json.data[i].code
 		
 		});
 		//缓存此页数据
@@ -762,7 +762,7 @@ function formatContentData(json,fn){//绑定内容数据
 			leagueCode:json.data[i].leagueCode,//联赛code
 			seasonCode:json.data[i].seasonCode,//赛季code
 			gameRoundsCode:json.data[i].gameRoundsCode, //轮次code
-			href:'live_second.html?curChanId='+json.data[i].signalCode+'&progId='  //自己拼接链接地址 'detail_second.html?id='+json.data[i].code
+			href:json.data[i].liveBroadcastFlg==1 ? ('live_second.html?curChanId='+json.data[i].signalCode+'&progId=') : ''  //自己拼接链接地址 'detail_second.html?id='+json.data[i].code
 		});
 	}
 

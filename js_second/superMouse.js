@@ -8,6 +8,28 @@
 ]
 
 */
+function MathMin(ary){
+	var temp=0;
+	if(ary.length>0){
+		temp=ary[0];
+	}
+	for(var i=1;i<ary.length;i++){
+		temp=Math.min(temp,ary[i]);
+
+	}
+	return temp;
+}
+function MathMax(ary){
+	var temp=0;
+	if(ary.length>0){
+		temp=ary[0];
+	}
+	for(var i=1;i<ary.length;i++){
+		temp=Math.max(temp,ary[i]);
+
+	}
+	return temp;
+}
 function SuperMouse(data){//ata：光标数据列表
 	this.listData = data||[],
 	this.setData = function(data){//data：光标数据列表
@@ -34,10 +56,12 @@ function SuperMouse(data){//ata：光标数据列表
 				  		item.index=i;
 				  		if(item.top+item.height >= thisTop&&item.top<=thisTop+thisHeight){
 				  			//交集元素
+				  			logInput('交集元素');
 				  			intersectionItem.push(item);
 					  		intersectionItemLeft.push(item.left);
 				  		}else{
 				  			//外集
+				  			logInput('外集');
 				  			outsectionItem.push(item);
 				  		}
 			     	}
@@ -117,7 +141,7 @@ function SuperMouse(data){//ata：光标数据列表
 			  		}
 			  	}else{
 			  		//走交集
-				  	var minLeft = Math.min.apply(Math,intersectionItemLeft);
+				  	var minLeft = MathMin(intersectionItemLeft);
                     //判断离自身元素最少左值得目标元素
 			  		intersectionItemTop=[];
 				    for(var k = 0; k < intersectionItem.length; k++){
@@ -128,7 +152,7 @@ function SuperMouse(data){//ata：光标数据列表
 			  			}
 			  		}
 
-				  	var minTop = Math.min.apply(Math,intersectionItemTop);
+				  	var minTop = MathMin(intersectionItemTop);
 			  		for(var j=0;j<leftItem.length;j++){
 			  			if(minTop==leftItem[j].top){
 			  				subPos=leftItem[j].index;
@@ -230,7 +254,7 @@ function SuperMouse(data){//ata：光标数据列表
 			  		}
 			  	}else{
 			  		//走交集
-				  	var maxLeft = Math.max.apply(Math,intersectionItemLeft);
+				  	var maxLeft = MathMax(intersectionItemLeft);
 				  	 //判断离自身元素最大左值得目标元素
 			  		intersectionItemTop=[];
 				    for(var k = 0; k < intersectionItem.length; k++){
@@ -241,7 +265,7 @@ function SuperMouse(data){//ata：光标数据列表
 			  			}
 			  		}
 
-				  	var minTop = Math.min.apply(Math,intersectionItemTop);
+				  	var minTop = MathMin(intersectionItemTop);
 			  		for(var j=0;j<leftItem.length;j++){
 			  			if(minTop==leftItem[j].top){
 			  				subPos=leftItem[j].index;
@@ -361,7 +385,7 @@ function SuperMouse(data){//ata：光标数据列表
 			  		}
 			  	}else{
 			  		//走交集
-				  	var minTop = Math.min.apply(Math,intersectionItemTop);
+				  	var minTop = MathMin(intersectionItemTop);
 				  	 //判断离自身元素最小值高度得目标元素
 			  		intersectionItemLeft=[];
 				    for(var k = 0; k < intersectionItem.length; k++){
@@ -373,7 +397,7 @@ function SuperMouse(data){//ata：光标数据列表
 			  		}
 
 
-				  	var minLeft = Math.min.apply(Math,intersectionItemLeft);
+				  	var minLeft = MathMin(intersectionItemLeft);
 				  	//如果高相等，判断它们的left
 			  		for(var j=0;j<leftItem.length;j++){
 			  			if(minLeft==leftItem[j].left){
@@ -478,7 +502,7 @@ function SuperMouse(data){//ata：光标数据列表
 			  		}
 			  	}else{
 			  		//走交集
-				  	var maxTop = Math.max.apply(Math,intersectionItemTop);
+				  	var maxTop = MathMax(intersectionItemTop);
 				  	//判断离自身元素最大值高度得目标元素
 
 
@@ -492,7 +516,7 @@ function SuperMouse(data){//ata：光标数据列表
 			  		}
 
 
-				  	var minLeft = Math.min.apply(Math,intersectionItemLeft);
+				  	var minLeft = MathMin(intersectionItemLeft);
 				  	//向上行寻找集合里面最少的top
 			  		for(var j=0;j<leftItem.length;j++){
 			  			if(minLeft==leftItem[j].left){

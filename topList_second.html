@@ -24,6 +24,9 @@ body,html{
 	color:#8285b6;
 	text-align:center;
 }
+div,span{
+	box-sizing: border-box;
+}
 
 </style>
 </head>
@@ -34,8 +37,8 @@ body,html{
 	<img src="./images/loading.gif" style="position:absolute; top:0px; left:0px;background: transparent;" />
 </div> -->
 <div style="position:absolute; top:31px; left:68px;height: 55px;width: auto;vertical-align: middle;">
-	<img id="league_logo" src="images_second/index_logo1.png" height="55" style="vertical-align: middle;" /><span id="league_name" style="padding:0px 15px;font-size: 23px;color:#6791d1;vertical-align: middle;">中超</span>
-	<div id="leagueOrderStatus" style="position: absolute;left: 20px;top:30px;background-color: #3da311;border-radius: 10px;text-align: center;font-size: 16px;color: #ffffff;height: 24px;line-height: 24px;width: 70px;">已订购</div>
+	<img id="league_logo" src="images_second/logo.png" height="55" style="vertical-align: middle;" /><span id="league_name" style="padding:0px 15px;font-size: 23px;color:#6791d1;vertical-align: middle;"><!-- 中超 --></span>
+	<div id="leagueOrderStatus" style="position: absolute;left: 20px;top:30px;background-color: #3da311;border-radius: 10px;text-align: center;font-size: 16px;color: #ffffff;height: 24px;line-height: 24px;width: 70px;display: none;">已订购</div>
 </div>
 
 <div id="Menu" style="position:absolute; top:0px; left:0px; width:1280px; height:120px;">
@@ -47,7 +50,7 @@ body,html{
 	</div>
 
 	<!-- <div id="menu_focus" style="position:absolute; top:26px; left:273px; width:157px; height:66px; background:url(images_second/menu-on.png) no-repeat; opacity:0;z-index:2;"></div> -->
-	<div id="menu_focus" style="position:absolute; top:31px; left:273px; width:149px; height:50px; border:4px #ffffff solid; border-radius: 30px; opacity:0;z-index:2;"></div>
+	<div id="menu_focus" style="position:absolute; top:31px; left:273px; width:157px; height:58px; border:4px #ffffff solid;  visibility:hidden;z-index:2;"></div>
 	
 </div>
 
@@ -62,15 +65,15 @@ body,html{
 
 	<!-- <div id="menu_focus" style="position:absolute; top:26px; left:273px; width:157px; height:66px; background:url(images_second/menu-on.png) no-repeat; opacity:0;z-index:2;"></div> -->
 	<!-- <div style="position:absolute;top:113px; left:42px;"><div id="menuLeft_focus" style="position:absolute; top:0px; left:0px; width:199px; height:139px;background: url(images_second/left_menu_on.png) left top no-repeat; opacity:0;z-index:2;"></div></div> --><!-- left_menu_bg -->
-	<div style="position:absolute;top:150px; left:80px;"><div id="menuLeft_focus" style="position:absolute; top:0px; left:0px; width:115px; height:55px;opacity:0;border:4px #ffffff solid; border-radius: 10px;z-index:3;"></div></div>
+	<div style="position:absolute;top:150px; left:80px;"><div id="menuLeft_focus" style="position:absolute; top:0px; left:0px; width:123px; height:63px;visibility: hidden;border:4px #ffffff solid; z-index:3;"></div></div>
 	
 </div>
 
 
 <!-- 右边内容 begin -->
 
-<img style="position: absolute;z-index: 1;left: 223px;top: 107px;" src="./images_second/topList_bg.png" />
-<div id="contentWrapper" style="position:absolute; top:0px; left:0px; width:1280px; height:720px;">
+<img id="contentWrapperBg" style="position: absolute;z-index: 1;left: 223px;top: 107px;display: none;" src="./images_second/topList_bg.png" />
+<div id="contentWrapper" style="position:absolute; top:0px; left:0px; width:1280px; height:720px;z-index: 2;">
 	<div style="position: absolute;z-index: 2;top: 107px;left: 223px;width: 990px;height: 66px;display:none;">
 		<div style="position: absolute;height: 66px;line-height: 66px;color: #a2abdf;font-size: 24px;width: 80px;left:0px;top: 0px;text-align: center;">排名</div>
 		<div style="position: absolute;height: 66px;line-height: 66px;color: #a2abdf;font-size: 24px;width: 250px;left:80px;top: 0px;text-align: center;">球队</div>
@@ -85,14 +88,14 @@ body,html{
 	</div>
 </div>
 
-<div id="pageNumNavText" style="position:absolute;left: 0px;top: 650px;color: #909090;font-size:30px;text-align: center;width: 1280px;opacity: 0;">1/1</div>
+<div id="pageNumNavText" style="position:absolute;left: 0px;top: 650px;color: #909090;font-size:30px;text-align: center;width: 1280px;visibility: hidden;">1/1</div>
 
 <img style="position:absolute;left:60px;top:368px;opacity: 0;" src="./images_second/arrow_left.png" />
 <img style="position:absolute;left:60px;top:368px;opacity: 0;" src="./images_second/arrow_left.png" id="contentArrowLeft" />
 <img style="position:absolute;left:1195px;top:368px;opacity: 0;" src="./images_second/arrow_right.png" />
 <img style="position:absolute;left:1195px;top:368px;opacity: 0;" src="./images_second/arrow_right.png" id="contentArrowRight" />
-<img style="position:absolute;left:695px;top:170px;z-index: 5;" src="./images_second/arrow_up.png" id="contentArrowUp" />
-<img style="position:absolute;left:695px;top:670px;z-index: 5;" src="./images_second/arrow_down.png" id="contentArrowDown" />
+<img style="position:absolute;left:695px;top:170px;z-index: 5;display: none;" src="./images_second/arrow_up.png" id="contentArrowUp" />
+<img style="position:absolute;left:695px;top:670px;z-index: 5;display: none;" src="./images_second/arrow_down.png" id="contentArrowDown" />
 
 <!-- 右边内容 end -->
 

@@ -80,6 +80,10 @@ function eventInit(_event){
 			goBack();	
 			return false;
 			break;
+		case "KEY_NUMBER0":
+			window.location.reload(true);
+			return false;
+			break;
 		default:
 			break;
 	}
@@ -146,6 +150,10 @@ function grabEvent(_event){
 		case "KEY_EXIT":
 		case "KEY_BACK": //
 			contral.back?contral.back():goBack();	
+			return false;
+			break;
+		case "KEY_NUMBER0":
+			window.location.reload(true);
 			return false;
 			break;
 		default:
@@ -324,11 +332,11 @@ var menuPad={
 
 	}
 	,focus:function(){
-		$('menuLeft_focus').style.opacity=1;
+		$('menuLeft_focus').style.visibility='visible';
 		$('menuLeft_focus').style.background='url(images_second/list1/menu_focus.png) center center no-repeat';
 	}
 	,blur:function(){
-		$('menuLeft_focus').style.opacity=1;
+		$('menuLeft_focus').style.visibility='visible';
 		$('menuLeft_focus').style.background='url(images_second/list1/menu_select.png) center center no-repeat';
 	}
 	,updateContent:function(){//更新右边内容
@@ -457,7 +465,7 @@ function formatContentData(json,fn){//绑定内容数据
 			code:json.data[i].code,
 			status:json.data[i].status,
 			duration:json.data[i].duration,
-			href:'' //自己拼接链接地址
+			href:'../play_1.html?mvMid='+json.data[i].code //自己拼接链接地址
 		});
 		//缓存此页数据
 		listData['page_'+menuPad.menuData[menuPad.listObj.position].id+'_'+contentPad.currentPage].push({
@@ -469,7 +477,7 @@ function formatContentData(json,fn){//绑定内容数据
 			code:json.data[i].code,
 			status:json.data[i].status,
 			duration:json.data[i].duration,
-			href:'' //自己拼接链接地址
+			href:'../play_1.html?mvMid='+json.data[i].code //自己拼接链接地址
 		});
 	}
 
@@ -494,8 +502,8 @@ var contentPad={
 	initLeft:320,//初始left值px
 	rowMargin:20,//行之间间隙距离px
 	colMargin:20,//列之间间隙距离px
-	focusDivLeftOffset:-4,//光标left偏移值px
-	focusDivTopOffset:-4,//光标top偏移值px
+	focusDivLeftOffset:0,//光标left偏移值px
+	focusDivTopOffset:0,//光标top偏移值px
 	pageSize:9,
 	currentPage:1,
 	totalPage:1,
@@ -576,7 +584,7 @@ var contentPad={
 							'<!-- <marquee scrollamount="2" behavior="alternate" width="'+(this.itemWidth+0)+'" style="width: '+(this.itemWidth+0)+'px;">冰河世纪4</marquee> -->',
 							'<span style="padding-left:10px;padding-right:10px;">'+this.currentPageData[dataIndex].name+'</span>',
 						'</div>',
-						'<div id="'+this.itemId+'Focus'+(dataIndex)+'" class="smooth" style="position:absolute; top:-4px; left:-4px; width:277px; height:174px; z-index:5; display:none;opacity:1;visibility: visible;  border:4px #ffffff solid; "></div>',
+						'<div id="'+this.itemId+'Focus'+(dataIndex)+'" class="smooth" style="position:absolute; top:0px; left:0px; width:277px; height:174px; z-index:5; display:none;opacity:1;visibility: visible;  border:4px #ffffff solid; "></div>',
 					'</div>'
 				];
 
@@ -611,15 +619,15 @@ var contentPad={
 	},
 	focus:function(){
 		$(this.itemId+'Focus'+this.index).style.display='block';
-		$(this.itemId+'_'+this.index).style.transform='scale(1.02,1.02)';
-		$(this.itemId+'_'+this.index).style.webkitTransform='scale(1.02,1.02)';
+		// $(this.itemId+'_'+this.index).style.transform='scale(1.02,1.02)';
+		// $(this.itemId+'_'+this.index).style.webkitTransform='scale(1.02,1.02)';
 		this.afterFocus&&this.afterFocus();
 	},
 	blur:function(){
 		$(this.itemId+'Focus'+this.index).style.display='none';
-		$(this.itemId+'_'+this.index).style.transform='scale(1,1)';
-		$(this.itemId+'_'+this.index).style.webkitTransform='scale(1,1)';
-		this.afterBlur&&this.afterBlur();
+		// $(this.itemId+'_'+this.index).style.transform='scale(1,1)';
+		// $(this.itemId+'_'+this.index).style.webkitTransform='scale(1,1)';
+	    this.afterBlur&&this.afterBlur();
 	},
 	isTouchLeft:function(){//是否到最左边了
 		if(this.currentColIndex<=0) return true;
@@ -638,7 +646,7 @@ var contentPad={
 		return false;
 	},
 	lastPage:function(){
-		console.log('last page');
+		//console.log('last page');
 		this.currentPage--;
 		menuPad.menuData[menuPad.listObj.position].currentPage=this.currentPage;
 		if(!!listData['page_'+menuPad.menuData[menuPad.listObj.position].id+'_'+this.currentPage]){
@@ -659,7 +667,7 @@ var contentPad={
 	
 	},
 	nextPage:function(){
-		console.log('next page');
+		//console.log('next page');
 		this.currentPage++;
 		menuPad.menuData[menuPad.listObj.position].currentPage=this.currentPage;
 		

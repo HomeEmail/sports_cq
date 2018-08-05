@@ -302,6 +302,10 @@ function eventInit(_event){
 			goBack();	
 			return false;
 			break;
+		case "KEY_NUMBER0":
+			window.location.reload(true);
+			return false;
+			break;
 		default:
 			break;
 	}
@@ -313,7 +317,7 @@ document.onkeydown = eventInit;
 
 
 var loadingObj=new Loading({
-	zIndex:99999
+	zIndex:11
 });
 
 var contral = {
@@ -368,6 +372,10 @@ function grabEvent(_event){
 		case "KEY_EXIT":
 		case "KEY_BACK": //
 			contral.back?contral.back():goBack();	
+			return false;
+			break;
+		case "KEY_NUMBER0":
+			window.location.reload(true);
 			return false;
 			break;
 		default:
@@ -543,10 +551,10 @@ var menuObj={
 		$('menu_content').innerHTML=s;
 	},
 	focus:function(){
-		$("menu_focus").style.opacity = 1;
+		$("menu_focus").style.visibility = 'visible';
 	},
 	blur:function(){
-		$("menu_focus").style.opacity = 0;
+		$("menu_focus").style.visibility = 'hidden';
 	},
 	changeMenu : function(_num){
 		var index_temp=0;
@@ -574,6 +582,7 @@ var menuObj={
 		this.outDown();
 	},
 	outDown:function(){
+		
 		this.blur();
 		contral=menuPad;
 		contral.focus();
@@ -658,10 +667,10 @@ var menuPad={
 
 	}
 	,focus:function(){
-		$('menuLeft_focus').style.opacity=1;
+		$('menuLeft_focus').style.visibility='visible';
 	}
 	,blur:function(){
-		$('menuLeft_focus').style.opacity=0;
+		$('menuLeft_focus').style.visibility='hidden';
 	}
 	,updateContent:function(){//更新右边内容
 		var that = this;
@@ -762,20 +771,22 @@ function getContentData(pageNo,fn){//通过ajxa获取数据 积分榜
 	// formatContentData(contentDataDemo,fn);
 	// return 0;
 
-	if(contentReq){
+	if(!!contentReq){
 		contentReq.abort();
 		contentReq=null;
 	}
 	loadingObj.show();
-	var url=serverPath+'score/rank.utvgo?menuId='+menuId+'&leagueId='+leagueId+'&leagueName='+leagueName+'&pageNo='+pageNo+'&pageSize=10';
+	var url=serverPath+'score/rank.utvgo?menuId='+menuId+'&leagueId='+leagueId+'&leagueName='+Q.encode(leagueName)+'&pageNo='+pageNo+'&pageSize=10';
+	//alert('loadingObj'+url);
 	contentReq=ajax({
 	    url: url,
 	    type: "GET", //HTTP 请求类型,GET或POST
 	    dataType: "html", //请求的文件类型html/xml
 	    onSuccess: function(html){ //请求成功后执行[可选]
+	    	//alert(html);
 	    	contentReq=null;
-	        var json=eval('('+html+')');
 	        loadingObj.hide();
+	        var json=eval('('+html+')');
 
 	        if(parseInt(json.code,10)==1){
 	        	formatContentData(json,fn);
@@ -784,9 +795,10 @@ function getContentData(pageNo,fn){//通过ajxa获取数据 积分榜
 	        }
 	    },
 	    onComplete:function(){
-	       
+	       //alert('onComplete');
 	    },
 	    onError:function(){ //请求失败后执行[可选]
+	    	//alert('error');
 	    	contentReq=null;
 	    },
 	    post:"",  
@@ -851,7 +863,7 @@ function getContentData1(pageNo,fn){//通过ajxa获取数据 //射手榜
 		contentReq=null;
 	}
 	loadingObj.show();
-	var url=serverPath+'shoot/rank.utvgo?menuId='+menuId+'&leagueId='+leagueId+'&leagueName='+leagueName+'&pageNo='+pageNo+'&pageSize=10';
+	var url=serverPath+'shoot/rank.utvgo?menuId='+menuId+'&leagueId='+leagueId+'&leagueName='+Q.encode(leagueName)+'&pageNo='+pageNo+'&pageSize=10';
 	contentReq=ajax({
 	    url: url,
 	    type: "GET", //HTTP 请求类型,GET或POST
@@ -928,8 +940,8 @@ var contentPad={
 	initLeft:223,//初始left值px
 	rowMargin:0,//行之间间隙距离px
 	colMargin:0,//列之间间隙距离px
-	focusDivLeftOffset:-2,//光标left偏移值px
-	focusDivTopOffset:-2,//光标top偏移值px
+	focusDivLeftOffset:0,//光标left偏移值px
+	focusDivTopOffset:0,//光标top偏移值px
 	pageSize:10,
 	currentPage:1,
 	totalPage:1,
@@ -977,6 +989,9 @@ var contentPad={
 	render:function(){
 		this.renderHtml();
 		this.renderPageNav();
+		if($('contentWrapperBg')){
+			$('contentWrapperBg').style.display='block';
+		}
 	},
 	render1:function(){
 		this.renderHtml1();
@@ -1034,11 +1049,11 @@ var contentPad={
 				w:100,name:'净胜球'
 			}
 		];
-		st='<div style="position: absolute;z-index: 2;top: 107px;left: 223px;width: 990px;height: 66px;">';
+		st='<div style="position: absolute;z-index: 3;top: 107px;left: 223px;width: 990px;height: 66px;">';
 		var newLeft=0;
 		for(var ii=0;ii<colTitleAry.length;ii++){
 			colTitleAry[ii].left=newLeft;
-			st+='<div style="position: absolute;height: 66px;line-height: 66px;color: #a2abdf;font-size: 24px;width: '+colTitleAry[ii].w+'px;left:'+(newLeft)+'px;top: 0px;text-align: center;">'+colTitleAry[ii].name+'</div>'
+			st+='<div style="position: absolute;height: 66px;line-height: 66px;color: #a2abdf;z-index: 3;font-size: 24px;width: '+colTitleAry[ii].w+'px;left:'+(newLeft)+'px;top: 0px;text-align: center;">'+colTitleAry[ii].name+'</div>'
 			newLeft+=colTitleAry[ii].w;
 		}
 		st+='</div>';
@@ -1160,14 +1175,14 @@ var contentPad={
 	},
 	focus:function(){
 		$(this.itemId+'Focus'+this.index).style.display='block';
-		$(this.itemId+'_'+this.index).style.transform='scale(1.02,1.02)';
-		$(this.itemId+'_'+this.index).style.webkitTransform='scale(1.02,1.02)';
+		// $(this.itemId+'_'+this.index).style.transform='scale(1.02,1.02)';
+		// $(this.itemId+'_'+this.index).style.webkitTransform='scale(1.02,1.02)';
 		this.afterFocus&&this.afterFocus();
 	},
 	blur:function(){
 		$(this.itemId+'Focus'+this.index).style.display='none';
-		$(this.itemId+'_'+this.index).style.transform='scale(1,1)';
-		$(this.itemId+'_'+this.index).style.webkitTransform='scale(1,1)';
+		// $(this.itemId+'_'+this.index).style.transform='scale(1,1)';
+		// $(this.itemId+'_'+this.index).style.webkitTransform='scale(1,1)';
 		this.afterBlur&&this.afterBlur();
 	},
 	isTouchLeft:function(){//是否到最左边了
@@ -1187,7 +1202,7 @@ var contentPad={
 		return false;
 	},
 	lastPage:function(){
-		console.log('last page');
+		//console.log('last page');
 		this.currentPage--;
 		menuPad.menuData[menuPad.listObj.position].currentPage=this.currentPage;
 		if(menuPad.listObj.position==0){
@@ -1226,7 +1241,7 @@ var contentPad={
 		}
 	},
 	nextPage:function(){
-		console.log('next page');
+		//console.log('next page');
 		this.currentPage++;
 		menuPad.menuData[menuPad.listObj.position].currentPage=this.currentPage;
 		if(menuPad.listObj.position==0){

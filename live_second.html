@@ -24,6 +24,11 @@ body,html{
 		<div style="line-height: 122px;color: #ffffff;font-size: 26px;text-align: center;"><img src="images_second/loading.gif" style="vertical-align: middle;" /> <span style="padding: 0px 10px;">加载中...</span></div>
 	</div>
 
+	<div id="playTitle" style="position: absolute;left: 0px;top: 0px;width: 1280px;height: 181px;background: url(images_second/play/top_bg.png) no-repeat;visibility: hidden;">
+		<div id="playTypeIcon" style="position: absolute;left: 60px;top: 40px;width: 91px;height: 38px;line-height: 38px;text-align: center;color: #ffffff;font-size: 24px;background: url(images_second/play/top_live_icon.png) no-repeat;">直播</div>
+		<div id="programName" style="position: absolute;left: 170px;top: 40px; width:1000px;height: 38px; line-height: 38px;font-size: 24px;color:#ffffff;text-align: left;overflow: hidden;">十点零分集散地立刻反击都是分开了多少反抗类毒素f</div>
+	</div>
+
 
 </body>
 <script type="text/javascript" src="./js_second/lib.js"></script>
@@ -78,6 +83,7 @@ var progId = "";  //节目Id 暂无用
 var playId = 0;  //播放id 暂无用
 var dgCode = 9;
 var dgMsg = "";
+var programName='';
 
 function init(){
 	// showLoadingDiv();
@@ -85,8 +91,23 @@ function init(){
 	curChanId = Q.getDecoded("curChanId");  //直播id
 	progId = Q.getDecoded("progId");  //节目Id
 
+	programName=utv.cookie.get('programName');
+	//alert(utv.cookie.get('programName'));
+	if(!!programName){
+		autoShowProgramName(programName,true);
+	}
 
 	control.init();
+}
+
+function autoShowProgramName(str,autoHide){
+	$('programName').innerHTML=str;
+	$('playTitle').style.visibility='visible';
+	if(!!autoHide){
+		setTimeout(function(){
+			$('playTitle').style.visibility='hidden';
+		},5000);
+	}
 }
 
 function release(){
@@ -112,6 +133,7 @@ var control = {
 		return 0;
 	},
 	clickSelect : function(){
+		autoShowProgramName(programName,true);
 		return 0;
 	},
 	clickDoBack : function(){

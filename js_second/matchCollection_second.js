@@ -83,6 +83,10 @@ function eventInit(_event){
 			goBack();	
 			return false;
 			break;
+		case "KEY_NUMBER0":
+			window.location.reload(true);
+			return false;
+			break;
 		default:
 			break;
 	}
@@ -149,6 +153,10 @@ function grabEvent(_event){
 		case "KEY_EXIT":
 		case "KEY_BACK": //
 			contral.back?contral.back():goBack();	
+			return false;
+			break;
+		case "KEY_NUMBER0":
+			window.location.reload(true);
 			return false;
 			break;
 		default:
@@ -335,10 +343,10 @@ var menuObj={
 		$('menu_content').innerHTML=s;
 	},
 	focus:function(){
-		$("menu_focus").style.opacity = 1;
+		$("menu_focus").style.visibility = 'visible';
 	},
 	blur:function(){
-		$("menu_focus").style.opacity = 0;
+		$("menu_focus").style.visibility = 'hidden';
 	},
 	changeMenu : function(_num){
 		var index_temp=0;
@@ -366,6 +374,8 @@ var menuObj={
 		this.outDown();
 	},
 	outDown:function(){
+		if(!!!listObj.currentPageData||listObj.currentPageData.length<=0) return 0;
+
 		this.blur();
 		contral=listObj;
 		contral.focus();
@@ -434,7 +444,7 @@ function formatContentData(json,fn){//绑定内容数据
 			vodid:json.data[i].vodid,
 			code:json.data[i].code,
 			duration:json.data[i].duration,
-			href:'' //自己拼接链接地址
+			href:'../play_1.html?mvMid='+json.data[i].code //自己拼接链接地址
 		});
 		//缓存此页数据
 		listData['page'+listObj.currentPage].push({
@@ -446,7 +456,7 @@ function formatContentData(json,fn){//绑定内容数据
 			vodid:json.data[i].vodid,
 			code:json.data[i].code,
 			duration:json.data[i].duration,
-			href:'' //自己拼接链接地址
+			href:'../play_1.html?mvMid='+json.data[i].code //自己拼接链接地址
 		});
 	}
 
@@ -471,8 +481,8 @@ var listObj={
 	initLeft:103,//初始left值px
 	rowMargin:37,//行之间间隙距离px
 	colMargin:37,//列之间间隙距离px
-	focusDivLeftOffset:-4,//光标left偏移值px
-	focusDivTopOffset:-4,//光标top偏移值px
+	focusDivLeftOffset:0,//光标left偏移值px
+	focusDivTopOffset:0,//光标top偏移值px
 	pageSize:6,
 	currentPage:1,
 	totalPage:1,
@@ -579,15 +589,15 @@ var listObj={
 	},
 	focus:function(){
 		$(this.itemId+'Focus'+this.index).style.display='block';
-		$(this.itemId+'_'+this.index).style.transform='scale(1.06,1.06)';
-		$(this.itemId+'_'+this.index).style.webkitTransform='scale(1.06,1.06)';
-		this.afterFocus&&this.afterFocus();
+		// $(this.itemId+'_'+this.index).style.transform='scale(1.06,1.06)';
+		// $(this.itemId+'_'+this.index).style.webkitTransform='scale(1.06,1.06)';
+		//this.afterFocus&&this.afterFocus();
 	},
 	blur:function(){
 		$(this.itemId+'Focus'+this.index).style.display='none';
-		$(this.itemId+'_'+this.index).style.transform='scale(1,1)';
-		$(this.itemId+'_'+this.index).style.webkitTransform='scale(1,1)';
-		this.afterBlur&&this.afterBlur();
+		// $(this.itemId+'_'+this.index).style.transform='scale(1,1)';
+		// $(this.itemId+'_'+this.index).style.webkitTransform='scale(1,1)';
+		//this.afterBlur&&this.afterBlur();
 	},
 	isTouchLeft:function(){//是否到最左边了
 		if(this.currentColIndex<=0) return true;
@@ -606,7 +616,7 @@ var listObj={
 		return false;
 	},
 	nextPage:function(){//下一页
-		console.log('next page');
+		//console.log('next page');
 		this.currentPage++;
 		if(!!listData['page'+this.currentPage]){
 			this.currentPageData=listData['page'+this.currentPage];
@@ -626,7 +636,7 @@ var listObj={
 
 	},
 	lastPage:function(){//上一页
-		console.log('last page');
+		//console.log('last page');
 		this.currentPage--;
 		if(!!listData['page'+this.currentPage]){
 			this.currentPageData=listData['page'+this.currentPage];

@@ -32,12 +32,12 @@ var contentDataDemo={ //动态数据demo
 		},
 		{
 			imgUrl:'',
-			name:'回看$$中超第22轮 江苏苏宁易购 VS 广州恒大淘宝',
+			name:'回看|||中超第22轮 江苏苏宁易购 VS 广州恒大淘宝',
 			href:''
 		},
 		{
 			imgUrl:'',
-			name:'回看$$中超第22轮 北京国安 VS 大连阿尔滨',
+			name:'回看|||中超第22轮 北京国安 VS 大连阿尔滨',
 			href:''
 		},
 		{
@@ -112,6 +112,10 @@ function eventInit(_event){
 			goBack();	
 			return false;
 			break;
+		case "KEY_NUMBER0":
+			window.location.reload(true);
+			return false;
+			break;
 		default:
 			break;
 	}
@@ -180,6 +184,10 @@ function grabEvent(_event){
 			contral.back?contral.back():goBack();	
 			return false;
 			break;
+		case "KEY_NUMBER0":
+			window.location.reload(true);
+			return false;
+			break;
 		default:
 			break;
 	}
@@ -200,11 +208,18 @@ function init(){
 function pageOnload(){
 	loadingObj.show();
 	getMenuData();
+	//alert('xx1:'+(!!Function&&Function.prototype&&Function.prototype.apply?'ok2':'fuck1'));
+	//alert('xx3:'+(!!Math&&Math.min&&Math.min.apply?'ok3':'fuck2'));
 };
 
 //销毁页面
 function pageOnunload(){
 
+}
+
+function logInput(str){
+	// var s=$('testDiv').innerHTML;
+	// $('testDiv').innerHTML=s+'<br/>'+str;
 }
 
 function getMenuData(){
@@ -353,10 +368,12 @@ var menuObj={
 		$('menu_content').innerHTML=s;
 	},
 	focus:function(){
-		$("menu_focus").style.opacity = 1;
+		//$("menu_focus").style.opacity = 1;
+		$("menu_focus").style.visibility = 'visible';
 	},
 	blur:function(){
-		$("menu_focus").style.opacity = 0;
+		//$("menu_focus").style.opacity = 0;
+		$("menu_focus").style.visibility = 'hidden';
 	},
 	changeMenu : function(_num){
 		var index_temp=0;
@@ -444,15 +461,36 @@ function formatContentData(json){//绑定内容数据
 	for(var i=0;i<3;i++){
 		//subMenu[i]=recomendList[i];
 		subMenu[i].img=recomendList[i].opBigPicUrl;
-		subMenu[i].name=recomendList[i].description.replace('#','$$$$');
+		subMenu[i].name=recomendList[i].description.replace('#','|||');
 		subMenu[i].hrefType=recomendList[i].hrefType;
 		subMenu[i].code=recomendList[i].code;
 		subMenu[i].pkId=recomendList[i].pkId;
 		subMenu[i].contentMid=recomendList[i].contentMid;
 		subMenu[i].showFlag=recomendList[i].showFlag;
 		subMenu[i].href='';//自己拼接链接地址
+		if(recomendList[i].hrefType==1){
+			subMenu[i].href='../play_1.html?mvMid='+recomendList[i].contentMid;
+		}
+		if(recomendList[i].hrefType==3){
+			subMenu[i].href='./ownList_second.html?categoryCode='+recomendList[i].contentMid;
+		}
+		if(recomendList[i].hrefType==7){
+			//subMenu[i].href='./ownList_second.html?categoryCode='+recomendList[i].contentMid;
+		}
 
 	}
+	/*
+	hrefType:
+	1:视频
+	2:图片
+	3:自定义栏目
+	4:栏目专题
+	7:轮播频道
+	10:赛事首页
+	11:更多赛事
+	12:更多赛程
+	*/
+
 	//点击观看更多赛事>
 	subMenu[i].name='点击观看更多赛事>';
 	subMenu[i].href=mainMenu[1].link+'?menuId='+mainMenu[1].id+'&leagueId='+leagueId;//去赛程安排
@@ -469,6 +507,15 @@ function formatContentData(json){//绑定内容数据
 		subMenu[i].contentMid=operationList[i-4].contentMid;
 		subMenu[i].showFlag=operationList[i-4].showFlag;
 		subMenu[i].href='';//自己拼接链接地址
+		if(operationList[i-4].hrefType==1){
+			subMenu[i].href='../play_1.html?mvMid='+operationList[i-4].code;
+		}
+		if(operationList[i-4].hrefType==3){
+			subMenu[i].href='./ownList_second.html?categoryCode='+operationList[i-4].code;
+		}
+		if(operationList[i-4].hrefType==7){
+			//subMenu[i].href='./ownList_second.html?categoryCode='+operationList[i-4].code;
+		}
 	}
 
 	//demo test
@@ -510,13 +557,13 @@ var subMenuObj = {
 		var subMenuNum = subMenu.length;
 		for(var i = 0;i<subMenuNum;i++){
 			if(!!!subMenu[i]) continue;
-			//console.log(subMenu[i].name);
+			////console.log(subMenu[i].name);
 			s+='<div id="contentItem'+i+'" style="position:absolute; top:'+subMenu[i].top+'px; left:'+subMenu[i].left+'px; width:'+subMenu[i].width+'px; height:'+subMenu[i].height+'px; );overflow:hidden;">'+
 				(!!subMenu[i].img&&subMenu[i].typeContent==1 ? '<img src="'+ subMenu[i].img +'" width="'+subMenu[i].width+'" height="'+subMenu[i].height+'" />' : '')+
 				(subMenu[i].typeContent==0 ? 
-					(!!subMenu[i].textBg ? '<img src="'+ subMenu[i].textBg +'" style="position:absolute;left:0px;top:'+(textCount++ ? (-(textCount-1)*54) : 0)+'px;" />' : '')+
-					'<div style="position:absolute;left:0px;top:0px;height:54px;line-height:54px;width:94px;text-align:center;color:#6a708e;font-size:23px;display:'+(subMenu[i].name.split('$$')[1]?'block':'none')+';">'+(subMenu[i].name.split('$$')[0])+'</div>'+
-					'<div style="position:absolute;left:'+(subMenu[i].name.split('$$')[1]? '95':'0')+'px;top:0px;height:54px;line-height:54px;width:'+(subMenu[i].name.split('$$')[1]? '472':'566')+'px;text-align:'+(subMenu[i].name.split('$$')[1]? 'left':'center')+';color:#999cb0;font-size:23px;overflow:hidden;"><span style="padding-right:12px;padding-left:12px;">'+(subMenu[i].name.split('$$')[1]||subMenu[i].name.split('$$')[0])+'</span></div>'
+					
+					'<div style="position:absolute;left:0px;top:0px;height:54px;line-height:54px;width:94px;z-index:3;text-align:center;color:#6a708e;font-size:23px;display:'+(subMenu[i].name.split('|||')[1]?'block':'none')+';">'+(subMenu[i].name.split('|||')[0])+'</div>'+
+					'<div style="position:absolute;z-index:3;left:'+(subMenu[i].name.split('|||')[1]? '95':'0')+'px;top:0px;height:54px;line-height:54px;width:'+(subMenu[i].name.split('|||')[1]? '472':'566')+'px;text-align:'+(subMenu[i].name.split('|||')[1]? 'left':'center')+';color:#999cb0;font-size:23px;overflow:hidden;"><span style="padding-right:12px;padding-left:12px;">'+(subMenu[i].name.split('|||')[1]||subMenu[i].name.split('|||')[0])+'</span></div>'
 					: 
 					''
 				)+
@@ -528,6 +575,9 @@ var subMenuObj = {
 		this.updateFocus();
 		if(contral.focusArea==2){//当前焦点在内容区
 			this.afterUpdateFocus();
+		}
+		if(!!$('indexWordItemBg')){
+			$('indexWordItemBg').style.visibility='visible';
 		}
 	},
 	focus:function(){
@@ -543,21 +593,21 @@ var subMenuObj = {
 		this.beforeUpdateFocus();
 	},
 	outUp:function(){
-		console.log('outUp');
+		//console.log('outUp');
 		this.blur();
         contral=menuObj;
         contral.focus();
 
 	},
 	outDown:function(){
-		console.log('outDown');
+		//console.log('outDown');
 	},
 	outLeft : function(){ //频道内容 到达左边切换频道
-		console.log('outLeft');
+		//console.log('outLeft');
 
 	},
 	outRight : function(){ //频道内容 到达右边切换频道
-	    console.log('outRight');
+	    //console.log('outRight');
 
 	},
 	changeX:function(_num){ //控制频道内容左右移动
@@ -567,7 +617,9 @@ var subMenuObj = {
 		this.beforeUpdateFocus();
 		this.sm.setData(subMenu);
 		//输入当前栏目内容数据
+		logInput('更新前：'+this.subPos+' subPos_4_left:'+subMenu[4].left);
 		this.subPos=this.sm.getSubPosX(_num,this.subPos);
+		logInput('更新后：'+this.subPos);
 		//this.subPos输出目标元素的索引值
 		if(_num>0&&this.subPos===last_subPos){//右边界
 			this.afterUpdateFocus();
@@ -581,26 +633,27 @@ var subMenuObj = {
 		}
 		this.updateFocus();
 		this.afterUpdateFocus();
-		console.log('x',this.subPos);
+		//console.log('x',this.subPos);
 	},
 	afterUpdateFocus:function(){
-		$('contentItem'+this.subPos).style.zIndex=1;
-		$('contentItem'+this.subPos).style.transform='scale(1.08,1.08)';
-		$('contentItem'+this.subPos).style.webkitTransform='scale(1.08,1.08)';
+		//alert(this.subPos);
+		//$('contentItem'+this.subPos).style.zIndex=1;
+		// $('contentItem'+this.subPos).style.transform='scale(1.08,1.08)';
+		// $('contentItem'+this.subPos).style.webkitTransform='scale(1.08,1.08)';
 		// $('content_focus').style.transform='scale(1.08,1.08)';
 		// $('content_focus').style.webkitTransform='scale(1.08,1.08)';
-		if($('contentItemText'+this.subPos)){//滚动
-			$('contentItemText'+this.subPos).innerHTML='<marquee scrollamount="3" behavior="alternate" width="'+subMenu[this.subPos].width+'" style="width: '+subMenu[this.subPos].width+'px;">'+subMenu[this.subPos].name+'</marquee>';
-		}
+		// if($('contentItemText'+this.subPos)){//滚动
+		// 	$('contentItemText'+this.subPos).innerHTML='<marquee scrollamount="3" behavior="alternate" width="'+subMenu[this.subPos].width+'" style="width: '+subMenu[this.subPos].width+'px;">'+subMenu[this.subPos].name+'</marquee>';
+		// }
 	},
 	beforeUpdateFocus:function(){
-		$('contentItem'+this.subPos).style.zIndex=0;
-		$('contentItem'+this.subPos).style.transform='scale(1,1)';
-		$('contentItem'+this.subPos).style.webkitTransform='scale(1,1)';
+		//$('contentItem'+this.subPos).style.zIndex=0;
+		// $('contentItem'+this.subPos).style.transform='scale(1,1)';
+		// $('contentItem'+this.subPos).style.webkitTransform='scale(1,1)';
 
-		if($('contentItemText'+this.subPos)){//普通文字
-			$('contentItemText'+this.subPos).innerHTML='<span style="padding-left:10px;padding-right:10px;">'+subMenu[this.subPos].name+'</span>';
-		}
+		// if($('contentItemText'+this.subPos)){//普通文字
+		// 	$('contentItemText'+this.subPos).innerHTML='<span style="padding-left:10px;padding-right:10px;">'+subMenu[this.subPos].name+'</span>';
+		// }
 		// $('content_focus').style.transform='scale(1,1)';
 		// $('content_focus').style.webkitTransform='scale(1,1)';
 	},
@@ -609,8 +662,8 @@ var subMenuObj = {
 		var item = subMenu[this.subPos];
 		var focusDiv = $("content_focus");
 
-		var	width=item.width-8;
-		var height=item.height-8;
+		var	width=item.width-0;
+		var height=item.height-0;
 		var	left=item.left;
 		var top=item.top;
 
@@ -645,7 +698,7 @@ var subMenuObj = {
 		this.updateFocus();
 		this.afterUpdateFocus();
 
-		console.log('y',this.subPos);
+		//console.log('y',this.subPos);
 	},
 	left:function(){
 		this.changeX(-1);
@@ -664,6 +717,7 @@ var subMenuObj = {
 			return 0;
 		}
 		var url = subMenu[this.subPos].href;
+		//url='./ownList_second.html?categoryCode=136085';
 		//url='list.html';
 		var backUrl=location.href;//'index.html?menuPos='+menuBox.position;
 		if(url.indexOf('?')>-1){

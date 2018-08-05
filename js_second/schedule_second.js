@@ -125,6 +125,10 @@ function eventInit(_event){
 			goBack();	
 			return false;
 			break;
+		case "KEY_NUMBER0":
+			window.location.reload(true);
+			return false;
+			break;
 		default:
 			break;
 	}
@@ -191,6 +195,10 @@ function grabEvent(_event){
 		case "KEY_EXIT":
 		case "KEY_BACK": //
 			contral.back?contral.back():goBack();	
+			return false;
+			break;
+		case "KEY_NUMBER0":
+			window.location.reload(true);
 			return false;
 			break;
 		default:
@@ -365,10 +373,10 @@ var menuObj={
 		$('menu_content').innerHTML=s;
 	},
 	focus:function(){
-		$("menu_focus").style.opacity = 1;
+		$("menu_focus").style.visibility = 'visible';
 	},
 	blur:function(){
-		$("menu_focus").style.opacity = 0;
+		$("menu_focus").style.visibility = 'hidden';
 	},
 	changeMenu : function(_num){
 		var index_temp=0;
@@ -504,7 +512,7 @@ var menuPad={
 	render:function(){
 		var s='';
 		for(var i=0;i<this.showItemCount;i++){
-			s+='<div id="menuLeft_'+i+'" class="menu" style="position:absolute; top:'+(this.initTop+(i*this.itemHeight))+'px; left:'+(this.initLeft)+'px; width:'+this.itemWidth+'px; height:'+this.itemHeight+'px;z-index:3;line-height: '+this.itemHeight+'px;color:#7a8096;"></div>';
+			s+='<div id="menuLeft_'+i+'" class="menu" style="position:absolute; top:'+(this.initTop+(i*this.itemHeight))+'px; left:'+(this.initLeft)+'px; width:'+this.itemWidth+'px; height:'+this.itemHeight+'px;z-index:3;line-height: '+this.itemHeight+'px;color:#7a8096;font-size:22px;"></div>';
 		}
 		
 		$('menuLeft_content').innerHTML=s;
@@ -553,10 +561,10 @@ var menuPad={
 
 	}
 	,focus:function(){
-		$('menuLeft_focus').style.opacity=1;
+		$('menuLeft_focus').style.visibility='visible';
 	}
 	,blur:function(){
-		$('menuLeft_focus').style.opacity=0;
+		$('menuLeft_focus').style.visibility='hidden';
 	}
 	,updateContent:function(){//更新右边内容
 		var that = this;
@@ -728,6 +736,7 @@ function formatContentData(json,fn){//绑定内容数据
 			img2:json.data[i].visitingTeamImageUrl,
 			name2:json.data[i].visitingTeamName,
 			name:json.data[i].leagueName+json.data[i].roundsName,//中超第几轮
+			programName:json.data[i].programName+' '+json.data[i].footballLable,
 			scheduleType:json.data[i].scheduleType,//节目单类型 1：直播 2:录播
 			liveBroadcastFlg:json.data[i].liveBroadcastFlg,//直播状态，0未开始，1正在直播，2直播结束
 			subscribeFlg:json.data[i].subscribeFlg,//是否预约，0未预约，1已预约
@@ -740,7 +749,7 @@ function formatContentData(json,fn){//绑定内容数据
 			leagueCode:json.data[i].leagueCode,//联赛code
 			seasonCode:json.data[i].seasonCode,//赛季code
 			gameRoundsCode:json.data[i].gameRoundsCode, //轮次code
-			href:json.data[i].liveBroadcastFlg==1 ? ('live_second.html?curChanId='+json.data[i].signalCode+'&progId=') : '' //自己拼接链接地址 'detail_second.html?id='+json.data[i].code
+			href:json.data[i].liveBroadcastFlg==1 ? ('live_second.html?curChanId='+json.data[i].signalCode+'&progId='+json.data[i].code) : '' //自己拼接链接地址 'detail_second.html?id='+json.data[i].code
 		
 		});
 		//缓存此页数据
@@ -750,6 +759,7 @@ function formatContentData(json,fn){//绑定内容数据
 			img2:json.data[i].visitingTeamImageUrl,
 			name2:json.data[i].visitingTeamName,
 			name:json.data[i].leagueName+json.data[i].roundsName,//中超第几轮
+			programName:json.data[i].programName+' '+json.data[i].footballLable,
 			scheduleType:json.data[i].scheduleType,//节目单类型 1：直播 2:录播
 			liveBroadcastFlg:json.data[i].liveBroadcastFlg,//直播状态，0未开始，1正在直播，2直播结束
 			subscribeFlg:json.data[i].subscribeFlg,//是否预约，0未预约，1已预约
@@ -762,7 +772,7 @@ function formatContentData(json,fn){//绑定内容数据
 			leagueCode:json.data[i].leagueCode,//联赛code
 			seasonCode:json.data[i].seasonCode,//赛季code
 			gameRoundsCode:json.data[i].gameRoundsCode, //轮次code
-			href:json.data[i].liveBroadcastFlg==1 ? ('live_second.html?curChanId='+json.data[i].signalCode+'&progId=') : ''  //自己拼接链接地址 'detail_second.html?id='+json.data[i].code
+			href:json.data[i].liveBroadcastFlg==1 ? ('live_second.html?curChanId='+json.data[i].signalCode+'&progId='+json.data[i].code) : ''  //自己拼接链接地址 'detail_second.html?id='+json.data[i].code
 		});
 	}
 
@@ -901,13 +911,13 @@ var contentPad={
 						'<div id="'+this.itemId+'Col_0_'+(dataIndex)+'" style="position: absolute;height: 90px;line-height: 90px;color: #989caf;font-size: 20px;width: '+colTitleAry[0].w+'px;left:'+colTitleAry[0].left+'px;top: 0px;text-align: left;z-index: 3;overflow: hidden;"><div style="padding-left:20px; padding-right: 10px;">'+this.currentPageData[dataIndex].name+'</div></div>',
 						'<div style="position: absolute;height: 90px;line-height: 90px;color: '+(this.currentPageData[dataIndex].status==-1?'#989caf':(this.currentPageData[dataIndex].status==0?'#44c711':'#1c8cff'))+';font-size: 20px;width: '+colTitleAry[1].w+'px;left:'+colTitleAry[1].left+'px;top: 0px;text-align: left;z-index: 3;overflow: hidden;"><div style="padding-left:0px; padding-right: 10px;">'+(this.currentPageData[dataIndex].status==-1?this.currentPageData[dataIndex].startTime:(this.currentPageData[dataIndex].status==0?'正在直播':'已结束'))+'</div></div>',
 
-						'<div style="position: absolute;height: 90px;line-height: 90px;color: #989caf;font-size: 20px;width: '+colTitleAry[2].w+'px;left:'+colTitleAry[2].left+'px;top: 0px;text-align: center;z-index: 3;overflow: hidden;">'+'<div style="position: absolute;left:0px;top:0px;width: '+colTitleAry[2].w+'px;height: 60px;line-height: 60px;padding: 15px 0px;overflow: hidden;text-align: center;"><img src="'+this.currentPageData[dataIndex].img1+'" height="60" /></div>'+'</div>',
+						'<div style="position: absolute;height: 90px;line-height: 90px;color: #989caf;font-size: 20px;width: '+colTitleAry[2].w+'px;left:'+colTitleAry[2].left+'px;top: 0px;text-align: center;z-index: 3;overflow: hidden;">'+'<div style="position: absolute;left:0px;top:13px;width: '+colTitleAry[2].w+'px;height: 60px;line-height: 60px;overflow: hidden;text-align: center;"><img src="'+this.currentPageData[dataIndex].img1+'" height="60" /></div>'+'</div>',
 						'<div id="'+this.itemId+'Col_3_'+(dataIndex)+'" style="position: absolute;height: 90px;line-height: 90px;color: #989caf;font-size: 20px;width: '+colTitleAry[3].w+'px;left:'+colTitleAry[3].left+'px;top: 0px;text-align: right;z-index: 3;overflow: hidden;"><div style="padding-left:10px;padding-right:10px;">'+this.currentPageData[dataIndex].name1+'</div></div>',
 						'<div id="'+this.itemId+'Col_4_'+(dataIndex)+'" style="position: absolute;height: 90px;line-height: 90px;color: #bfc1cd;font-size: 26px;width: '+colTitleAry[4].w+'px;left:'+colTitleAry[4].left+'px;top: 0px;text-align: center;z-index: 3;overflow: hidden;"><div style="padding-left:0px;padding-right:0px;">'+this.currentPageData[dataIndex].scoreText+'</div></div>',
 						'<div id="'+this.itemId+'Col_5_'+(dataIndex)+'" style="position: absolute;height: 90px;line-height: 90px;color: #989caf;font-size: 20px;width: '+colTitleAry[5].w+'px;left:'+colTitleAry[5].left+'px;top: 0px;text-align: left;z-index: 3;overflow: hidden;"><div style="padding-left:10px;padding-right:10px;">'+this.currentPageData[dataIndex].name2+'</div></div>',
-						'<div style="position: absolute;height: 90px;line-height: 90px;color: #989caf;font-size: 20px;width: '+colTitleAry[6].w+'px;left:'+colTitleAry[6].left+'px;top: 0px;text-align: center;z-index: 3;overflow: hidden;">'+'<div style="position: absolute;left:0px;top:0px;width: '+colTitleAry[6].w+'px;height: 60px;line-height: 60px;padding: 15px 0px;overflow: hidden;text-align: center;"><img src="'+this.currentPageData[dataIndex].img2+'" height="60" /></div>'+'</div>',
+						'<div style="position: absolute;height: 90px;line-height: 90px;color: #989caf;font-size: 20px;width: '+colTitleAry[6].w+'px;left:'+colTitleAry[6].left+'px;top: 0px;text-align: center;z-index: 3;overflow: hidden;">'+'<div style="position: absolute;left:0px;top:13px;width: '+colTitleAry[6].w+'px;height: 60px;line-height: 60px;overflow: hidden;text-align: center;"><img src="'+this.currentPageData[dataIndex].img2+'" height="60" /></div>'+'</div>',
 						
-						'<div style="position: absolute;height: 90px;line-height: 90px;color: '+(this.currentPageData[dataIndex].reserve==1?'#1c8cff':'#6d77a2')+';font-size: 20px;width: '+colTitleAry[7].w+'px;left:'+colTitleAry[7].left+'px;top: 0px;text-align: center;z-index: 3;overflow: hidden;"><div style="padding-left:10px;padding-right:10px;">'+(this.currentPageData[dataIndex].status==1?'':(this.currentPageData[dataIndex].reserve==1?'已预约':'预约'))+'</div></div>',
+						'<div style="position: absolute;height: 90px;line-height: 90px;color: '+(this.currentPageData[dataIndex].reserve==1?'#1c8cff':'#6d77a2')+';font-size: 20px;width: '+colTitleAry[7].w+'px;left:'+colTitleAry[7].left+'px;top: 0px;text-align: center;z-index: 3;overflow: hidden;visibility:hidden;"><div style="padding-left:10px;padding-right:10px;">'+(this.currentPageData[dataIndex].status==1?'':(this.currentPageData[dataIndex].reserve==1?'已预约':'预约'))+'</div></div>',
 
 					'</div>'
 				];
@@ -949,14 +959,14 @@ var contentPad={
 	},
 	focus:function(){
 		$(this.itemId+'Focus'+this.index).style.display='block';
-		$(this.itemId+'_'+this.index).style.transform='scale(1.02,1.02)';
-		$(this.itemId+'_'+this.index).style.webkitTransform='scale(1.02,1.02)';
+		// $(this.itemId+'_'+this.index).style.transform='scale(1.02,1.02)';
+		// $(this.itemId+'_'+this.index).style.webkitTransform='scale(1.02,1.02)';
 		this.afterFocus&&this.afterFocus();
 	},
 	blur:function(){
 		$(this.itemId+'Focus'+this.index).style.display='none';
-		$(this.itemId+'_'+this.index).style.transform='scale(1,1)';
-		$(this.itemId+'_'+this.index).style.webkitTransform='scale(1,1)';
+		// $(this.itemId+'_'+this.index).style.transform='scale(1,1)';
+		// $(this.itemId+'_'+this.index).style.webkitTransform='scale(1,1)';
 		this.afterBlur&&this.afterBlur();
 	},
 	isTouchLeft:function(){//是否到最左边了
@@ -976,7 +986,7 @@ var contentPad={
 		return false;
 	},
 	lastPage:function(){
-		console.log('last page');
+		//console.log('last page');
 		this.currentPage--;
 		menuPad.menuData[menuPad.listObj.position].currentPage=this.currentPage;
 		if(!!listData['page_'+menuPad.menuData[menuPad.listObj.position].id+'_'+this.currentPage]){
@@ -997,7 +1007,7 @@ var contentPad={
 	
 	},
 	nextPage:function(){
-		console.log('next page');
+		//console.log('next page');
 		this.currentPage++;
 		menuPad.menuData[menuPad.listObj.position].currentPage=this.currentPage;
 		
@@ -1092,7 +1102,10 @@ var contentPad={
 		this.focus();
 	},
 	enter:function(){
+
 		///return 0;
+
+		utv.cookie.set('programName',this.currentPageData[this.index].programName);
 
 		var backUrl=location.href;//'index.html?menuPos='+menuBox.position;
 
@@ -1106,7 +1119,19 @@ var contentPad={
 		}else{
 			url+='?backUrl='+Q.encode(backUrl);
 		}
-		location.href = url;
+		
+		checkAuthorization(function(){//已经订购
+			location.href = url;
+		},function(){//未订购
+			orderFlow.showOrder(backUrl);
+		},function(){//黑名单
+			msgTips({msg:'抱歉，此账号没有相关权限观看视频！'});
+		},function(data){//系统错误
+			msgTips({msg:data.message});
+		},function(){//final执行
+
+		});
+		
 	},
 	inputNum:function(i){
 

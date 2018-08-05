@@ -14,8 +14,8 @@ loadingObj.hide();
 function Loading(o){
 	var o=o||{};
 	this.zIndex=o.zIndex||10;
-	this.left=o.left||'600px';
-	this.top=o.top||'350px';
+	this.left=o.left||'590px';
+	this.top=o.top||'310px';
 	this.backgroundColor=o.backgroundColor||'#244F95';
 	this.loadingImg=o.loadingImg||projectBasePath+'images_second/loading.gif';
 	this.el=null;
@@ -25,12 +25,15 @@ function Loading(o){
 		this.el.style.zIndex=this.zIndex;
 		this.el.style.left=this.left;
 		this.el.style.top=this.top;
-		this.el.style.padding='20px';
+		this.el.style.width='100px';
+		this.el.style.height='100px';
+
+		//this.el.style.padding='20px';
 		this.el.style.backgroundColor=this.backgroundColor;
-		this.el.style.borderRadius='8px';
+		//this.el.style.borderRadius='8px';
 		this.el.style.display='none';
 		$append(this.el);
-		this.el.innerHTML='<img src="'+this.loadingImg+'" />';
+		this.el.innerHTML='<img src="'+this.loadingImg+'" style="position:absolute;left:18px;top:18px;" />';
 	}
 	this.show=function(){
 		if(this.el){
@@ -84,7 +87,7 @@ function msgTips(o){
 	el.style.display='block';
 	el.innerHTML='<div style="text-align:center;font-size:26px;line-height:50px;">系统提示</div><div style="text-align:center;font-size:24px;line-height:30px;">'+msg+'</div>';
 
-	if(timeout>=0){
+	if(timeout>0){
 		setTimeout(function(){
 			el.style.display='none';
 		},timeout);
@@ -135,6 +138,53 @@ function createUrlByObject(url,obj){
 	}
 	var queryStr=utv.obj2query(queryObj);
 	return baseUrl+'?'+queryStr;
+}
+
+var authorizationReq=null;
+function checkAuthorization(orderedFn,unorderFn,blackUserFn,errorFn,finalFn){
+	if(!!authorizationReq){
+		return 0;
+	}
+
+	orderedFn&&orderedFn({});
+	return 0;
+
+	var url=orderBasePath+'chongqing/cqUserController/authorization.utvgo?keyNo='+keyNo+'&cmboIds=';
+	
+	authorizationReq=ajax({
+	    url: url,
+	    type: "GET", //HTTP 请求类型,GET或POST
+	    dataType: "html", //请求的文件类型html/xml
+	    onSuccess: function(html){ //请求成功后执行[可选]
+	    	authorizationReq=null;
+	        try{
+		        var json=eval('('+html+')');
+		        //返回code：-2，服务异常， -1参数不合法（卡号为空异常或用户信息异常）,0 已订购，1没订购，2白名单，3黑名单  1、白名单用户可免费观看内容  2、黑名单用户限制订购，
+		        if(parseInt(json.code,10)==0||parseInt(json.code,10)==2){ 
+		        	orderedFn&&orderedFn(json);
+		        }else if(parseInt(json.code,10)==1){
+		        	unorderFn&&unorderFn(json);
+		        }else if(parseInt(json.code,10)==3){
+		        	blackUserFn&&blackUserFn(json);
+		        }else{
+		        	errorFn&&errorFn(json);
+		        }
+		    }catch(err){
+		       
+		    }
+	    	!!finalFn&&finalFn();
+
+	    },
+	    onComplete:function(){
+	       authorizationReq=null;
+	    },
+	    onError:function(){ //请求失败后执行[可选]
+	    	authorizationReq=null;
+	    	!!finalFn&&finalFn();
+	    },
+	    post:'',  
+	    timeout:70000  
+	});
 }
 
 

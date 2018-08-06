@@ -146,8 +146,8 @@ function checkAuthorization(orderedFn,unorderFn,blackUserFn,errorFn,finalFn){
 		return 0;
 	}
 
-	orderedFn&&orderedFn({});
-	return 0;
+	// orderedFn&&orderedFn({});
+	// return 0;
 
 	var url=orderBasePath+'chongqing/cqUserController/authorization.utvgo?keyNo='+keyNo+'&cmboIds=';
 	

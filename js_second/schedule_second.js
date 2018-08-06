@@ -429,7 +429,7 @@ function getLeftMenuData(){
 	// return 0;
 
 	loadingObj.show();
-	var url=serverPath+'portalData/categoryScheduleDate.utvgo?category='+menuId;
+	var url=serverPath+'portalData/categoryScheduleDate.utvgo?categoryCode='+menuId;
 	//alert(url);
 	ajax({
 	    url: url,

@@ -168,9 +168,6 @@ var Event = function(_event){
         case 1058:                      //电视回看
             code = "KEY_TSTV";          
             break;
-        case 5210:                      //轮播
-            code = "EIS_VOD_PROGRAM_END";
-            break;
         case 3863:                      //天津 停止键
             code = "STOP";
             break;
@@ -187,6 +184,18 @@ var Event = function(_event){
             break;
         case 3880:                      //天津 定位键
             code = "LOCA_PLAY";
+            break;
+        case 5202:                      //播放准备成功
+            code = "EIS_VOD_RERADY_SUCCESS";
+            break;
+        case 5210:                      //播放结束
+            code = "EIS_VOD_PROGRAM_END";
+            break;
+        case 5205:
+            code = "EIS_VOD_PLAY_SUCCESS";//播放成功
+            break;
+        case 5203:
+            code = "EIS_VOD_CONNECT_FAILED";//连接服务器失败
             break;
         default :
             code = keycode;

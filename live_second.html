@@ -18,6 +18,7 @@ body,html{
 </head>
 
 <body onUnload="release()" style="background:transparent; width:1280px; height:720px; overflow:hidden; position:relative;">
+	<div id="testDiv" style="position: absolute;left: 50px;top:50px;color:red;font-size: 18px;line-height: 20px;z-index: 10;"></div>
 
 	<div id="loadingDiv" style="position:absolute; top:250px; left:500px; width:334px; height:122px; z-index:10;background: url(images_second/loading_bg.png) left top no-repeat; visibility:hidden;">
 		<!-- <img src="./images_second/loading_bg.png" style="position:absolute; top:0px; left:0px;background: transparent;" /> -->
@@ -26,7 +27,7 @@ body,html{
 
 	<div id="playTitle" style="position: absolute;left: 0px;top: 0px;width: 1280px;height: 181px;background: url(images_second/play/top_bg.png) no-repeat;visibility: hidden;">
 		<div id="playTypeIcon" style="position: absolute;left: 60px;top: 40px;width: 91px;height: 38px;line-height: 38px;text-align: center;color: #ffffff;font-size: 24px;background: url(images_second/play/top_live_icon.png) no-repeat;">直播</div>
-		<div id="programName" style="position: absolute;left: 170px;top: 40px; width:1000px;height: 38px; line-height: 38px;font-size: 24px;color:#ffffff;text-align: left;overflow: hidden;">十点零分集散地立刻反击都是分开了多少反抗类毒素f</div>
+		<div id="programName" style="position: absolute;left: 170px;top: 40px; width:1000px;height: 38px; line-height: 38px;font-size: 24px;color:#ffffff;text-align: left;overflow: hidden;"><!-- 十点零分集散地立刻反击都是分开了多少反抗类毒素f --></div>
 	</div>
 
 
@@ -34,9 +35,9 @@ body,html{
 <script type="text/javascript" src="./js_second/lib.js"></script>
 <script type="text/javascript" src="./js_second/ajax.js"></script>
 <script type="text/javascript" src="./js_second/keyEvent.js"></script>
-<script type="text/javascript" src="js_second/showList.js"></script>
-<script type="text/javascript" src="js_second/common.js"></script>
-<script type="text/javascript" src="js_second/showTips.js"></script>
+<script type="text/javascript" src="./js_second/showList.js"></script>
+<script type="text/javascript" src="./js_second/common.js"></script>
+<script type="text/javascript" src="./js_second/showTips.js"></script>
 <script type="text/javascript" src="./js_second/config.js"></script>
 <script type="text/javascript">
 document.onkeydown = grabEvent;
@@ -50,9 +51,11 @@ function grabEvents(_event){
         case "EIS_VOD_RERADY_SUCCESS": //
         	hideLoadingDiv();
             media.AV.play();
+            logInput('EIS_VOD_RERADY_SUCCESS');
             return 0;
             break;
         case "EIS_VOD_PROGRAM_END"://当前流媒体已经播放结束
+        	logInput('EIS_VOD_PROGRAM_END');
             return 0;
             break
         default:
@@ -78,18 +81,32 @@ function grabEvent(_event){
 }
 
 window.onload = init;
-var curChanId = "";  //频道Id
+var curChanId = "";  //直播id 即信号code
 var progId = "";  //节目Id 暂无用
-var playId = 0;  //播放id 暂无用
 var dgCode = 9;
 var dgMsg = "";
 var programName='';
+var channelCodes='';//直播频道code，有多个，逗号隔开
+var leftMenuData=[];//频道列表数据
+var channelScheduleData={ //某频道的排期数据
+	'c_1':[
+		{name:'中国VS巴西 世界杯小组赛第2轮',startTime:'08月20号 10:22'}
+	]
+};
+
+function logInput(str){
+	return 0;
+	var s=$('testDiv').innerHTML;
+	$('testDiv').innerHTML=s+'<br/>'+str;
+}
 
 function init(){
 	// showLoadingDiv();
 
-	curChanId = Q.getDecoded("curChanId");  //直播id
+	curChanId = Q.getDecoded("curChanId");  //直播id即信号code
 	progId = Q.getDecoded("progId");  //节目Id
+
+	channelCodes = Q.getDecoded('channelCodes');
 
 	programName=utv.cookie.get('programName');
 	//alert(utv.cookie.get('programName'));
@@ -97,7 +114,17 @@ function init(){
 		autoShowProgramName(programName,true);
 	}
 
-	control.init();
+	logInput('1:curChanId:'+curChanId+' channelCodes:'+channelCodes+' programName:'+programName);
+
+	if((channelCodes=='null'||!!!channelCodes)&&!!curChanId){
+		control.init();
+	}else{
+		getChannel(function(){
+			control.init();
+		});
+	}
+
+	
 }
 
 function autoShowProgramName(str,autoHide){
@@ -118,7 +145,7 @@ function release(){
 var control = {
 	focusArea : 0,
 	init : function(){
-		play_ajax(playId,curChanId);
+		play_ajax(curChanId);
 	},
 	clickUp : function(){
 		return 0;
@@ -145,21 +172,110 @@ var control = {
 	}
 }
 
+function getChannel(fn){
+	showLoadingDiv();
+	var url=serverPath+'portalData/channelList.utvgo?platform='+platform+'&channelCodes='+channelCodes;
+	logInput('2::'+url);
+	ajax({
+		url: url,
+		type: "GET", //HTTP 请求类型,GET或POST
+		dataType: "html", //请求的文件类型html/xml
+		onSuccess: function(html){ //请求成功后执行[可选]
+			hideLoadingDiv();
+			var json=eval('('+html+')');
 
-function play_ajax(_audioId,curChanId){
+	        if(parseInt(json.code,10)==1){
+	        	formatChannelData(json,fn);
+	        }else{
+	        	alert(json.message);
+	        }
+
+		},
+		onComplete:function(){
+			
+		},
+		onError:function(){ //请求失败后执行[可选]
+			hideLoadingDiv();
+			showTips('网络异常',6000,24,{zIndex:10,left:'',top:'',width:'',height:'',background:'',backgroundColor:'#666666'});
+		},
+        post:"",  
+        timeout:7000  
+	});	
+}
+function formatChannelData(json,fn){
+	if(json.data[0]){ //第一个直播数据
+		curChanId=json.data[0].signalCode;
+	}
+	leftMenuData=json.data||[];
+	logInput('3:curChanId:'+curChanId);
+	!!fn&&fn();
+}
+var scheduleReq=null;
+function getChannelSchedule(code,fn){
+	if(!!scheduleReq){
+		scheduleReq.abort();
+		scheduleReq=null;
+	}
+	showLoadingDiv();
+	var url=serverPath+'portalData/channelSchedule.utvgo?channelCode='+code+'&pageNo=1&pageSize=20';
+	scheduleReq=ajax({
+		url: url,
+		type: "GET", //HTTP 请求类型,GET或POST
+		dataType: "html", //请求的文件类型html/xml
+		onSuccess: function(html){ //请求成功后执行[可选]
+			scheduleReq=null;
+			hideLoadingDiv();
+			var json=eval('('+html+')');
+
+	        if(parseInt(json.code,10)==1){
+	        	formatChannelScheduleData(json,fn);
+	        }else{
+	        	alert(json.message);
+	        }
+
+		},
+		onComplete:function(){
+			scheduleReq=null;
+		},
+		onError:function(){ //请求失败后执行[可选]
+			scheduleReq=null;
+			hideLoadingDiv();
+			showTips('网络异常',6000,24,{zIndex:10,left:'',top:'',width:'',height:'',background:'',backgroundColor:'#666666'});
+		},
+        post:"",  
+        timeout:7000  
+	});	
+}
+function formatChannelScheduleData(json,fn){
+	//json.data
+	channelScheduleData['c_'+1].push({
+
+	});
+
+}
+
+
+function play_ajax(curChanId){
+	if(!!!curChanId){
+		showTips('频道参数有误',6000,24,{zIndex:10,left:'',top:'',width:'',height:'',background:'',backgroundColor:'#666666'});
+		return 0;
+	}
 	showLoadingDiv();
 	if(req != null){
 		req.abort();
 		req = null;
 		// release();
 	}
+	var url=iPanel.eventFrame.pre_epg_url +'/tstvindex.jsp?User=&pwd=&ip='+iPanel.ioctlRead("IP")+'&NTID='+iPanel.ioctlRead("NTID")+'&CARDID='+iPanel.ioctlRead("ICID")+'&Version=1.0&lang=1&ChannelID='+curChanId+'&Prognum=30&ServiceGroupID='+iPanel.eventFrame.ServiceGroupID+'&supportnet='+iPanel.eventFrame.netType+'&decodemode=H.264HD;MPEG-2HD&CA=1';
+	logInput('4:'+url);
 	req = ajax({
-		url: iPanel.eventFrame.pre_epg_url +'/tstvindex.jsp?User=&pwd=&ip='+iPanel.ioctlRead("IP")+'&NTID='+iPanel.ioctlRead("NTID")+'&CARDID='+iPanel.ioctlRead("ICID")+'&Version=1.0&lang=1&ChannelID='+curChanId+'&Prognum=30&ServiceGroupID='+iPanel.eventFrame.ServiceGroupID+'&supportnet='+iPanel.eventFrame.netType+'&decodemode=H.264HD;MPEG-2HD&CA=1',
+		url: url,
 		type: "GET", //HTTP 请求类型,GET或POST
 		dataType: "html", //请求的文件类型html/xml
 		onSuccess: function(html){ //请求成功后执行[可选]
 			hideLoadingDiv();
 			req = null;
+			logInput('5:'+html);
 			var json = {'Result':'','PlayUrl':''};
 			var arr1 = html.split('\n');
 			for(var i=0;i<arr1.length;i++){
@@ -170,11 +286,12 @@ function play_ajax(_audioId,curChanId){
 					json.PlayUrl = rtsp_url.split("^")[4];
 				}
 			}
+			logInput('6:Result'+json.Result+' -PlayUrl:'+json.PlayUrl);
 			if(parseInt(json.Result)==0){
 				media.AV.open(json.PlayUrl,"VOD");			
 				media.video.fullScreen();
 			}else{
-				play_ajax(playId,curChanId);
+				play_ajax(curChanId);
 				//showTips(parseInt(json.Result),2000);
 			}
 

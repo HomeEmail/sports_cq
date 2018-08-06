@@ -461,7 +461,7 @@ function formatContentData(json){//绑定内容数据
 	for(var i=0;i<3;i++){
 		//subMenu[i]=recomendList[i];
 		subMenu[i].img=recomendList[i].opBigPicUrl;
-		subMenu[i].name=recomendList[i].description.replace('#','|||');
+		subMenu[i].name=recomendList[i].description?recomendList[i].description.replace('#','|||'):'';
 		subMenu[i].hrefType=recomendList[i].hrefType;
 		subMenu[i].code=recomendList[i].code;
 		subMenu[i].pkId=recomendList[i].pkId;
@@ -475,7 +475,7 @@ function formatContentData(json){//绑定内容数据
 			subMenu[i].href='./ownList_second.html?categoryCode='+recomendList[i].contentMid;
 		}
 		if(recomendList[i].hrefType==7){
-			//subMenu[i].href='./ownList_second.html?categoryCode='+recomendList[i].contentMid;
+			subMenu[i].href='./live_second.html?curChanId='+''+'&channelCodes='+Q.encode(recomendList[i].contentMid);
 		}
 
 	}
@@ -508,13 +508,13 @@ function formatContentData(json){//绑定内容数据
 		subMenu[i].showFlag=operationList[i-4].showFlag;
 		subMenu[i].href='';//自己拼接链接地址
 		if(operationList[i-4].hrefType==1){
-			subMenu[i].href='../play_1.html?mvMid='+operationList[i-4].code;
+			subMenu[i].href='../play_1.html?mvMid='+operationList[i-4].contentMid;
 		}
 		if(operationList[i-4].hrefType==3){
-			subMenu[i].href='./ownList_second.html?categoryCode='+operationList[i-4].code;
+			subMenu[i].href='./ownList_second.html?categoryCode='+operationList[i-4].contentMid;
 		}
 		if(operationList[i-4].hrefType==7){
-			//subMenu[i].href='./ownList_second.html?categoryCode='+operationList[i-4].code;
+			subMenu[i].href='./live_second.html?curChanId='+''+'&channelCodes='+Q.encode(operationList[i-4].contentMid);
 		}
 	}
 
@@ -716,6 +716,7 @@ var subMenuObj = {
 		if(!!!subMenu[this.subPos].href||subMenu[this.subPos].href=='#'){
 			return 0;
 		}
+		
 		var url = subMenu[this.subPos].href;
 		//url='./ownList_second.html?categoryCode=136085';
 		//url='list.html';
@@ -725,7 +726,26 @@ var subMenuObj = {
 		}else{
 			url+='?backUrl='+Q.encode(backUrl);
 		}
-		location.href = url;
+		
+		if(subMenu[this.subPos].hrefType==7){//直播，轮播,需要鉴权
+			utv.cookie.set('programName',subMenu[this.subPos].name);
+
+			checkAuthorization(function(){//已经订购
+				location.href = url;
+			},function(){//未订购
+				orderFlow.showOrder(backUrl);
+			},function(){//黑名单
+				msgTips({msg:'抱歉，此账号没有相关权限观看视频！'});
+			},function(data){//系统错误
+				msgTips({msg:data.message});
+			},function(){//final执行
+
+			});
+		}else{
+			location.href = url;
+		}
+
+		
 	}
 };
 

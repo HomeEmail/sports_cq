@@ -273,7 +273,7 @@ var mainPad = {
 		if(leftMenuData.length<=0){
 			return 0;
 		}
-		
+
 		control=leftMenuPad;
 		control.focus();
 		leftMenuPad.show();
@@ -506,14 +506,14 @@ var contentPad={
 		var s='';
 		for(var i=0;i<this.showItemCount;i++){
 			s+='<div id="menuLeftSecond_'+i+'" class="menu" style="position:absolute; top:'+(this.initTop+(i*this.itemHeight))+'px; left:'+(this.initLeft)+'px; width:'+this.itemWidth+'px; height:'+this.itemHeight+'px;overflow:hidden;line-height: '+this.itemHeight+'px;">'+
-					'<div id="menuLeftSecond_time1_'+i+'" style="color: #63657f;font-size: 20px;text-align:left;z-index:3;position: absolute;height: 30px;line-height: 30px;width: 70px;left: 50px;top: 26px;overflow: hidden;"><!--22:99--></div>'+
-					'<div id="menuLeftSecond_name1_'+i+'" style="color: #63657f;font-size: 20px;text-align:left;z-index:3;position: absolute;height: 30px;line-height: 30px;width: 210px;left: 120px;top: 26px;overflow: hidden;"><!--中超第22轮--></div>'+
-					'<div id="menuLeftSecond_playingText_'+i+'" style="color: #e15508;font-size: 20px;text-align:left;z-index:3;position: absolute;height: 30px;line-height: 30px;width: 98px;left: 333px;top: 26px;overflow: hidden;"><!--正在播放--></div>'+
-					'<div id="menuLeftSecond_name2_'+i+'" style="color: #63657f;font-size: 24px;text-align:left;z-index:3;position: absolute;height: 30px;line-height: 30px;width: 290px;left: 50px;top: 60px;overflow: hidden;"><!--中国VS巴西_4_4--></div>'+
+					'<div id="menuLeftSecond_time1_'+i+'" style="color: #63657f;font-size: 20px;text-align:left;z-index:3;position: absolute;height: 30px;line-height: 30px;width: 70px;left: 50px;top: 22px;overflow: hidden;"><!--22:99--></div>'+
+					'<div id="menuLeftSecond_name1_'+i+'" style="color: #63657f;font-size: 20px;text-align:left;z-index:3;position: absolute;height: 30px;line-height: 30px;width: 210px;left: 120px;top: 22px;overflow: hidden;"><!--中超第22轮--></div>'+
+					'<div id="menuLeftSecond_playingText_'+i+'" style="color: #e15508;font-size: 20px;text-align:left;z-index:3;position: absolute;height: 30px;line-height: 30px;width: 98px;left: 333px;top: 22px;overflow: hidden;"><!--正在播放--></div>'+
+					'<div id="menuLeftSecond_name2_'+i+'" style="color: #63657f;font-size: 24px;text-align:left;z-index:3;position: absolute;height: 30px;line-height: 30px;width: 290px;left: 50px;top: 50px;overflow: hidden;"><!--中国VS巴西_4_4--></div>'+
 
-					'<div id="menuLeftSecond_livingIcon_'+i+'" style="z-index:3;position: absolute;height: 26px;line-height: 26px;width: 63px;left: 349px;top: 62px;overflow: hidden;background:url(images_second/play/left_menu_live_icon.png) no-repeat;visibility:hidden;"></div>'+
-					'<div id="menuLeftSecond_playingIcon_'+i+'" style="z-index:3;position: absolute;height: 30px;line-height: 30px;width: 31px;left: 10px;top: 44px;overflow: hidden;background:url(images_second/play/play_ing_icon.png) no-repeat;visibility:hidden;"></div>'+
-			+'</div>';
+					'<div id="menuLeftSecond_livingIcon_'+i+'" style="z-index:3;position: absolute;height: 26px;line-height: 26px;width: 63px;left: 349px;top: 52px;overflow: hidden;background:url(images_second/play/left_menu_live_icon.png) no-repeat;visibility:hidden;"></div>'+
+					'<div id="menuLeftSecond_playingIcon_'+i+'" style="z-index:3;position: absolute;height: 30px;line-height: 30px;width: 31px;left: 10px;top: 38px;overflow: hidden;background:url(images_second/play/play_ing_icon.png) no-repeat;visibility:hidden;"></div>'+
+			'</div>';
 		}
 		
 		$('menuLeftSecond_content').innerHTML=s;
@@ -538,7 +538,7 @@ var contentPad={
 		this.listObj.haveData = function(list){ //list.idPos:对象id,list.dataPos:数据id      
 			$("menuLeftSecond_" + list.idPos).style.visibility = "visible";
 			var item=channelScheduleData['page_'+leftMenuData[leftMenuPad.listObj.position].pkId][list.dataPos];
-			if(item.nodata){
+			if(!!item.nodata){
 				$("menuLeftSecond_time1_" + list.idPos).innerHTML = ''; 
 				$("menuLeftSecond_name1_" + list.idPos).innerHTML = ''; 
 				$("menuLeftSecond_playingText_" + list.idPos).innerHTML = ''; 

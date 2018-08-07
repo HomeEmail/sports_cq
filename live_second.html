@@ -14,6 +14,10 @@ body,html{
 }
 *{ font-family: "Microsoft YaHei"; margin: 0px; padding: 0px; }
 
+div,span{
+	box-sizing: border-box;
+}
+
 </style>
 </head>
 
@@ -26,8 +30,32 @@ body,html{
 	</div>
 
 	<div id="playTitle" style="position: absolute;left: 0px;top: 0px;width: 1280px;height: 181px;background: url(images_second/play/top_bg.png) no-repeat;visibility: hidden;">
-		<div id="playTypeIcon" style="position: absolute;left: 60px;top: 40px;width: 91px;height: 38px;line-height: 38px;text-align: center;color: #ffffff;font-size: 24px;background: url(images_second/play/top_live_icon.png) no-repeat;">直播</div>
-		<div id="programName" style="position: absolute;left: 170px;top: 40px; width:1000px;height: 38px; line-height: 38px;font-size: 24px;color:#ffffff;text-align: left;overflow: hidden;"><!-- 十点零分集散地立刻反击都是分开了多少反抗类毒素f --></div>
+		<div id="programName" style="position: absolute;left: 70px;top: 40px; width:1000px;height: 38px; line-height: 38px;font-size: 24px;color:#ffffff;text-align: left;overflow: hidden;"><!-- 十点零分集散地立刻反击都是分开了多少反抗类毒素f --></div>
+		<div id="playTypeIcon" style="position: absolute;left: 1090px;top: 40px;width: 91px;height: 38px;line-height: 38px;text-align: center;color: #ffffff;font-size: 24px;background: url(images_second/play/top_live_icon.png) no-repeat;">直播</div>
+	</div>
+
+	<div id="enterOperationTip" style="position: absolute;left: 890px;top: 570px;width: 343px;height: 101px;background: url(images_second/play/enter_tips_bg.png) no-repeat;">
+		<div style="color: #8083ac;font-size: 20px;text-align: left;width: 300px;position: absolute;left: 40px;top:0px; height: 50px;line-height: 50px;">【确定键】弹出节目列表</div>
+		<div style="color: #8083ac;font-size: 20px;text-align: left;width: 300px;position: absolute;left: 40px;top:50px; height: 50px;line-height: 50px;">【上下键】切换频道</div>
+	</div>
+
+	<!-- 左边菜单 -->
+	<div id="MenuLeft" style="position:absolute; top:0px; left:0px; width:1280px; height:720px;z-index: 2; background: url(images_second/play/left_menu_bg.png) no-repeat;visibility: hidden;display: none;">
+
+		<div id="menuLeft_content" style="position: absolute;top: 0px;left: 0px;width: 1280px;height: 720px;z-index: 2;">
+		  	<!-- <div id="menuLeft_0" class="menu" style="position:absolute; top:31px; left:287px; width:126px; height:55px;line-height: 55px;"></div> -->
+		</div>
+		<div style="position:absolute;top:64px; left:-36px;z-index: 5;"><div id="menuLeft_focus" style="position:absolute; top:0px; left:0px; width:302px; height:179px;background: url(images_second/play/left_focus.png) center center no-repeat;"></div></div>
+
+
+		<div id="menuLeftSecond_content" style="position: absolute;top: 0px;left: 0px;width: 1280px;height: 720px;z-index: 2;">
+		  	<!-- <div id="menuLeftSecond_0" class="menu" style="position:absolute; top:31px; left:287px; width:126px; height:55px;line-height: 55px;"></div> -->
+		</div>
+		<div style="position:absolute;top:-38px; left:190px;z-index: 5;"><div id="menuLeftSecond_focus" style="position:absolute; top:0px; left:0px; width:508px; height:179px;background: url(images_second/play/left_second_focus.png) center center no-repeat;visibility: hidden;"></div></div>
+
+
+		
+		
 	</div>
 
 
@@ -65,13 +93,29 @@ function grabEvents(_event){
 function grabEvent(_event){
 	var code = Event(_event);
 	switch(code){
+		case "KEY_UP": //
+			control.up&&control.up();
+			return 0;
+			break;
+		case "KEY_DOWN": //
+			control.down&&control.down();
+			return 0;
+			break;
+		case "KEY_LEFT": //
+			control.left&&control.left();
+			return 0;
+			break;
+		case "KEY_RIGHT": //
+			control.right&&control.right();
+			return 0;
+			break;
 		case "KEY_SELECT": //
-			control.clickSelect();
+			control.enter&&control.enter();
 			return 0;
 			break;
 		case "KEY_EXIT":
 		case "KEY_BACK":
-			control.clickDoBack();
+			control.back?control.back():goBack();
 			return 0;
 			break;
 		default:
@@ -87,11 +131,15 @@ var dgCode = 9;
 var dgMsg = "";
 var programName='';
 var channelCodes='';//直播频道code，有多个，逗号隔开
-var leftMenuData=[];//频道列表数据
+
+var leftMenuData=[
+	//{"pkId":23,"code":"CQYX0010000000002776205","name":"荣耀中超","signalCode":"2235","status":"1"}//demo
+];//频道列表数据
+var currentChannelIndex=0;//当前播放频道数组下标
 var channelScheduleData={ //某频道的排期数据
-	'c_1':[
-		{name:'中国VS巴西 世界杯小组赛第2轮',startTime:'08月20号 10:22'}
-	]
+	// 'page_1':[
+	// 	{name:'中国VS巴西',leagueName:'中超',roundText:'第22轮',startTime:'10:22',startDate:'8月22日',isPlaying:true,isLiving:0}
+	// ]
 };
 
 function logInput(str){
@@ -117,13 +165,19 @@ function init(){
 	logInput('1:curChanId:'+curChanId+' channelCodes:'+channelCodes+' programName:'+programName);
 
 	if((channelCodes=='null'||!!!channelCodes)&&!!curChanId){
-		control.init();
+		play_ajax(curChanId);
 	}else{
 		getChannel(function(){
-			control.init();
+			//play_ajax(curChanId);
 		});
 	}
 
+	control=mainPad; //控制交接
+	control.focus();
+
+	setTimeout(function(){
+		$('enterOperationTip').style.display='none';
+	},8000);
 	
 }
 
@@ -138,39 +192,96 @@ function autoShowProgramName(str,autoHide){
 }
 
 function release(){
-	DVB.stopAV(0);
-	media.AV.close();
+	try{
+		DVB.stopAV(0);
+		media.AV.close();
+
+	}catch(err){
+
+	}
+}
+
+function goBack(){
+	if(!!backUrl){
+		location.href=backUrl;
+	}else{
+		history.back();
+	}
 }
 
 var control = {
-	focusArea : 0,
 	init : function(){
-		play_ajax(curChanId);
+		
 	},
-	clickUp : function(){
+	focus:function(){
+
+	},
+	blur:function(){
+
+	},
+	up : function(){
 		return 0;
 	},
-	clickDown : function(){
+	down : function(){
 		return 0;
 	},
-	clickLeft : function(){
+	left : function(){
 		return 0;
 	},
-	clickRight : function(){
+	right : function(){
 		return 0;
 	},
-	clickSelect : function(){
-		autoShowProgramName(programName,true);
+	enter : function(){
 		return 0;
 	},
-	clickDoBack : function(){
-		if(!!backUrl){
-			location.href=backUrl;
-		}else{
-			history.back();
-		}
+	back : function(){
+		goBack();
 	}
-}
+};
+
+var mainPad = {
+	init : function(){
+		
+	},
+	focus:function(){
+
+	},
+	blur:function(){
+
+	},
+	up : function(){// 切换频道
+		if(!!!leftMenuData||leftMenuData.length<=0||currentChannelIndex<=0){
+			return 0; //没有频道切换了
+		}
+		return 0;
+	},
+	down : function(){// 切换频道
+		if(!!!leftMenuData||leftMenuData.length<=0||currentChannelIndex>=(leftMenuData.length-1)){
+			return 0; //没有频道切换了
+		}
+		return 0;
+	},
+	left : function(){
+		return 0;
+	},
+	right : function(){
+		return 0;
+	},
+	enter : function(){
+		autoShowProgramName(programName,true);
+
+		if(leftMenuData.length<=0){
+			return 0;
+		}
+		
+		control=leftMenuPad;
+		control.focus();
+		leftMenuPad.show();
+
+		return 0;
+	}
+};
+
 
 function getChannel(fn){
 	showLoadingDiv();
@@ -206,10 +317,337 @@ function formatChannelData(json,fn){
 	if(json.data[0]){ //第一个直播数据
 		curChanId=json.data[0].signalCode;
 	}
-	leftMenuData=json.data||[];
+	leftMenuData=json.data||[]; //[{"pkId":23,"code":"CQYX0010000000002776205","name":"荣耀中超","signalCode":"2235","status":"1"}]
+
+	//test demo data
+	for(var i=0;i<4;i++){
+		leftMenuData.push({
+			pkId:i+1,
+			code:i+22,
+			name:'荣耀中超'+i,
+			signalCode:i+i+3,
+			status:1
+		});
+	}
+
+	leftMenuPad.init();
+
 	logInput('3:curChanId:'+curChanId);
 	!!fn&&fn();
 }
+
+//左边菜单 begin
+var leftMenuPad={
+	listObj:null,
+	initLeft:0,
+	itemWidth:228,
+	initTop:102,
+	itemHeight:103,
+	showItemCount:5,//可视个数
+	initDataPos:0,//初始化数据下标
+	init:function(initIndex){
+		this.render();
+		this.initList({initFocusDataIndex:initIndex||0});
+		this.updateSelect();
+		this.updateContent();
+	},
+	render:function(){
+		var s='';
+		for(var i=0;i<this.showItemCount;i++){
+			s+='<div id="menuLeft_'+i+'" class="menu" style="position:absolute; top:'+(this.initTop+(i*this.itemHeight))+'px; left:'+(this.initLeft)+'px; width:'+this.itemWidth+'px; height:'+this.itemHeight+'px;overflow:hidden;line-height: '+this.itemHeight+'px;"><div id="menuLeftText_'+i+'" style="padding-right:20px;padding-left:62px;color:#9193ac;font-size:26px;text-align:left;z-index:3;position:relative;"></div></div>';
+		}
+		
+		$('menuLeft_content').innerHTML=s;
+	}
+	,initList:function(o){
+		var o=o||{};
+		var dataLen=leftMenuData.length;//列表数据总总长度
+		var focusIndex=o.initFocusDataIndex||0;//初始化focus第几个数据
+		var itemHigh=this.itemHeight;//每项的高度或宽度
+		var sign=0;//1左右模式，0上下模式
+		var focusLoop=false;//true为循环，false为不循环
+		this.listObj=null;
+		this.listObj = new showList(this.showItemCount, dataLen, focusIndex,0, window);
+		this.listObj.focusDiv = 'menuLeft_focus';
+		this.listObj.listHigh = itemHigh; 
+		this.listObj.listSign = sign;
+		//this.listObj.focusFixed=true;//焦点固定，自动循环
+	    this.listObj.focusLoop = focusLoop;  
+	    this.listObj.focusPos=4;//当前列表焦点的位置；
+	    this.initDataPos=focusIndex;
+	    this.listObj.position=this.initDataPos;//当前数据焦点的位置；
+		this.listObj.haveData = function(list){ //list.idPos:对象id,list.dataPos:数据id      
+			$("menuLeft_" + list.idPos).style.visibility = "visible";
+			$("menuLeftText_" + list.idPos).innerHTML = leftMenuData[list.dataPos].name; 
+			
+		};
+		this.listObj.notData  = function(list){
+			$("menuLeft_" + list.idPos).style.visibility = "hidden";
+			$("menuLeftText_" + list.idPos).innerHTML = "";
+		};
+		this.listObj.startShow();//去掉不移动
+	},
+	updateSelect:function(){
+		
+		$("menuLeft_" + this.listObj.lastFocusPos).style.background='none';
+		$("menuLeftText_" + this.listObj.lastFocusPos).style.color='#9193ac';
+
+		$("menuLeft_" + this.listObj.focusPos).style.background='url(images_second/play/left_selected.png) 50px center no-repeat';
+		$("menuLeftText_" + this.listObj.focusPos).style.color='#ffffff';
+
+	}
+	,hide:function(){
+		$('MenuLeft').style.visibility='hidden';
+		$('MenuLeft').style.display='none';
+	}
+	,show:function(){
+		$('MenuLeft').style.visibility='visible';
+		$('MenuLeft').style.display='block';
+	}
+	,focus:function(){
+		$('menuLeft_focus').style.visibility='visible';
+	}
+	,blur:function(){
+		$('menuLeft_focus').style.visibility='hidden';
+	}
+	,timerId:null //按键操作延时标识
+	,updateContent:function(){//更新播放内容
+		var that = this;
+		currentChannelIndex=this.listObj.position;
+
+		if(!!!channelScheduleData['page_'+leftMenuData[currentChannelIndex].pkId]||channelScheduleData['page_'+leftMenuData[currentChannelIndex].pkId].length<=0){//无数据
+			getChannelSchedule(leftMenuData[currentChannelIndex].code);
+		}else{
+			contentPad.init();
+		}
+
+
+		if(this.timerId){
+			clearTimeout(this.timerId);
+			this.timerId=null;
+		}
+		this.timerId=setTimeout(function(){
+			curChanId=leftMenuData[currentChannelIndex].signalCode;
+			release();
+			play_ajax(curChanId);
+			leftMenuPad.timerId=null;
+
+		},600);
+
+	}
+	,outUp:function(){
+		
+	}//将要跳出本交互模块的处理
+	,outDown:function(){}//将要跳出本交互模块的处理
+	,outLeft:function(){}//将要跳出本交互模块的处理
+	,outRight:function(){
+
+		if(!!!channelScheduleData['page_'+leftMenuData[leftMenuPad.listObj.position].pkId]||channelScheduleData['page_'+leftMenuData[leftMenuPad.listObj.position].pkId].length<=0){//右边没内容
+			return 0;
+		}
+		this.blur();
+		control=contentPad;
+		contentPad.focus();
+	}//将要跳出本交互模块的处理
+	,left:function(){
+
+	},
+	right:function(){
+		this.outRight();
+	},
+	up:function(){
+		if(this.listObj.position<=0){
+			this.outUp();
+		}
+		this.listObj.up();
+		this.updateSelect();
+		this.updateContent();
+	},
+	down:function(){
+		if(this.listObj.position==leftMenuData.length-1){
+			return 0;
+		}
+		this.listObj.down();
+		this.updateSelect();
+		this.updateContent();
+	},
+	enter:function(){
+		return 0;
+		
+		// alert(leftMenuData[this.listObj.position].name);
+	},
+	inputNum:function(i){
+
+	},
+	back:function(){
+		this.hide();
+		control=mainPad;
+		control.focus();
+	}
+};
+//左边菜单 end
+
+//左边菜单节目内容列表
+var contentPad={
+	listObj:null,
+	initLeft:229,
+	itemWidth:428,
+	initTop:0,
+	itemHeight:103,
+	showItemCount:7,//可视个数
+	initDataPos:0,//初始化数据下标
+	init:function(initIndex){
+		this.render();
+		this.initList({initFocusDataIndex:initIndex||0});
+		this.updateSelect();
+		this.updateContent();
+	},
+	render:function(){
+		var s='';
+		for(var i=0;i<this.showItemCount;i++){
+			s+='<div id="menuLeftSecond_'+i+'" class="menu" style="position:absolute; top:'+(this.initTop+(i*this.itemHeight))+'px; left:'+(this.initLeft)+'px; width:'+this.itemWidth+'px; height:'+this.itemHeight+'px;overflow:hidden;line-height: '+this.itemHeight+'px;">'+
+					'<div id="menuLeftSecond_time1_'+i+'" style="color: #63657f;font-size: 20px;text-align:left;z-index:3;position: absolute;height: 30px;line-height: 30px;width: 70px;left: 50px;top: 26px;overflow: hidden;"><!--22:99--></div>'+
+					'<div id="menuLeftSecond_name1_'+i+'" style="color: #63657f;font-size: 20px;text-align:left;z-index:3;position: absolute;height: 30px;line-height: 30px;width: 210px;left: 120px;top: 26px;overflow: hidden;"><!--中超第22轮--></div>'+
+					'<div id="menuLeftSecond_playingText_'+i+'" style="color: #e15508;font-size: 20px;text-align:left;z-index:3;position: absolute;height: 30px;line-height: 30px;width: 98px;left: 333px;top: 26px;overflow: hidden;"><!--正在播放--></div>'+
+					'<div id="menuLeftSecond_name2_'+i+'" style="color: #63657f;font-size: 24px;text-align:left;z-index:3;position: absolute;height: 30px;line-height: 30px;width: 290px;left: 50px;top: 60px;overflow: hidden;"><!--中国VS巴西_4_4--></div>'+
+
+					'<div id="menuLeftSecond_livingIcon_'+i+'" style="z-index:3;position: absolute;height: 26px;line-height: 26px;width: 63px;left: 349px;top: 62px;overflow: hidden;background:url(images_second/play/left_menu_live_icon.png) no-repeat;visibility:hidden;"></div>'+
+					'<div id="menuLeftSecond_playingIcon_'+i+'" style="z-index:3;position: absolute;height: 30px;line-height: 30px;width: 31px;left: 10px;top: 44px;overflow: hidden;background:url(images_second/play/play_ing_icon.png) no-repeat;visibility:hidden;"></div>'+
+			+'</div>';
+		}
+		
+		$('menuLeftSecond_content').innerHTML=s;
+	}
+	,initList:function(o){
+		var o=o||{};
+		var dataLen=channelScheduleData['page_'+leftMenuData[leftMenuPad.listObj.position].pkId].length;//列表数据总总长度
+		var focusIndex=o.initFocusDataIndex||0;//初始化focus第几个数据
+		var itemHigh=this.itemHeight;//每项的高度或宽度
+		var sign=0;//1左右模式，0上下模式
+		var focusLoop=false;//true为循环，false为不循环
+		this.listObj=null;
+		this.listObj = new showList(this.showItemCount, dataLen, focusIndex,0, window);
+		this.listObj.focusDiv = 'menuLeftSecond_focus';
+		this.listObj.listHigh = itemHigh; 
+		this.listObj.listSign = sign;
+		//this.listObj.focusFixed=true;//焦点固定，自动循环
+	    this.listObj.focusLoop = focusLoop;  
+	    this.listObj.focusPos=4;//当前列表焦点的位置；
+	    this.initDataPos=focusIndex;
+	    this.listObj.position=this.initDataPos;//当前数据焦点的位置；
+		this.listObj.haveData = function(list){ //list.idPos:对象id,list.dataPos:数据id      
+			$("menuLeftSecond_" + list.idPos).style.visibility = "visible";
+			var item=channelScheduleData['page_'+leftMenuData[leftMenuPad.listObj.position].pkId][list.dataPos];
+			if(item.nodata){
+				$("menuLeftSecond_time1_" + list.idPos).innerHTML = ''; 
+				$("menuLeftSecond_name1_" + list.idPos).innerHTML = ''; 
+				$("menuLeftSecond_playingText_" + list.idPos).innerHTML = ''; 
+				$("menuLeftSecond_name2_" + list.idPos).innerHTML = item.nodata; 
+
+				$("menuLeftSecond_livingIcon_" + list.idPos).style.visibility='hidden';
+				$("menuLeftSecond_playingIcon_" + list.idPos).style.visibility='hidden';
+
+			}else{
+				$("menuLeftSecond_time1_" + list.idPos).innerHTML = item.startTime; 
+				$("menuLeftSecond_name1_" + list.idPos).innerHTML = item.leagueName+item.roundText; 
+				$("menuLeftSecond_playingText_" + list.idPos).innerHTML = item.isPlaying?'正在播放':''; 
+				$("menuLeftSecond_name2_" + list.idPos).innerHTML = item.name1+ ' - '+item.name2;
+
+				$("menuLeftSecond_livingIcon_" + list.idPos).style.visibility=item.isLiving?'visible':'hidden';
+				$("menuLeftSecond_playingIcon_" + list.idPos).style.visibility=item.isPlaying?'visible':'hidden';
+			}
+
+
+
+			
+			
+		};
+		this.listObj.notData  = function(list){
+			$("menuLeftSecond_" + list.idPos).style.visibility = "hidden";
+			$("menuLeftSecond_name2_" + list.idPos).innerHTML = "";
+		};
+		this.listObj.startShow();//去掉不移动
+	},
+	updateSelect:function(){
+		
+		$("menuLeftSecond_" + this.listObj.lastFocusPos).style.background='none';
+		// $("menuLeftSecond_name2_" + this.listObj.lastFocusPos).style.color='#9193ac';
+
+		$("menuLeftSecond_" + this.listObj.focusPos).style.background='url(images_second/play/left_menu_second_selected.png) center center no-repeat';
+		// $("menuLeftSecond_name2_" + this.listObj.focusPos).style.color='#ffffff';
+
+	}
+	,hide:function(){
+		$('MenuLeft').style.visibility='hidden';
+		$('MenuLeft').style.display='none';
+	}
+	,show:function(){
+		$('MenuLeft').style.visibility='visible';
+		$('MenuLeft').style.display='block';
+	}
+	,focus:function(){
+		$('menuLeftSecond_focus').style.visibility='visible';
+	}
+	,blur:function(){
+		$('menuLeftSecond_focus').style.visibility='hidden';
+	}
+	,timerId:null //按键操作延时标识
+	,updateContent:function(){//更新播放内容
+		var that = this;
+		
+
+	}
+	,outUp:function(){
+		
+	}//将要跳出本交互模块的处理
+	,outDown:function(){}//将要跳出本交互模块的处理
+	,outLeft:function(){
+		this.blur();
+		control=leftMenuPad;
+		leftMenuPad.focus();
+	}//将要跳出本交互模块的处理
+	,outRight:function(){
+	}//将要跳出本交互模块的处理
+	,left:function(){
+		this.outLeft();
+	},
+	right:function(){
+		this.outRight();
+	},
+	up:function(){
+		if(this.listObj.position<=0){
+			this.outUp();
+		}
+		this.listObj.up();
+		this.updateSelect();
+		this.updateContent();
+	},
+	down:function(){
+		if(this.listObj.position==channelScheduleData['page_'+leftMenuData[leftMenuPad.listObj.position].pkId].length-1){
+			return 0;
+		}
+		this.listObj.down();
+		this.updateSelect();
+		this.updateContent();
+	},
+	enter:function(){
+		return 0;
+		
+		// alert(channelScheduleData['page_'+leftMenuData[leftMenuPad.listObj.position].pkId][this.listObj.position].name);
+	},
+	inputNum:function(i){
+
+	},
+	back:function(){
+		this.blur();
+
+		this.hide();
+		control=mainPad;
+		control.focus();
+	}
+
+};
+
 var scheduleReq=null;
 function getChannelSchedule(code,fn){
 	if(!!scheduleReq){
@@ -225,6 +663,7 @@ function getChannelSchedule(code,fn){
 		onSuccess: function(html){ //请求成功后执行[可选]
 			scheduleReq=null;
 			hideLoadingDiv();
+			if(!!!html) return 0;
 			var json=eval('('+html+')');
 
 	        if(parseInt(json.code,10)==1){
@@ -248,9 +687,27 @@ function getChannelSchedule(code,fn){
 }
 function formatChannelScheduleData(json,fn){
 	//json.data
-	channelScheduleData['c_'+1].push({
+	var datas=json.data||[];
 
-	});
+	channelScheduleData['page_'+leftMenuData[leftMenuPad.listObj.position].pkId]=[];
+
+	//test demo data
+	for(var i=0;i<10;i++){
+		channelScheduleData['page_'+leftMenuData[leftMenuPad.listObj.position].pkId].push({
+			name:'中国VS巴西_'+leftMenuData[leftMenuPad.listObj.position].pkId+'_'+i,leagueName:'中超',roundText:'第22轮',startTime:'10:22',startDate:'8月22日',isPlaying:false,isLiving:0,name1:'中国',name2:'巴西',nodata:null,hasPlayed:false
+		});
+
+	}
+
+	if(datas.length<=0){
+		channelScheduleData['page_'+leftMenuData[leftMenuPad.listObj.position].pkId].push({
+			nodata:'暂无节目内容~~'
+		});
+	}
+
+	contentPad.init();
+
+	!!fn&&fn();
 
 }
 

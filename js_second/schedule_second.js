@@ -639,47 +639,6 @@ var menuPad={
 };
 //左边菜单 end
 
-//传入193020 返回19:30:20 m:true表示只精确到分 
-function formatTime1(str,m){
-	var ary=[];
-	var s='';
-	try{
-		ary=str.split('');
-		s=(ary[0]||'')+(ary[1]||'')+':'+(ary[2]||'')+(ary[3]||'');
-		if(!!!m){
-			s+=':'+(ary[4]||'')+(ary[5]||'')
-		}
-	}catch(err){
-		s='';
-	}
-	return s;
-
-}
-//formatTime1('193020',true);
-
-//传入 20180802 返回 2018-08-02
-function formatDate1(str){
-	var ary=[];
-	var s='';
-	try{
-		ary=str.split('');
-		s=(ary[0]||'')+(ary[1]||'')+(ary[2]||'')+(ary[3]||'');
-		s+='-'+(ary[4]||'')+(ary[5]||'')
-		s+='-'+(ary[6]||'')+(ary[7]||'')
-		
-	}catch(err){
-		s='';
-	}
-	return s;
-}
-//formatDate1('20180802');
-//传入 20180802193020 返回2018-08-02 19:30:20 m:true表示只精确到分
-function formatDateTime1(str,m){
-	var str1=str.substring(0,8);//date
-	var str2=str.substring(8);//time
-	return formatDate1(str1)+ ' ' +formatTime1(str2,m);
-}
-//formatDateTime1('20180802193020');
 
 
 

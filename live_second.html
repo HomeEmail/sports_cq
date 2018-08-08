@@ -31,7 +31,7 @@ div,span{
 
 	<div id="playTitle" style="position: absolute;left: 0px;top: 0px;width: 1280px;height: 181px;background: url(images_second/play/top_bg.png) no-repeat;visibility: hidden;">
 		<div id="programName" style="position: absolute;left: 70px;top: 40px; width:1000px;height: 38px; line-height: 38px;font-size: 24px;color:#ffffff;text-align: left;overflow: hidden;"><!-- 十点零分集散地立刻反击都是分开了多少反抗类毒素f --></div>
-		<div id="playTypeIcon" style="position: absolute;left: 1090px;top: 40px;width: 91px;height: 38px;line-height: 38px;text-align: center;color: #ffffff;font-size: 24px;background: url(images_second/play/top_live_icon.png) no-repeat;">直播</div>
+		<div id="playTypeIcon" style="position: absolute;left: 1090px;top: 40px;width: 91px;height: 38px;line-height: 38px;text-align: center;color: #ffffff;font-size: 24px;background: url(images_second/play/top_live_icon.png) no-repeat;visibility: hidden;">直播</div>
 	</div>
 
 	<div id="enterOperationTip" style="position: absolute;left: 890px;top: 570px;width: 343px;height: 101px;background: url(images_second/play/enter_tips_bg.png) no-repeat;">
@@ -158,14 +158,16 @@ function init(){
 
 	programName=utv.cookie.get('programName');
 	//alert(utv.cookie.get('programName'));
-	if(!!programName){
-		autoShowProgramName(programName,true);
-	}
+	
+
 
 	logInput('1:curChanId:'+curChanId+' channelCodes:'+channelCodes+' programName:'+programName);
 
 	if((channelCodes=='null'||!!!channelCodes)&&!!curChanId){
 		play_ajax(curChanId);
+		if(!!programName){
+			autoShowProgramName(programName,true);
+		}
 	}else{
 		getChannel(function(){
 			//play_ajax(curChanId);
@@ -182,7 +184,7 @@ function init(){
 }
 
 function autoShowProgramName(str,autoHide){
-	$('programName').innerHTML=str;
+	$('programName').innerHTML='正在播放: '+str;
 	$('playTitle').style.visibility='visible';
 	if(!!autoHide){
 		setTimeout(function(){
@@ -320,15 +322,15 @@ function formatChannelData(json,fn){
 	leftMenuData=json.data||[]; //[{"pkId":23,"code":"CQYX0010000000002776205","name":"荣耀中超","signalCode":"2235","status":"1"}]
 
 	//test demo data
-	for(var i=0;i<4;i++){
-		leftMenuData.push({
-			pkId:i+1,
-			code:i+22,
-			name:'荣耀中超'+i,
-			signalCode:i+i+3,
-			status:1
-		});
-	}
+	// for(var i=0;i<4;i++){
+	// 	leftMenuData.push({
+	// 		pkId:i+1,
+	// 		code:i+22,
+	// 		name:'荣耀中超'+i,
+	// 		signalCode:i+i+3,
+	// 		status:1
+	// 	});
+	// }
 
 	leftMenuPad.init();
 
@@ -373,7 +375,7 @@ var leftMenuPad={
 		this.listObj.listSign = sign;
 		//this.listObj.focusFixed=true;//焦点固定，自动循环
 	    this.listObj.focusLoop = focusLoop;  
-	    this.listObj.focusPos=4;//当前列表焦点的位置；
+	    this.listObj.focusPos=0;//当前列表焦点的位置；
 	    this.initDataPos=focusIndex;
 	    this.listObj.position=this.initDataPos;//当前数据焦点的位置；
 		this.listObj.haveData = function(list){ //list.idPos:对象id,list.dataPos:数据id      
@@ -403,6 +405,11 @@ var leftMenuPad={
 	,show:function(){
 		$('MenuLeft').style.visibility='visible';
 		$('MenuLeft').style.display='block';
+
+		//清空数据 每次显示节目列表都请求新数据
+		channelScheduleData['page_'+leftMenuData[currentChannelIndex].pkId]=[];
+		getChannelSchedule(leftMenuData[currentChannelIndex].code);
+		
 	}
 	,focus:function(){
 		$('menuLeft_focus').style.visibility='visible';
@@ -414,6 +421,7 @@ var leftMenuPad={
 	,updateContent:function(){//更新播放内容
 		var that = this;
 		currentChannelIndex=this.listObj.position;
+		
 
 		if(!!!channelScheduleData['page_'+leftMenuData[currentChannelIndex].pkId]||channelScheduleData['page_'+leftMenuData[currentChannelIndex].pkId].length<=0){//无数据
 			getChannelSchedule(leftMenuData[currentChannelIndex].code);
@@ -472,6 +480,7 @@ var leftMenuPad={
 		this.updateContent();
 	},
 	enter:function(){
+		this.back();
 		return 0;
 		
 		// alert(leftMenuData[this.listObj.position].name);
@@ -532,7 +541,7 @@ var contentPad={
 		this.listObj.listSign = sign;
 		//this.listObj.focusFixed=true;//焦点固定，自动循环
 	    this.listObj.focusLoop = focusLoop;  
-	    this.listObj.focusPos=4;//当前列表焦点的位置；
+	    this.listObj.focusPos=3;//当前列表焦点的位置；
 	    this.initDataPos=focusIndex;
 	    this.listObj.position=this.initDataPos;//当前数据焦点的位置；
 		this.listObj.haveData = function(list){ //list.idPos:对象id,list.dataPos:数据id      
@@ -551,7 +560,12 @@ var contentPad={
 				$("menuLeftSecond_time1_" + list.idPos).innerHTML = item.startTime; 
 				$("menuLeftSecond_name1_" + list.idPos).innerHTML = item.leagueName+item.roundText; 
 				$("menuLeftSecond_playingText_" + list.idPos).innerHTML = item.isPlaying?'正在播放':''; 
-				$("menuLeftSecond_name2_" + list.idPos).innerHTML = item.name1+ ' - '+item.name2;
+				$("menuLeftSecond_name2_" + list.idPos).innerHTML = item.name1 ? item.name1+ ' - '+item.name2 : item.name;
+				if(item.hasPlayed){
+					$("menuLeftSecond_name2_" + list.idPos).style.color='#63657f';
+				}else{
+					$("menuLeftSecond_name2_" + list.idPos).style.color='#ffffff';
+				}
 
 				$("menuLeftSecond_livingIcon_" + list.idPos).style.visibility=item.isLiving?'visible':'hidden';
 				$("menuLeftSecond_playingIcon_" + list.idPos).style.visibility=item.isPlaying?'visible':'hidden';
@@ -631,6 +645,7 @@ var contentPad={
 		this.updateContent();
 	},
 	enter:function(){
+		this.back();
 		return 0;
 		
 		// alert(channelScheduleData['page_'+leftMenuData[leftMenuPad.listObj.position].pkId][this.listObj.position].name);
@@ -655,7 +670,7 @@ function getChannelSchedule(code,fn){
 		scheduleReq=null;
 	}
 	showLoadingDiv();
-	var url=serverPath+'portalData/channelSchedule.utvgo?channelCode='+code+'&pageNo=1&pageSize=20';
+	var url=serverPath+'portalData/channelSchedule.utvgo?channelCode='+code+'&pageNo=1&pageSize=500';
 	scheduleReq=ajax({
 		url: url,
 		type: "GET", //HTTP 请求类型,GET或POST
@@ -692,12 +707,22 @@ function formatChannelScheduleData(json,fn){
 	channelScheduleData['page_'+leftMenuData[leftMenuPad.listObj.position].pkId]=[];
 
 	//test demo data
-	for(var i=0;i<10;i++){
-		channelScheduleData['page_'+leftMenuData[leftMenuPad.listObj.position].pkId].push({
-			name:'中国VS巴西_'+leftMenuData[leftMenuPad.listObj.position].pkId+'_'+i,leagueName:'中超',roundText:'第22轮',startTime:'10:22',startDate:'8月22日',isPlaying:false,isLiving:0,name1:'中国',name2:'巴西',nodata:null,hasPlayed:false
-		});
+	// for(var i=0;i<10;i++){
+	// 	channelScheduleData['page_'+leftMenuData[leftMenuPad.listObj.position].pkId].push({
+	// 		name:'中国VS巴西_'+leftMenuData[leftMenuPad.listObj.position].pkId+'_'+i,
+	// 		leagueName:'中超',
+	// 		roundText:'第22轮',
+	// 		startTime:'10:22',
+	// 		startDate:'8月22日',
+	// 		isPlaying:false,
+	// 		isLiving:0,
+	// 		name1:'中国',
+	// 		name2:'巴西',
+	// 		nodata:null,
+	// 		hasPlayed:false
+	// 	});
 
-	}
+	// }
 
 	if(datas.length<=0){
 		channelScheduleData['page_'+leftMenuData[leftMenuPad.listObj.position].pkId].push({
@@ -705,7 +730,39 @@ function formatChannelScheduleData(json,fn){
 		});
 	}
 
-	contentPad.init();
+	var initListPos=0;
+
+	//liveBroadcastFlg 直播轮播状态，0未开始，1正在直播，2直播结束
+	//scheduleType 节目单类型 1：直播 2:录播
+	//status 状态标志\r\n0:失效 1:生效
+	for(var i=0,len=datas.length;i<len;i++){
+		channelScheduleData['page_'+leftMenuData[leftMenuPad.listObj.position].pkId].push({
+			name:datas[i].programName,
+			leagueName:datas[i].leagueName||'',
+			roundText:datas[i].roundsName||'',
+			startTime:formatTime1(datas[i].startTime,true),
+			startDate:formatDate1(datas[i].startDate),
+			isPlaying:(datas[i].liveBroadcastFlg==1 ? true : false), 
+			isLiving:(datas[i].scheduleType==1?true:false),//是否直播类型 
+			name1:datas[i].homeTeamName||'',
+			name2:datas[i].visitingTeamName||'',
+			nodata:null,
+			hasPlayed:(datas[i].liveBroadcastFlg==2 ? true : false)
+		});
+
+		if(datas[i].liveBroadcastFlg==1){
+			initListPos=i;
+			programName=datas[i].programName;
+			autoShowProgramName(programName,true);
+			if(datas[i].scheduleType==1){//直播
+				$('playTypeIcon').style.visibility='visible';
+			}else{
+				$('playTypeIcon').style.visibility='hidden';
+			}
+		}
+	}
+
+	contentPad.init(initListPos);
 
 	!!fn&&fn();
 

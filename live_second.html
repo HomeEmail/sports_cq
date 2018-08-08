@@ -533,13 +533,13 @@ var contentPad={
 		var focusIndex=o.initFocusDataIndex||0;//初始化focus第几个数据
 		var itemHigh=this.itemHeight;//每项的高度或宽度
 		var sign=0;//1左右模式，0上下模式
-		var focusLoop=false;//true为循环，false为不循环
+		var focusLoop=true;//true为循环，false为不循环
 		this.listObj=null;
 		this.listObj = new showList(this.showItemCount, dataLen, focusIndex,0, window);
 		this.listObj.focusDiv = 'menuLeftSecond_focus';
 		this.listObj.listHigh = itemHigh; 
 		this.listObj.listSign = sign;
-		//this.listObj.focusFixed=true;//焦点固定，自动循环
+		this.listObj.focusFixed=true;//焦点固定，自动循环
 	    this.listObj.focusLoop = focusLoop;  
 	    this.listObj.focusPos=3;//当前列表焦点的位置；
 	    this.initDataPos=focusIndex;
@@ -560,7 +560,7 @@ var contentPad={
 				$("menuLeftSecond_time1_" + list.idPos).innerHTML = item.startTime; 
 				$("menuLeftSecond_name1_" + list.idPos).innerHTML = item.leagueName+item.roundText; 
 				$("menuLeftSecond_playingText_" + list.idPos).innerHTML = item.isPlaying?'正在播放':''; 
-				$("menuLeftSecond_name2_" + list.idPos).innerHTML = item.name1 ? item.name1+ ' - '+item.name2 : item.name;
+				$("menuLeftSecond_name2_" + list.idPos).innerHTML = item.showName;
 				if(item.hasPlayed){
 					$("menuLeftSecond_name2_" + list.idPos).style.color='#63657f';
 				}else{
@@ -590,6 +590,9 @@ var contentPad={
 		$("menuLeftSecond_" + this.listObj.focusPos).style.background='url(images_second/play/left_menu_second_selected.png) center center no-repeat';
 		// $("menuLeftSecond_name2_" + this.listObj.focusPos).style.color='#ffffff';
 
+		var items=channelScheduleData['page_'+leftMenuData[leftMenuPad.listObj.position].pkId];
+		$("menuLeftSecond_name2_" + this.listObj.lastFocusPos).innerHTML=this.generateItemName(items[this.listObj.lastPosition].showName);
+		$("menuLeftSecond_name2_" + this.listObj.focusPos).innerHTML=this.generateMarquee(items[this.listObj.position].showName);
 	}
 	,hide:function(){
 		$('MenuLeft').style.visibility='hidden';
@@ -599,8 +602,15 @@ var contentPad={
 		$('MenuLeft').style.visibility='visible';
 		$('MenuLeft').style.display='block';
 	}
+	,generateMarquee:function(text){
+		return '<marquee scrollamount="3" behavior="alternate" width="'+290+'" style="width: '+290+'px;">'+text+'</marquee>';
+	}
+	,generateItemName:function(text){
+		return '<span style="padding-left:0px;padding-right:0px;">'+text+'</span>';
+	}
 	,focus:function(){
 		$('menuLeftSecond_focus').style.visibility='visible';
+		
 	}
 	,blur:function(){
 		$('menuLeftSecond_focus').style.visibility='hidden';
@@ -726,7 +736,8 @@ function formatChannelScheduleData(json,fn){
 
 	if(datas.length<=0){
 		channelScheduleData['page_'+leftMenuData[leftMenuPad.listObj.position].pkId].push({
-			nodata:'暂无节目内容~~'
+			nodata:'暂无节目内容~~',
+			showName:'暂无节目内容~~'
 		});
 	}
 
@@ -746,6 +757,7 @@ function formatChannelScheduleData(json,fn){
 			isLiving:(datas[i].scheduleType==1?true:false),//是否直播类型 
 			name1:datas[i].homeTeamName||'',
 			name2:datas[i].visitingTeamName||'',
+			showName:datas[i].homeTeamName ? datas[i].homeTeamName+ ' - '+datas[i].visitingTeamName : datas[i].programName,
 			nodata:null,
 			hasPlayed:(datas[i].liveBroadcastFlg==2 ? true : false)
 		});

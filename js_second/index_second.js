@@ -149,7 +149,19 @@ var contral = {
 	}
 }
 function goBack(){
-	window.location.href = backUrl||portalUrl;
+	if(!!backUrl){
+		window.location.href = backUrl;
+	}else{
+		//支持应用在andriod盒子返回首页
+		if(iPanel.eventFrame.systemId == 1){
+		    iPanel.eventFrame.exitToHomePage();
+		}else{
+		    //原代码返回首页
+		    // iPanel.mainFrame.location.href = iPanel.eventFrame.portal_url;
+		    location.href = iPanel.eventFrame.portal_url;
+		}
+	}
+	
 }
 
 function grabEvent(_event){
@@ -642,18 +654,18 @@ var subMenuObj = {
 		// $('contentItem'+this.subPos).style.webkitTransform='scale(1.08,1.08)';
 		// $('content_focus').style.transform='scale(1.08,1.08)';
 		// $('content_focus').style.webkitTransform='scale(1.08,1.08)';
-		// if($('contentItemText'+this.subPos)){//滚动
-		// 	$('contentItemText'+this.subPos).innerHTML='<marquee scrollamount="3" behavior="alternate" width="'+subMenu[this.subPos].width+'" style="width: '+subMenu[this.subPos].width+'px;">'+subMenu[this.subPos].name+'</marquee>';
-		// }
+		if($('contentItemText'+this.subPos)){//滚动
+			$('contentItemText'+this.subPos).innerHTML='<marquee scrollamount="3" behavior="alternate" width="'+subMenu[this.subPos].width+'" style="width: '+subMenu[this.subPos].width+'px;">'+subMenu[this.subPos].name+'</marquee>';
+		}
 	},
 	beforeUpdateFocus:function(){
 		//$('contentItem'+this.subPos).style.zIndex=0;
 		// $('contentItem'+this.subPos).style.transform='scale(1,1)';
 		// $('contentItem'+this.subPos).style.webkitTransform='scale(1,1)';
 
-		// if($('contentItemText'+this.subPos)){//普通文字
-		// 	$('contentItemText'+this.subPos).innerHTML='<span style="padding-left:10px;padding-right:10px;">'+subMenu[this.subPos].name+'</span>';
-		// }
+		if($('contentItemText'+this.subPos)){//普通文字
+			$('contentItemText'+this.subPos).innerHTML='<span style="padding-left:10px;padding-right:10px;">'+subMenu[this.subPos].name+'</span>';
+		}
 		// $('content_focus').style.transform='scale(1,1)';
 		// $('content_focus').style.webkitTransform='scale(1,1)';
 	},
@@ -726,7 +738,7 @@ var subMenuObj = {
 		}else{
 			url+='?backUrl='+Q.encode(backUrl);
 		}
-		
+
 		if(subMenu[this.subPos].hrefType==7){//直播，轮播,需要鉴权
 			utv.cookie.set('programName',subMenu[this.subPos].name);
 

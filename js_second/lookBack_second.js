@@ -593,13 +593,13 @@ var listObj={
 		$(this.itemId+'Focus'+this.index).style.display='block';
 		// $(this.itemId+'_'+this.index).style.transform='scale(1.06,1.06)';
 		// $(this.itemId+'_'+this.index).style.webkitTransform='scale(1.06,1.06)';
-		// this.afterFocus&&this.afterFocus();
+		this.afterFocus&&this.afterFocus();
 	},
 	blur:function(){
 		$(this.itemId+'Focus'+this.index).style.display='none';
 		// $(this.itemId+'_'+this.index).style.transform='scale(1,1)';
 		// $(this.itemId+'_'+this.index).style.webkitTransform='scale(1,1)';
-		// this.afterBlur&&this.afterBlur();
+		this.afterBlur&&this.afterBlur();
 	},
 	isTouchLeft:function(){//是否到最左边了
 		if(this.currentColIndex<=0) return true;

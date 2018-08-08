@@ -8,7 +8,7 @@ homeUrl="http://192.168.18.192";//
 
 var serverPath = ''; //数据接口
 serverPath = 'http://172.16.146.56:8081/cq-sports-client-web/';//南网公司内测试
-serverPath = 'http://192.168.18.192/cq-sports-client-web/';//重庆测试
+serverPath = homeUrl+'/cq-sports-client-web/';//重庆测试
 
 var userPath = ''; // 用户信息
 
@@ -16,15 +16,16 @@ var imgBasePath = "";  //图片路径
 
 
 var orderBasePath  ="http://192.168.18.54/cq-order-web/"; //测试
-orderBasePath = 'http://192.168.18.192/cq-order-web/'; //正式
+orderBasePath = homeUrl+'/cq-order-web/'; //正式
 
 var apiStatisticsPath = "http://172.16.146.32/utvgo-statistics/"//测试
-apiStatisticsPath = "http://172.16.146.6/utvgo-statistics/"//正式
+apiStatisticsPath = homeUrl+"/utvgo-statistics/"//正式
 
 var req = null; // ajax requset对象 
 
 
-var keyNo = !!window.android ? window.android.getKeyNo() : (typeof (CA) != 'undefined' && CA.icNo) || "8230003752183797";
+var keyNo = !!window.android ? window.android.getKeyNo() : (typeof (CA) != 'undefined' && CA.icNo) || "8230003752183797";//广东
+keyNo = !!window.android ? window.android.getKeyNo() : (typeof (CA) != 'undefined' && CA.card.cardId) || "8230003752183797"; //重庆
 //keyNo = "8230003752183797";  //测试
 
 
@@ -42,8 +43,13 @@ if(!!keyNoFromHref){
 	keyNo=keyNoFromHref;
 }
 
-var portalUrl=(typeof (SysSetting) != 'undefined' && SysSetting.getEnv("PORTAL_ADDR")) || ''; //portal页地址
-portalUrl='http://192.168.18.192';
+//portal页地址
+var portalUrl=(typeof (SysSetting) != 'undefined' && SysSetting.getEnv("PORTAL_ADDR")) || ''; //广东
+//portalUrl=iPanel.eventFrame.portal_url;//重庆
+//portalUrl='http://192.168.18.192';
+
+
+
 
 function hrefAddSimulateKeyNo(url){//地址栏添加要模拟的卡号,所有页面跳转地址都要用这函数处理下
 	if(!!!keyNoFromHref||url.indexOf('keyNo=')>-1) return url;//不需要模拟卡号,或者地址栏本来就有keyNo

@@ -24,10 +24,6 @@ div,span{
 <body onUnload="release()" style="background:transparent; width:1280px; height:720px; overflow:hidden; position:relative;">
 	<div id="testDiv" style="position: absolute;left: 50px;top:50px;color:red;font-size: 18px;line-height: 20px;z-index: 10;"></div>
 
-	<div id="loadingDiv" style="position:absolute; top:250px; left:500px; width:334px; height:122px; z-index:10;background: url(images_second/loading_bg.png) left top no-repeat; visibility:hidden;">
-		<!-- <img src="./images_second/loading_bg.png" style="position:absolute; top:0px; left:0px;background: transparent;" /> -->
-		<div style="line-height: 122px;color: #ffffff;font-size: 26px;text-align: center;"><img src="images_second/loading.gif" style="vertical-align: middle;" /> <span style="padding: 0px 10px;">加载中...</span></div>
-	</div>
 
 	<div id="playTitle" style="position: absolute;left: 0px;top: 0px;width: 1280px;height: 181px;background: url(images_second/play/top_bg.png) no-repeat;visibility: hidden;">
 		<div id="programName" style="position: absolute;left: 70px;top: 40px; width:1000px;height: 38px; line-height: 38px;font-size: 24px;color:#ffffff;text-align: left;overflow: hidden;"><!-- 十点零分集散地立刻反击都是分开了多少反抗类毒素f --></div>
@@ -40,7 +36,7 @@ div,span{
 	</div>
 
 	<!-- 左边菜单 -->
-	<div id="MenuLeft" style="position:absolute; top:0px; left:0px; width:1280px; height:720px;z-index: 2; background: url(images_second/play/left_menu_bg.png) no-repeat;visibility: hidden;display: none;">
+	<div id="MenuLeft" style="position:absolute; top:0px; left:0px; width:1280px; height:720px;z-index: 8; background: url(images_second/play/left_menu_bg.png) no-repeat;visibility: hidden;display: none;">
 
 		<div id="menuLeft_content" style="position: absolute;top: 0px;left: 0px;width: 1280px;height: 720px;z-index: 2;">
 		  	<!-- <div id="menuLeft_0" class="menu" style="position:absolute; top:31px; left:287px; width:126px; height:55px;line-height: 55px;"></div> -->
@@ -53,9 +49,11 @@ div,span{
 		</div>
 		<div style="position:absolute;top:-38px; left:190px;z-index: 5;"><div id="menuLeftSecond_focus" style="position:absolute; top:0px; left:0px; width:508px; height:179px;background: url(images_second/play/left_second_focus.png) center center no-repeat;visibility: hidden;"></div></div>
 
+	</div>
 
+	<div id="loadingDiv" style="position:absolute; top:250px; left:500px; width:334px; height:122px; z-index:10;background: url(images_second/loading_bg.png) left top no-repeat; visibility:hidden;">
 		
-		
+		<div style="line-height: 122px;color: #ffffff;font-size: 26px;text-align: center;"><img src="images_second/loading.gif" style="vertical-align: middle;" /> <span style="padding: 0px 10px;">加载中...</span></div>
 	</div>
 
 
@@ -91,6 +89,9 @@ function grabEvents(_event){
     }
 }
 function grabEvent(_event){
+	if (_event.type=='keydown') {
+		document.onkeypress=null;
+	}
 	var code = Event(_event);
 	switch(code){
 		case "KEY_UP": //
@@ -115,7 +116,7 @@ function grabEvent(_event){
 			break;
 		case "KEY_EXIT":
 		case "KEY_BACK":
-			control.back?control.back():goBack();
+			!!control.back?control.back():goBack();
 			return 0;
 			break;
 		default:
@@ -143,7 +144,7 @@ var channelScheduleData={ //某频道的排期数据
 };
 
 function logInput(str){
-	return 0;
+	//return 0;
 	var s=$('testDiv').innerHTML;
 	$('testDiv').innerHTML=s+'<br/>'+str;
 }
@@ -159,9 +160,9 @@ function init(){
 	programName=utv.cookie.get('programName');
 	//alert(utv.cookie.get('programName'));
 	
+	logInput('backUrl:'+backUrl);
 
-
-	logInput('1:curChanId:'+curChanId+' channelCodes:'+channelCodes+' programName:'+programName);
+	//logInput('1:curChanId:'+curChanId+' channelCodes:'+channelCodes+' programName:'+programName);
 
 	if((channelCodes=='null'||!!!channelCodes)&&!!curChanId){
 		play_ajax(curChanId);
@@ -270,7 +271,7 @@ var mainPad = {
 		return 0;
 	},
 	enter : function(){
-		autoShowProgramName(programName,true);
+		//autoShowProgramName(programName,true);
 
 		if(leftMenuData.length<=0){
 			return 0;
@@ -288,7 +289,7 @@ var mainPad = {
 function getChannel(fn){
 	showLoadingDiv();
 	var url=serverPath+'portalData/channelList.utvgo?platform='+platform+'&channelCodes='+channelCodes;
-	logInput('2::'+url);
+	//logInput('2::'+url);
 	ajax({
 		url: url,
 		type: "GET", //HTTP 请求类型,GET或POST
@@ -480,7 +481,7 @@ var leftMenuPad={
 		this.updateContent();
 	},
 	enter:function(){
-		this.back();
+		//this.back();
 		return 0;
 		
 		// alert(leftMenuData[this.listObj.position].name);
@@ -655,7 +656,7 @@ var contentPad={
 		this.updateContent();
 	},
 	enter:function(){
-		this.back();
+		//this.back();
 		return 0;
 		
 		// alert(channelScheduleData['page_'+leftMenuData[leftMenuPad.listObj.position].pkId][this.listObj.position].name);
@@ -793,7 +794,7 @@ function play_ajax(curChanId){
 		// release();
 	}
 	var url=iPanel.eventFrame.pre_epg_url +'/tstvindex.jsp?User=&pwd=&ip='+iPanel.ioctlRead("IP")+'&NTID='+iPanel.ioctlRead("NTID")+'&CARDID='+iPanel.ioctlRead("ICID")+'&Version=1.0&lang=1&ChannelID='+curChanId+'&Prognum=30&ServiceGroupID='+iPanel.eventFrame.ServiceGroupID+'&supportnet='+iPanel.eventFrame.netType+'&decodemode=H.264HD;MPEG-2HD&CA=1';
-	logInput('4:'+url);
+	//logInput('4:'+url);
 	req = ajax({
 		url: url,
 		type: "GET", //HTTP 请求类型,GET或POST

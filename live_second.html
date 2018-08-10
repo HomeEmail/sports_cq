@@ -22,7 +22,7 @@ div,span{
 </head>
 
 <body onUnload="release()" style="background:transparent; width:1280px; height:720px; overflow:hidden; position:relative;">
-	<div id="testDiv" style="position: absolute;left: 50px;top:50px;color:red;font-size: 18px;line-height: 20px;z-index: 10;"></div>
+	<div id="testDiv" style="position: absolute;left: 50px;top:50px;color:red;font-size: 18px;line-height: 20px;z-index: 10;word-break: break-all;word-wrap: break-word;"></div>
 
 
 	<div id="playTitle" style="position: absolute;left: 0px;top: 0px;width: 1280px;height: 181px;background: url(images_second/play/top_bg.png) no-repeat;visibility: hidden;">
@@ -794,7 +794,9 @@ function play_ajax(curChanId){
 		// release();
 	}
 	var url=iPanel.eventFrame.pre_epg_url +'/tstvindex.jsp?User=&pwd=&ip='+iPanel.ioctlRead("IP")+'&NTID='+iPanel.ioctlRead("NTID")+'&CARDID='+iPanel.ioctlRead("ICID")+'&Version=1.0&lang=1&ChannelID='+curChanId+'&Prognum=30&ServiceGroupID='+iPanel.eventFrame.ServiceGroupID+'&supportnet='+iPanel.eventFrame.netType+'&decodemode=H.264HD;MPEG-2HD&CA=1';
-	//logInput('4:'+url);
+	//var url=iPanel.eventFrame.pre_epg_url +"/tstvindex.jsp?User=&pwd=&ip="+iPanel.ioctlRead("IP")+"&NTID="+iPanel.ioctlRead("NTID")+"&CARDID="+iPanel.ioctlRead("ICID")+"&Version=1.0&lang=1&ChannelID=2112&Prognum=30&ServiceGroupID="+iPanel.eventFrame.ServiceGroupID+"&supportnet="+iPanel.eventFrame.netType+"&decodemode=H.264HD;MPEG-2HD&CA=1"
+                
+	logInput('获取播放串请求地址:'+url);
 	req = ajax({
 		url: url,
 		type: "GET", //HTTP 请求类型,GET或POST
@@ -802,24 +804,31 @@ function play_ajax(curChanId){
 		onSuccess: function(html){ //请求成功后执行[可选]
 			hideLoadingDiv();
 			req = null;
-			logInput('5:'+html);
+			logInput('获取播放串返回数据:'+html);
 			var json = {'Result':'','PlayUrl':''};
 			var arr1 = html.split('\n');
-			for(var i=0;i<arr1.length;i++){
-				if(arr1[i].indexOf('Result')>-1){
-					json.Result = arr1[i].split('=')[1];
-				}else if(arr1[i].indexOf('PlayUrl')>-1){
-					var rtsp_url = arr1[i].split('=')[1];
-					json.PlayUrl = rtsp_url.split("^")[4];
+			try{
+
+				for(var i=0;i<arr1.length;i++){
+					if(arr1[i].indexOf('Result')>-1){
+						json.Result = arr1[i].split('=')[1];
+					}else if(arr1[i].indexOf('PlayUrl')>-1){
+						var rtsp_url = arr1[i].split('=')[1];
+						json.PlayUrl = rtsp_url.split("^")[4];
+					}
 				}
-			}
-			logInput('6:Result'+json.Result+' -PlayUrl:'+json.PlayUrl);
-			if(parseInt(json.Result)==0){
-				media.AV.open(json.PlayUrl,"VOD");			
-				media.video.fullScreen();
-			}else{
-				play_ajax(curChanId);
-				//showTips(parseInt(json.Result),2000);
+				logInput('6:Result'+json.Result+' -PlayUrl:'+json.PlayUrl);
+				if(parseInt(json.Result)==0){
+					media.AV.open(json.PlayUrl,"VOD");			
+					media.video.fullScreen();
+				}else{
+					//play_ajax(curChanId);
+					//showTips(parseInt(json.Result),2000);
+					msgTips({msg:'无返回播放串，请稍候重试！result:'+html,timeout:10000});
+				}
+
+			}catch(err){
+				msgTips({msg:'解析播放串失败，请稍候重试！result:'+html,timeout:10000});
 			}
 
 		},

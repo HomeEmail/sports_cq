@@ -487,7 +487,9 @@ function formatContentData(json){//绑定内容数据
 			subMenu[i].href='./ownList_second.html?categoryCode='+recomendList[i].contentMid;
 		}
 		if(recomendList[i].hrefType==7){
-			subMenu[i].href='./live_second.html?curChanId='+''+'&channelCodes='+Q.encode(recomendList[i].contentMid);
+			//subMenu[i].href='./live_second.html?curChanId='+''+'&channelCodes='+Q.encode(recomendList[i].contentMid); //ivan的轮播
+			subMenu[i].href='../lunbopd.html?channelCode='+Q.encode(recomendList[i].contentMid);//帅帅的轮播
+			
 		}
 
 	}
@@ -526,7 +528,8 @@ function formatContentData(json){//绑定内容数据
 			subMenu[i].href='./ownList_second.html?categoryCode='+operationList[i-4].contentMid;
 		}
 		if(operationList[i-4].hrefType==7){
-			subMenu[i].href='./live_second.html?curChanId='+''+'&channelCodes='+Q.encode(operationList[i-4].contentMid);
+			//subMenu[i].href='./live_second.html?curChanId='+''+'&channelCodes='+Q.encode(operationList[i-4].contentMid);//ivan的轮播
+			subMenu[i].href='../lunbopd.html?channelCode='+Q.encode(operationList[i-4].contentMid);//帅帅的轮播
 		}
 	}
 

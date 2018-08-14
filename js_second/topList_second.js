@@ -1098,26 +1098,27 @@ var contentPad={
 
 		var colTitleAry=[
 			{
-				w:80,name:'排名'
+				w:180,name:'排名'
 			},
 			{
-				w:230,name:'球员'
+				w:330,name:'球员'
 			},
 			{
-				w:200,name:'球队'
+				w:300,name:'球队'
 			},
 			{
-				w:120,name:'总进球数'
-			},
-			{
-				w:120,name:'普通球数'
-			},
-			{
-				w:120,name:'点球'
-			},
-			{
-				w:120,name:'乌龙球'
+				w:180,name:'总进球数'
 			}
+			// ,
+			// {
+			// 	w:120,name:'普通球数'
+			// },
+			// {
+			// 	w:120,name:'点球'
+			// },
+			// {
+			// 	w:120,name:'乌龙球'
+			// }
 		];
 		st='<div style="position: absolute;z-index: 2;top: 107px;left: 223px;width: 990px;height: 66px;">';
 		var newLeft=0;
@@ -1139,9 +1140,9 @@ var contentPad={
 						'<div style="position: absolute;height: 50px;line-height: 50px;color: #ffffff;font-size: 24px;width: '+(colTitleAry[1].w-20)+'px;padding:0px 10px;left:'+colTitleAry[1].left+'px;top: 0px;text-align: center;z-index: 3;overflow: hidden;">'+this.currentPageData[dataIndex].name+'</div>',
 						'<div style="position: absolute;height: 50px;line-height: 50px;color: #ffffff;font-size: 24px;width: '+(colTitleAry[2].w-20)+'px;padding:0px 10px;left:'+colTitleAry[2].left+'px;top: 0px;text-align: center;z-index: 3;overflow: hidden;">'+this.currentPageData[dataIndex].qiudui+'</div>',
 						'<div style="position: absolute;height: 50px;line-height: 50px;color: #ffffff;font-size: 24px;width: '+(colTitleAry[3].w-20)+'px;padding:0px 10px;left:'+colTitleAry[3].left+'px;top: 0px;text-align: center;z-index: 3;overflow: hidden;">'+this.currentPageData[dataIndex].totalNum+'</div>',
-						'<div style="position: absolute;height: 50px;line-height: 50px;color: #ffffff;font-size: 24px;width: '+(colTitleAry[4].w-20)+'px;padding:0px 10px;left:'+colTitleAry[4].left+'px;top: 0px;text-align: center;z-index: 3;overflow: hidden;">'+this.currentPageData[dataIndex].putongNum+'</div>',
-						'<div style="position: absolute;height: 50px;line-height: 50px;color: #ffffff;font-size: 24px;width: '+(colTitleAry[5].w-20)+'px;padding:0px 10px;left:'+colTitleAry[5].left+'px;top: 0px;text-align: center;z-index: 3;overflow: hidden;">'+this.currentPageData[dataIndex].dianqiuNum+'</div>',
-						'<div style="position: absolute;height: 50px;line-height: 50px;color: #ffffff;font-size: 24px;width: '+(colTitleAry[6].w-20)+'px;padding:0px 10px;left:'+colTitleAry[6].left+'px;top: 0px;text-align: center;z-index: 3;overflow: hidden;">'+this.currentPageData[dataIndex].wulongNum+'</div>',
+						// '<div style="position: absolute;height: 50px;line-height: 50px;color: #ffffff;font-size: 24px;width: '+(colTitleAry[4].w-20)+'px;padding:0px 10px;left:'+colTitleAry[4].left+'px;top: 0px;text-align: center;z-index: 3;overflow: hidden;">'+this.currentPageData[dataIndex].putongNum+'</div>',
+						// '<div style="position: absolute;height: 50px;line-height: 50px;color: #ffffff;font-size: 24px;width: '+(colTitleAry[5].w-20)+'px;padding:0px 10px;left:'+colTitleAry[5].left+'px;top: 0px;text-align: center;z-index: 3;overflow: hidden;">'+this.currentPageData[dataIndex].dianqiuNum+'</div>',
+						// '<div style="position: absolute;height: 50px;line-height: 50px;color: #ffffff;font-size: 24px;width: '+(colTitleAry[6].w-20)+'px;padding:0px 10px;left:'+colTitleAry[6].left+'px;top: 0px;text-align: center;z-index: 3;overflow: hidden;">'+this.currentPageData[dataIndex].wulongNum+'</div>',
 
 					'</div>'
 				];

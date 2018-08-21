@@ -56,12 +56,12 @@ function SuperMouse(data){//ata：光标数据列表
 				  		item.index=i;
 				  		if(item.top+item.height >= thisTop&&item.top<=thisTop+thisHeight){
 				  			//交集元素
-				  			logInput('交集元素');
+				  			//logInput('交集元素');
 				  			intersectionItem.push(item);
 					  		intersectionItemLeft.push(item.left);
 				  		}else{
 				  			//外集
-				  			logInput('外集');
+				  			//logInput('外集');
 				  			outsectionItem.push(item);
 				  		}
 			     	}
